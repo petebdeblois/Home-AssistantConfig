@@ -15,8 +15,8 @@ influxdb:
   host: a0d7b954-influxdb
   port: 8086
   database: homeassistant
-  username: homeassistant
-  password: password
+  username: !secret username
+  password: !secret influxdb_password
   max_retries: 3
   default_measurement: state
 
@@ -37,16 +37,33 @@ sensor:
       - type: ipv4_address
         arg: enp1s0
 
-speedtestdotnet:
-  scan_interval:
-    minutes: 30
-  monitored_conditions:
-    - ping
-    - download
-    - upload
+recorder:
+  purge_keep_days: 30
+  db_url: !secret mariadb_conn_string
+  purge_interval: 1
+  #include:
+  #domains:
+  #- sensor
+# Example configuration.yaml entry
+proximity:
+  home:
+    ignored_zones:
+      - work
+    devices:
+      - device_tracker.pete_s20
+    tolerance: 50
+    unit_of_measurement: km
+#history:
 #mqtt:
-#broker: !secret_mqtt_url
-#port: !secret_mqtt_port
+# broker: !secret mqtt_url
+#port: !secret mqtt_port
 #client_cert: home-assistant
 #discovery: true
 #discovery: homeassistant
+
+binary_sensor:
+  - platform: ping
+    host: 192.168.2.120
+    name: "Switch"
+    count: 2
+    scan_interval: 600
