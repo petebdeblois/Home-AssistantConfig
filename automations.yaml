@@ -1,1 +1,73 @@
-[]
+- id: 1209E804-F447-40E9-A310-98B1EEC00D66
+  alias: 'Shares: Update prices'
+  trigger:
+  - platform: time_pattern
+    minutes: /5
+  condition:
+  - condition: time
+    after: 07:59:00
+    before: '20:01:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: yahoofinance.refresh_symbols
+  mode: single
+- id: 184E5AB9-BC4B-4082-91B8-D8DD0C81D114
+  alias: 'Shares: GME'
+  trigger:
+  - platform: numeric_state
+    entity_id: yahoofinance.gme
+    below: '200'
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.officemini
+      message: The GME shares are below 200$
+  mode: single
+- id: '1616113487256'
+  alias: Water the Plant
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.soil_moisture_level
+    below: '50.0'
+  condition: []
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.kitchenmini
+      message: Your plant need water
+  mode: single
+- id: '1616116127975'
+  alias: Dishwasher test
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.dishwasher_dishwasher_job_state
+    from: rince
+    to: drying
+  condition: []
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.kitchenmini
+      message: Rincing
+  mode: single
+- id: '1600194112743'
+  alias: Restart HA
+  description: ''
+  trigger:
+  - at: 02:00:00
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - sun
+  action:
+  - data: {}
+    service: homeassistant.restart
+  mode: single

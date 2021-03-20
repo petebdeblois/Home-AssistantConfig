@@ -1,0 +1,89 @@
+
+- platform: uptime
+  name: Hassio Uptime
+
+# Example configuration.yaml entry
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /home
+    - type: memory_use_percent
+    - type: memory_use
+    - type: swap_use
+    - type: swap_free
+    - type: swap_use_percent
+    - type: load_1m
+    - type: load_5m
+    - type: load_15m
+    - type: memory_free
+    - type: last_boot
+    - type: processor_use
+    - type: network_in
+      arg: enp1s0
+    - type: network_out
+      arg: enp1s0
+    - type: ipv4_address
+      arg: enp1s0
+    - type: throughput_network_in
+      arg: enp1s0
+    - type: throughput_network_out
+      arg: enp1s0
+    - type: processor_use
+# This sensor will display the current version of HA, another simple sensor setup which will create sensor.latest_version.
+- platform: version
+  source: hassio
+
+- platform: authenticated
+#  It creates a sensor called sensor.last_successful_authentication.
+#- platform: authenticated
+
+# This sensor displays any pending updates within Supervisor (add-on store) by using the 'command line' platform. 
+# The sensor name for this one is sensor.supervisor_updates.
+- platform: command_line
+  name: Supervisor updates
+  command: 'curl http://supervisor/supervisor/info -H "Authorization: Bearer $(printenv SUPERVISOR_TOKEN)" | jq ''{"newest_version":.data.version_latest,"current_version":.data.version,"addons":[.data.addons[] | select(.version != .installed)]}'''
+  value_template: "{{ value_json.addons | length }}"
+  json_attributes:
+  - newest_version
+  - current_version
+  - addons
+
+
+- platform: template
+  sensors:
+  #----- Count Automations
+    count_automations:
+      value_template: "{{ states.automation | list | length }}"
+  #----- Count Scripts
+    count_scripts:
+      value_template: "{{ states.script| list | length }}"
+  #----- Count Device Trackers
+    count_device_trackers:
+      value_template: "{{ states.device_tracker | list | length }}"
+  #----- Count Binary Sensors
+    count_binary_sensors:
+      value_template: "{{ states.binary_sensor| list | length }}"
+  #----- Count Sensors
+    count_sensors:
+      value_template: "{{ states.sensor | list | length }}"
+  #----- Count Switches
+    count_switches:
+      value_template: "{{ states.switch | list | length }}"
+  #----- Count Zones
+    count_zones:
+      value_template: "{{ states.zone | list | length }}"
+  #----- Input Booleans
+    count_input_booleans:
+      value_template: "{{ states.input_boolean | list | length }}"
+  #----- Input Numbers
+    count_input_numbers:
+      value_template: "{{ states.input_number | list | length }}"
+  #----- Input Texts
+    count_input_texts:
+      value_template: "{{ states.input_text | list | length }}"
+  #----- Input Selects
+    count_input_selects:
+      value_template: "{{ states.input_select | list | length }}"
+  #----- Input Date Times
+    count_input_datetimes:
+      value_template: "{{ states.input_datetime | list | length }}"

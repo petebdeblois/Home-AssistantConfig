@@ -1,11 +1,16 @@
 # Example .gitignore file for your config dir.
 # An * ensures that everything will be ignored.
-*
+
 # You can whitelist files/folders with !, these will not be ignored.
 !*.yaml
 !.gitignore
 !*.md
-
+/appdaemon
+/blueprints
+/custom_components
+/themes
+/tts
+/www
 # Ignore folders.
 .storage
 .cloud
@@ -15,3 +20,5 @@
 ip_bans.yaml
 secrets.yaml
 known_devices.yaml
+home-assistant.log
+.ip_authenticated.yaml

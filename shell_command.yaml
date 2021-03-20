@@ -1,0 +1,1 @@
+bi_active: curl http://192.168.53.55:81/admin?profile=1

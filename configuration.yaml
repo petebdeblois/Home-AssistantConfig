@@ -5,10 +5,14 @@ default_config:
 tts:
   - platform: google_translate
 
-group: !include groups.yaml
+sensor: !include sensors.yaml
+shell_command: !include shell_command.yaml
+group: !include_dir_named groups/
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+binary_sensor: !include binary_sensor.yaml
+device_tracker: !include device_tracker.yaml
 #secret: !include secrets.yaml
 
 influxdb:
@@ -20,27 +24,14 @@ influxdb:
   max_retries: 3
   default_measurement: state
 
-# Example configuration.yaml entry
-sensor:
-  - platform: systemmonitor
-    resources:
-      - type: disk_use_percent
-        arg: /home
-      - type: memory_use_percent
-      - type: network_in
-        arg: enp1s0
-      - type: network_out
-        arg: enp1s0
-      - type: processor_use
-      - type: processor_temperature
-      - type: last_boot
-      - type: ipv4_address
-        arg: enp1s0
 
 recorder:
-  purge_keep_days: 30
+  purge_keep_days: 15
   db_url: !secret mariadb_conn_string
   purge_interval: 1
+  exclude:
+    entities:
+      - sensor.spacex_next_launch_countdown
   #include:
   #domains:
   #- sensor
@@ -61,9 +52,42 @@ proximity:
 #discovery: true
 #discovery: homeassistant
 
-binary_sensor:
-  - platform: ping
-    host: 192.168.2.120
-    name: "Switch"
-    count: 2
-    scan_interval: 600
+
+
+yahoofinance:
+  symbols:
+    - GME
+    - NOW
+    - TSLA
+    - GOOG
+    - BTC-USD
+    - MSFT
+    - AMZN
+  show_trending_icon: true
+  scan_interval:
+    hours: 24
+logger:
+    default: info
+
+    # Example configuration.yaml entry
+spotify:
+  client_id: !secret spotify_id
+  client_secret: !secret spotify_token
+
+lovelace:
+  # mode: yaml
+  # Include external resources only add when mode is yaml, otherwise manage in the resources in the lovelace configuration panel.
+  # Add more dashboards
+  dashboards:
+    lovelace-generated: # Needs to contain a hyphen (-)
+      mode: yaml
+      filename: notexist.yaml
+      title: Generated
+      icon: mdi:tools
+      show_in_sidebar: true
+      require_admin: true
+panel_iframe:
+  tautulli:
+    title: Tautulli
+    icon: mdi:filmstrip
+    url: http://192.168.2.65:8181
