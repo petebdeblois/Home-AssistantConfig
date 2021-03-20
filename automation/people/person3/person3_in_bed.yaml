@@ -1,0 +1,48 @@
+initial_state: 'on'
+alias: 'person3 in bed'
+trigger:
+  - platform: state
+    entity_id: input_boolean.person3_phone_charging
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.master_bedroom_door_contact
+    to: 'off'
+  - platform: state
+    entity_id: input_boolean.living_room_occupied
+    to: 'off'
+  - platform: time
+    at: '22:30:00'
+condition:
+  - condition: state
+    entity_id: 
+    - input_boolean.person3_is_awake
+    - input_boolean.person3_home
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.master_bedroom_door_contact
+    state: 'off'
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: time
+        after: '22:00:00'
+        before: '04:00:00'
+      - condition: state
+        entity_id: input_boolean.person3_phone_charging
+        state: 'on'
+    - condition: and
+      conditions:
+      - condition: time
+        after: '22:29:00'
+        before: '04:00:00'
+      - condition: state
+        entity_id: input_boolean.living_room_occupied
+        state: 'off'
+action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.person3_in_bed
+  - service: notify.logfile
+    data:
+      message: >
+        Marked person3 as being in bed because of {{ trigger.platform }} {{ trigger.entity_id if trigger.platform == "state" }}

@@ -1,0 +1,19 @@
+alias: 'Christmas enabled'
+trigger:
+  - platform: homeassistant
+    event: start
+  - platform: event
+    event_type: automation_reloaded
+  - platform: state
+    entity_id: input_select.season
+    to: 'Christmas'
+condition:
+  - condition: state
+    entity_id: input_select.season
+    state: 'Christmas'
+  - condition: state
+    entity_id: group.christmas_control
+    state: 'off'
+action:
+  - service: homeassistant.turn_off
+    entity_id: group.christmas_control

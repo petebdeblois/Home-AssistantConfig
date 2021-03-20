@@ -1,0 +1,14 @@
+initial_state: 'on'
+alias: 'Weather notification'
+trigger:
+  - platform: time_pattern
+    minutes: '/5'
+    seconds: '50'
+condition:
+  - condition: state
+    entity_id: input_boolean.living_room_occupied
+    state: 'on'
+  - condition: template
+    value_template: "{{ states('sensor.dark_sky_temperature') != 'unknown' }}"
+action:
+  - service: script.weather_notification

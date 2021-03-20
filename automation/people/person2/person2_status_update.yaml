@@ -1,0 +1,19 @@
+initial_state: 'on'
+alias: 'person2 status update'
+trigger:
+  # I've moved
+  - platform: state
+    entity_id: 
+      - group.person_person2_work
+      - input_boolean.office_occupied
+      - input_boolean.person2_in_bed
+      - input_boolean.person2_is_awake
+      - input_boolean.person2_travelling
+      - input_boolean.person2_overseas
+action:
+  - service: notify.logfile
+    data:
+      message: >
+        Status for person2 updated at {{ now() }}
+  - service: script.turn_on
+    entity_id: script.person2_travel_sensor
