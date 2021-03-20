@@ -1,6 +1,0 @@
-pressure_sensor:
-  name: Pressure Sensor
-  entities: 
-    - sensor.bedroom_pressure
-    - sensor.living_room_pressure
-    - sensor.office_pressure_2

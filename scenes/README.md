@@ -21,7 +21,7 @@ all_off.yaml
 name: All off
 entities:
   light.hall: off
-  light.person1_bedroom_bedside: off
+  light.Pete_bedroom_bedside: off
   light.master_bedroom_bedhead: off
   light.living_room_corner_lamp: off
   light.living_room_tv_lamp: off

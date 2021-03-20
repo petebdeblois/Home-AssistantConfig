@@ -1,33 +1,33 @@
 alias: Mark person as home
-initial_state: 'on'
+initial_state: "on"
 trigger:
   - platform: state
     entity_id:
-      - input_select.person2_status_dropdown
+      - input_select.Julie_status_dropdown
       - input_select.person3_status_dropdown
-      - input_select.person1_status_dropdown
+      - input_select.Pete_status_dropdown
       - input_select.person4_status_dropdown
-    to: 'Just Arrived'
+    to: "Just Arrived"
     for:
       minutes: 5
   - platform: state
     entity_id:
-      - input_select.person2_status_dropdown
+      - input_select.Julie_status_dropdown
       - input_select.person3_status_dropdown
-      - input_select.person1_status_dropdown
+      - input_select.Pete_status_dropdown
       - input_select.person4_status_dropdown
-    from: 'Just Left'
-    to: 'Just Arrived'
+    from: "Just Left"
+    to: "Just Arrived"
 action:
   - service: input_select.select_option
     data:
       entity_id: >
-        {% if trigger.entity_id == 'input_select.person2_status_dropdown' %}
-          input_select.person2_status_dropdown
+        {% if trigger.entity_id == 'input_select.Julie_status_dropdown' %}
+          input_select.Julie_status_dropdown
         {% elif trigger.entity_id == 'input_select.person3_status_dropdown' %}
           input_select.person3_status_dropdown
-        {% elif trigger.entity_id == 'input_select.person1_status_dropdown' %}
-          input_select.person1_status_dropdown
+        {% elif trigger.entity_id == 'input_select.Pete_status_dropdown' %}
+          input_select.Pete_status_dropdown
         {% else %}
           input_select.person4_status_dropdown
         {% endif %}

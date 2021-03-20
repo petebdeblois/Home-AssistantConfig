@@ -1,96 +1,96 @@
-initial_state: 'on'
-alias: 'Bedtime'
+initial_state: "on"
+alias: "Bedtime"
 trigger:
   # Everybody is in bed
   - platform: state
     entity_id:
       - input_boolean.person3_in_bed
-      - input_boolean.person2_in_bed
-      - input_boolean.person1_in_bed
-    to: 'on'
+      - input_boolean.Julie_in_bed
+      - input_boolean.Pete_in_bed
+    to: "on"
   # No movement and downstairs rooms are empty
   - platform: state
-    entity_id: 
-    - binary_sensor.hall_downstairs_occupancy
-    - binary_sensor.vestibule_multi_occupancy
-    - group.downstairs_occupied
-    to: 'off'
-    for: '00:02:00'
+    entity_id:
+      - binary_sensor.hall_downstairs_occupancy
+      - binary_sensor.vestibule_multi_occupancy
+      - group.downstairs_occupied
+    to: "off"
+    for: "00:02:00"
 action:
   - service: notify.logfile
     data:
       message: "Bedtime: {{ states('input_boolean.home_occupied') }}/{{ states('group.downstairs_occupied') }}/{{ states('binary_sensor.vestibule_multi_occupancy') }}/{{ states('binary_sensor.hall_downstairs_occupancy') }}"
   - service: notify.logfile
     data:
-      message: "Bedtime: {{ states('input_boolean.person3_in_bed') }}/{{ states('input_boolean.person3_travelling') }}/{{ states('input_boolean.person1_in_bed') }}/{{ states('input_boolean.person1_travelling') }}/{{ states('input_boolean.person2_in_bed') }}/{{ states('input_boolean.person2_travelling') }}"
+      message: "Bedtime: {{ states('input_boolean.person3_in_bed') }}/{{ states('input_boolean.person3_travelling') }}/{{ states('input_boolean.Pete_in_bed') }}/{{ states('input_boolean.Pete_travelling') }}/{{ states('input_boolean.Julie_in_bed') }}/{{ states('input_boolean.Julie_travelling') }}"
   - condition: state
     entity_id: input_boolean.home_occupied
-    state: 'on'
+    state: "on"
   - service: notify.logfile
     data:
       message: "Bedtime: house is occupied"
     # Downstairs is no longer in use
   - condition: state
     entity_id: group.downstairs_occupied
-    state: 'off'
-    for: '00:02:00'
+    state: "off"
+    for: "00:02:00"
   - service: notify.logfile
     data:
       message: "Bedtime: Downstairs isn't occupied"
   - condition: and
     conditions:
-    # No movement or things are offline
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: binary_sensor.vestibule_multi_occupancy
-        state: 'off'
-        for: '00:02:00'
-      - condition: state
-        entity_id: binary_sensor.vestibule_multi_occupancy
-        state: 'unavailable'
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: binary_sensor.hall_downstairs_occupancy
-        state: 'off'
-        for: '00:02:00'
-      - condition: state
-        entity_id: binary_sensor.hall_downstairs_occupancy
-        state: 'unavailable'
+      # No movement or things are offline
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.vestibule_multi_occupancy
+            state: "off"
+            for: "00:02:00"
+          - condition: state
+            entity_id: binary_sensor.vestibule_multi_occupancy
+            state: "unavailable"
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.hall_downstairs_occupancy
+            state: "off"
+            for: "00:02:00"
+          - condition: state
+            entity_id: binary_sensor.hall_downstairs_occupancy
+            state: "unavailable"
   - service: notify.logfile
     data:
       message: "Bedtime: No motion recently"
   # People are in bed, or away
   - condition: and
     conditions:
-    - condition: or
-      conditions:
-      # In bed, or away
-      - condition: state
-        entity_id: input_boolean.person3_in_bed
-        state: 'on'
-      - condition: state
-        entity_id: input_boolean.person3_travelling
-        state: 'on'
-    - condition: or
-      conditions:
-      # In bed, or away
-      - condition: state
-        entity_id: input_boolean.person2_in_bed
-        state: 'on'
-      - condition: state
-        entity_id: input_boolean.person2_travelling
-        state: 'on'
-    - condition: or
-      conditions:
-      # In bed, or away
-      - condition: state
-        entity_id: input_boolean.person1_in_bed
-        state: 'on'
-      - condition: state
-        entity_id: input_boolean.person1_travelling
-        state: 'on'
+      - condition: or
+        conditions:
+          # In bed, or away
+          - condition: state
+            entity_id: input_boolean.person3_in_bed
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.person3_travelling
+            state: "on"
+      - condition: or
+        conditions:
+          # In bed, or away
+          - condition: state
+            entity_id: input_boolean.Julie_in_bed
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.Julie_travelling
+            state: "on"
+      - condition: or
+        conditions:
+          # In bed, or away
+          - condition: state
+            entity_id: input_boolean.Pete_in_bed
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.Pete_travelling
+            state: "on"
   - service: notify.logfile
     data:
       message: "Bedtime: Everybody is in bed"

@@ -1,9 +1,9 @@
-initial_state: 'on'
-alias: 'person1 at work'
+initial_state: "on"
+alias: "Pete at work"
 trigger:
   platform: state
-  entity_id: device_tracker.person1_mobile
-  to: 'work'
+  entity_id: device_tracker.Pete_mobile
+  to: "work"
 action:
   - service: automation.turn_on
-    entity_id: automation.person1_home_after_work
+    entity_id: automation.Pete_home_after_work

@@ -1,29 +1,29 @@
 alias: Mark person as just arrived
-initial_state: 'on'
+initial_state: "on"
 trigger:
   - platform: state
     entity_id:
-      - input_boolean.person2_home
+      - input_boolean.Julie_home
       - input_boolean.person3_home
-      - input_boolean.person1_home
+      - input_boolean.Pete_home
       - input_boolean.person4_home
-    to: 'on'
+    to: "on"
 action:
   - service: input_select.select_option
     data:
       entity_id: >
-        {% if trigger.entity_id == 'input_boolean.person2_home' %}
-          input_select.person2_status_dropdown
+        {% if trigger.entity_id == 'input_boolean.Julie_home' %}
+          input_select.Julie_status_dropdown
         {% elif trigger.entity_id == 'input_boolean.person3_home' %}
           input_select.person3_status_dropdown
-        {% elif trigger.entity_id == 'input_boolean.person1_home' %}
-          input_select.person1_status_dropdown
+        {% elif trigger.entity_id == 'input_boolean.Pete_home' %}
+          input_select.Pete_status_dropdown
         {% else %}
           input_select.person4_status_dropdown
         {% endif %}
       option: >
-        {% if trigger.entity_id == 'input_boolean.person2_home' %}
-          {% if states.input_select.person2_status_dropdown.state == 'Just Left' %}
+        {% if trigger.entity_id == 'input_boolean.Julie_home' %}
+          {% if states.input_select.Julie_status_dropdown.state == 'Just Left' %}
             Home
           {% else %}
             Just Arrived
@@ -34,8 +34,8 @@ action:
           {% else %}
             Just Arrived
           {% endif %}
-        {% elif trigger.entity_id == 'input_boolean.person1_home' %}
-          {% if states.input_select.person1_status_dropdown.state == 'Just Left' %}
+        {% elif trigger.entity_id == 'input_boolean.Pete_home' %}
+          {% if states.input_select.Pete_status_dropdown.state == 'Just Left' %}
             Home
           {% else %}
             Just Arrived

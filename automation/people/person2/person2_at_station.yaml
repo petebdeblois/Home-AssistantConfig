@@ -1,13 +1,13 @@
-alias: 'person2 at station'
-initial_state: 'on'
+alias: "Julie at station"
+initial_state: "on"
 trigger:
   - platform: state
-    entity_id: device_tracker.person2_mobile_gps
-    to: 'home Station'
+    entity_id: device_tracker.Julie_mobile_gps
+    to: "home Station"
 condition:
   - condition: state
     entity_id: binary_sensor.workday_sensor
-    state: 'on'
+    state: "on"
 action:
   - service: automation.turn_on
-    entity_id: automation.person2_returning_home
+    entity_id: automation.Julie_returning_home

@@ -1,43 +1,43 @@
-initial_state: 'on'
-alias: 'person2 home'
+initial_state: "on"
+alias: "Julie home"
 trigger:
   - platform: state
-    entity_id: 
+    entity_id:
       - device_tracker.40_4e_36_24_53_15
-      - device_tracker.person2_bt_mobile
-      - device_tracker.person2_bt_front_mobile
-      - device_tracker.person2_wifi
-    to: 'home'
+      - device_tracker.Julie_bt_mobile
+      - device_tracker.Julie_bt_front_mobile
+      - device_tracker.Julie_wifi
+    to: "home"
   - platform: state
     entity_id: binary_sensor.pi3_front_door_sensor
-    to: 'off'
+    to: "off"
   - platform: state
     entity_id: binary_sensor.pi3_front_door_sensor
-    to: 'on'
+    to: "on"
   - platform: event
     event_type: automation_reloaded
   - platform: homeassistant
     event: start
 condition:
   - condition: state
-    entity_id: group.person_person2
-    state: 'home'
+    entity_id: group.person_Julie
+    state: "home"
   # Either the door just opened/closed, or multiple trackers show home
   - condition: or
     conditions:
-    - condition: numeric_state
-      entity_id: group.person_person2
-      above: 1
-      value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_person2', 'entity_id'))|list)|groupby('state'))['home']|count }}"
-    - condition: and
-      conditions:
-      - condition: template
-        value_template: >-
-          {{ ((now() - states.binary_sensor.pi3_front_door_sensor.last_changed).seconds < 120 ) }}
       - condition: numeric_state
-        entity_id: group.person_person2
-        above: 0
-        value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_person2', 'entity_id'))|list)|groupby('state'))['home']|count }}"
+        entity_id: group.person_Julie
+        above: 1
+        value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_Julie', 'entity_id'))|list)|groupby('state'))['home']|count }}"
+      - condition: and
+        conditions:
+          - condition: template
+            value_template: >-
+              {{ ((now() - states.binary_sensor.pi3_front_door_sensor.last_changed).seconds < 120 ) }}
+          - condition: numeric_state
+            entity_id: group.person_Julie
+            above: 0
+            value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_Julie', 'entity_id'))|list)|groupby('state'))['home']|count }}"
 action:
   - service: script.turn_on
-    entity_id: script.person2_home
+    entity_id: script.Julie_home

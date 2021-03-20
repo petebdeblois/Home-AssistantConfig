@@ -1,25 +1,25 @@
-alias: 'person1 asleep'
-initial_state: 'on'
+alias: "Pete asleep"
+initial_state: "on"
 trigger:
   - platform: state
-    entity_id: input_boolean.person1_in_bed
-    to: 'on'
-    for: '00:05:00'
+    entity_id: input_boolean.Pete_in_bed
+    to: "on"
+    for: "00:05:00"
   - platform: time
-    at: '23:00:00'
+    at: "23:00:00"
   - platform: time
-    at: '00:00:00'
+    at: "00:00:00"
   - platform: time
-    at: '01:00:00'
+    at: "01:00:00"
 condition:
   - condition: state
-    entity_id: 
-    - input_boolean.person1_in_bed
-    - input_boolean.person1_is_awake
-    - input_boolean.person1_home
-    state: 'on'
+    entity_id:
+      - input_boolean.Pete_in_bed
+      - input_boolean.Pete_is_awake
+      - input_boolean.Pete_home
+    state: "on"
 action:
   - service: input_boolean.turn_off
-    entity_id: input_boolean.person1_is_awake
+    entity_id: input_boolean.Pete_is_awake
   - service: script.turn_on
-    entity_id: script.person1_travel_sensor
+    entity_id: script.Pete_travel_sensor

@@ -1,19 +1,19 @@
-initial_state: 'on'
-alias: 'person2 status update'
+initial_state: "on"
+alias: "Julie status update"
 trigger:
   # I've moved
   - platform: state
-    entity_id: 
-      - group.person_person2_work
+    entity_id:
+      - group.person_Julie_work
       - input_boolean.office_occupied
-      - input_boolean.person2_in_bed
-      - input_boolean.person2_is_awake
-      - input_boolean.person2_travelling
-      - input_boolean.person2_overseas
+      - input_boolean.Julie_in_bed
+      - input_boolean.Julie_is_awake
+      - input_boolean.Julie_travelling
+      - input_boolean.Julie_overseas
 action:
   - service: notify.logfile
     data:
       message: >
-        Status for person2 updated at {{ now() }}
+        Status for Julie updated at {{ now() }}
   - service: script.turn_on
-    entity_id: script.person2_travel_sensor
+    entity_id: script.Julie_travel_sensor

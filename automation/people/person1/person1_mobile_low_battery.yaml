@@ -1,13 +1,13 @@
-initial_state: 'on'
-alias: 'person1 mobile low battery'
+initial_state: "on"
+alias: "Pete mobile low battery"
 trigger:
   platform: numeric_state
-  entity_id: sensor.battery_person1_mobile
+  entity_id: sensor.battery_Pete_mobile
   below: 10
 action:
   - service: notify.logfile
     data:
-      message: "SENDME person1's phone is at {{ states('sensor.battery_person1_mobile') }}% battery"
+      message: "SENDME Pete's phone is at {{ states('sensor.battery_Pete_mobile') }}% battery"
   - service: notify.logfile
     data:
-      message: "SENDperson3 person1's phone is at {{ states('sensor.battery_person1_mobile') }}% battery"
+      message: "SENDperson3 Pete's phone is at {{ states('sensor.battery_Pete_mobile') }}% battery"

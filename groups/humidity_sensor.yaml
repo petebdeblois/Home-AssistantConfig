@@ -1,6 +1,5 @@
-humidity_sensor:
-  name: Humidity Sensor
-  entities: 
-    - sensor.bedroom_humidity
-    - sensor.living_room_humidity
-    - sensor.office_humidity_2
+name: Humidity Sensor
+entities: 
+  - sensor.bedroom_humidity
+  - sensor.living_room_humidity
+  - sensor.office_humidity_2

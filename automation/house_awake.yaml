@@ -1,57 +1,57 @@
-alias: 'House awake'
-initial_state: 'on'
+alias: "House awake"
+initial_state: "on"
 trigger:
-  # Consider the house awake if I'm up, person1 is up, or the TV comes on after 03:00
+  # Consider the house awake if I'm up, Pete is up, or the TV comes on after 03:00
   - platform: state
     entity_id:
-      - input_boolean.person2_is_awake
-      - input_boolean.person1_is_awake
+      - input_boolean.Julie_is_awake
+      - input_boolean.Pete_is_awake
       - input_boolean.person3_is_awake
-    to: 'on'
+    to: "on"
 condition:
   - condition: time
-    after: '03:00:00'
+    after: "03:00:00"
   - condition: or
     conditions:
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: input_boolean.person3_home
-        state: 'off'
-      - condition: and
+      - condition: or
         conditions:
-        - condition: state
-          entity_id: input_boolean.person3_is_awake
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.person3_home
-          state: 'on'
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: input_boolean.person2_home
-        state: 'off'
-      - condition: and
+          - condition: state
+            entity_id: input_boolean.person3_home
+            state: "off"
+          - condition: and
+            conditions:
+              - condition: state
+                entity_id: input_boolean.person3_is_awake
+                state: "on"
+              - condition: state
+                entity_id: input_boolean.person3_home
+                state: "on"
+      - condition: or
         conditions:
-        - condition: state
-          entity_id: input_boolean.person2_is_awake
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.person2_home
-          state: 'on'
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: input_boolean.person1_home
-        state: 'off'
-      - condition: and
+          - condition: state
+            entity_id: input_boolean.Julie_home
+            state: "off"
+          - condition: and
+            conditions:
+              - condition: state
+                entity_id: input_boolean.Julie_is_awake
+                state: "on"
+              - condition: state
+                entity_id: input_boolean.Julie_home
+                state: "on"
+      - condition: or
         conditions:
-        - condition: state
-          entity_id: input_boolean.person1_is_awake
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.person1_home
-          state: 'on'
+          - condition: state
+            entity_id: input_boolean.Pete_home
+            state: "off"
+          - condition: and
+            conditions:
+              - condition: state
+                entity_id: input_boolean.Pete_is_awake
+                state: "on"
+              - condition: state
+                entity_id: input_boolean.Pete_home
+                state: "on"
 action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.bedtime

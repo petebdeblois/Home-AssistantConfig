@@ -1,5 +1,5 @@
 - name: adults
   platform: group
   services:
-    - service: person1
-    - service: person2
+    - service: Pete
+    - service: Julie

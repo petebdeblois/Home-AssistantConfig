@@ -8,6 +8,11 @@ tts:
 sensor: !include sensors.yaml
 shell_command: !include shell_command.yaml
 group: !include_dir_named groups/
+input_datetime: !include_dir_named input_datetime/
+input_number: !include_dir_named input_number/
+input_select: !include_dir_named input_select/
+#input_text: !include_dir_named input_text/
+#input_boolean: !include_dir_named input_boolean/
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
@@ -86,8 +91,3 @@ lovelace:
       icon: mdi:tools
       show_in_sidebar: true
       require_admin: true
-panel_iframe:
-  tautulli:
-    title: Tautulli
-    icon: mdi:filmstrip
-    url: http://192.168.2.65:8181

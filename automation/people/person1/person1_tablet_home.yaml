@@ -1,19 +1,19 @@
-initial_state: 'on'
-alias: 'person1 tablet home'
+initial_state: "on"
+alias: "Pete tablet home"
 trigger:
   - platform: state
     entity_id:
-    - group.person_person1_tablet
-    to: 'home'
+      - group.person_Pete_tablet
+    to: "home"
   - platform: homeassistant
     event: start
 condition:
   - condition: state
-    entity_id: input_boolean.person1_tablet_home
-    state: 'off'
+    entity_id: input_boolean.Pete_tablet_home
+    state: "off"
   - condition: state
-    entity_id: group.person_person1_tablet
-    state: 'home'
+    entity_id: group.person_Pete_tablet
+    state: "home"
 action:
   - service: input_boolean.turn_on
-    entity_id: input_boolean.person1_tablet_home
+    entity_id: input_boolean.Pete_tablet_home

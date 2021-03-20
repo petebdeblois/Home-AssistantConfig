@@ -12,16 +12,16 @@ Four triggers:
 ```
 trigger:
   - platform: numeric_state
-    entity_id: proximity.person1_home
+    entity_id: proximity.Pete_home
     above: 400
   - platform: numeric_state
-    entity_id: proximity.person1_home
+    entity_id: proximity.Pete_home
     above: 800
   - platform: state
     entity_id: 
       - device_tracker.3c_28_6d_da_eb_a1
-      - device_tracker.person1_bt_mobile
-      - device_tracker.person1_bt_front_mobile
+      - device_tracker.Pete_bt_mobile
+      - device_tracker.Pete_bt_front_mobile
     to: 'not_home'
   - platform: homeassistant
     event: start
@@ -38,9 +38,9 @@ The conditions are "simple":
 condition:
   # As long as at least two trackers mark as away, they're away
   - condition: numeric_state
-    entity_id: group.person_person1
+    entity_id: group.person_Pete
     below: 2
-    value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_person1', 'entity_id'))|list)|groupby('state'))['home']|count }}"
+    value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_Pete', 'entity_id'))|list)|groupby('state'))['home']|count }}"
   # Either an exit door recently opened/closed, or we're far far away
   - condition: or
     conditions:
@@ -55,21 +55,21 @@ condition:
     - condition: and
       conditions:
       - condition: state
-        entity_id: group.person_person1
+        entity_id: group.person_Pete
         state: 'not_home'
       - condition: numeric_state
-        entity_id: proximity.person1_home
+        entity_id: proximity.Pete_home
         above: 400
     # Far far away (land)
     - condition: numeric_state
-      entity_id: proximity.person1_home
+      entity_id: proximity.Pete_home
       above: 800
 ```
 
 All the actions are in a script
 ```
 action:
-  - service: script.person1_away
+  - service: script.Pete_away
 ```
 
 ## Home
@@ -78,13 +78,13 @@ action:
 Arriving home is based on two triggers - a state trigger of any device arriving home, or HA starting
 ```
 initial_state: 'on'
-alias: 'person1 home'
+alias: 'Pete home'
 trigger:
   - platform: state
     entity_id: 
       - device_tracker.3c_28_6d_da_eb_a1
-      - device_tracker.person1_bt_mobile
-      - device_tracker.person1_bt_front_mobile
+      - device_tracker.Pete_bt_mobile
+      - device_tracker.Pete_bt_front_mobile
     to: 'home'
   - platform: homeassistant
     event: start
@@ -94,13 +94,13 @@ A simple requirement, is at least one device is home. This means that returning 
 ```
 condition:
   - condition: numeric_state
-    entity_id: group.person_person1
+    entity_id: group.person_Pete
     above: 0
-    value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_person1', 'entity_id'))|list)|groupby('state'))['home']|count }}"
+    value_template: "{{ dict((states|selectattr('entity_id', 'in', state_attr('group.person_Pete', 'entity_id'))|list)|groupby('state'))['home']|count }}"
 ```
 
 I do all the "arrived home" logic in a script.
 ```
 action:
-  - service: script.person1_home
+  - service: script.Pete_home
 ```	

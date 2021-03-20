@@ -1,14 +1,14 @@
-initial_state: 'on'
-alias: 'person2 next alarm'
+initial_state: "on"
+alias: "Julie next alarm"
 trigger:
   - platform: event
     event_type: tasker_webhook
     event_data:
       what: next_alarm
-      who: person2
+      who: Julie
 action:
   - service: input_datetime.set_datetime
-    entity_id: input_datetime.person2_next_alarm
+    entity_id: input_datetime.Julie_next_alarm
     data:
       time: >-
         {% if trigger.event.data.when.split(' ')[1] == '%taskertime' %}

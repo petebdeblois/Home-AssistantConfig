@@ -1,9 +1,9 @@
-alias: 'HA automations reloaded'
-initial_state: 'on'
+alias: "HA automations reloaded"
+initial_state: "on"
 trigger:
   - platform: event
-    event_type: automation_reloaded 
+    event_type: automation_reloaded
 action:
-  - service: script.notify_person2
+  - service: script.notify_Julie
     data:
       message: "Automations on Vision have been reloaded at {{ as_timestamp(now())|timestamp_local }} local"
