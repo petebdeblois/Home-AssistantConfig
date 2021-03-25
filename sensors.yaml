@@ -87,3 +87,15 @@
   #----- Input Date Times
     count_input_datetimes:
       value_template: "{{ states.input_datetime | list | length }}"
+
+- platform: template
+  sensors:
+    fuzzy_time:
+      value_template: >-
+            {% set minute = (now().minute / 5)|round %}
+            {% if minute > 6 %} {% set hour = now().hour + 1 %}{% else %}{% set hour = now().hour %}{% endif %}
+            {% set hourtext = [("midnight"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("noon"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("midnight")] %}
+            {% set fuzzytext = [("o'clock"), ("five past"), ("ten past"), ("quarter past"), ("twenty past"), ("twenty five past"), ("half past"), ("twenty five to"), ("twenty to"), ("quarter to"), ("ten to"), ("five to"), ("o'clock")] %}
+            {% if minute not in [0, 12] %}{{ fuzzytext[minute] }} {% endif %}{{ hourtext[hour] }}{% if minute in [0, 12] and hour not in [0, 12, 24] %} {{ fuzzytext[minute] }}{% endif %}
+      icon_template: 'hass:clock'
+      friendly_name: 'Fuzzy Time'

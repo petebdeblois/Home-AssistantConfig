@@ -35,7 +35,10 @@
   - platform: numeric_state
     entity_id: sensor.soil_moisture_level
     below: '50.0'
-  condition: []
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
   action:
   - service: tts.google_translate_say
     data:
@@ -48,14 +51,15 @@
   trigger:
   - platform: state
     entity_id: sensor.dishwasher_dishwasher_job_state
-    from: rince
-    to: drying
-  condition: []
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
   action:
   - service: tts.google_translate_say
     data:
       entity_id: media_player.kitchenmini
-      message: Rincing
+      message: the dishwasher is now {{states.sensor.dishwasher_dishwasher_job_state.state}}
   mode: single
 - id: '1600194112743'
   alias: Restart HA
@@ -70,4 +74,21 @@
   action:
   - data: {}
     service: homeassistant.restart
+  mode: single
+- id: '1616421976640'
+  alias: Temp Office Below outside
+  description: ''
+  trigger:
+  - platform: template
+    value_template: "{{ states.sensor.openweathermap_temperature.state < \n     states.sensor.office_temperature_2.state\
+      \ }}"
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.officemini
+      message: The temperature outside is below the temp inside
   mode: single
