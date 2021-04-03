@@ -1,0 +1,8 @@
+- platform: ping
+  host: 8.8.8.8
+  name: WAN
+  scan_interval: 60
+- platform: ping
+  host: 192.168.2.1
+  name: Gateway
+  scan_interval: 60

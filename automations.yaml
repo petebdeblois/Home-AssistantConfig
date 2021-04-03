@@ -34,7 +34,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.soil_moisture_level
-    below: '50.0'
+    below: '30'
   condition:
   - condition: sun
     before: sunset
@@ -44,6 +44,10 @@
     data:
       entity_id: media_player.kitchenmini
       message: Your plant need water
+  - service: notify.mobile_app_pete_s20
+    data:
+      title: plant
+      message: please water the plant
   mode: single
 - id: '1616116127975'
   alias: Dishwasher test
@@ -91,4 +95,19 @@
     data:
       entity_id: media_player.officemini
       message: The temperature outside is below the temp inside
+  mode: single
+- id: '1616718704686'
+  alias: Notification Test
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.pierre
+    from: Home
+    to: Away
+  condition: []
+  action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      title: HA - Notify
+      message: Home -> Away
   mode: single

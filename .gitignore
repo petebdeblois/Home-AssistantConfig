@@ -10,7 +10,7 @@
 /custom_components
 /themes
 /tts
-/www
+
 # Ignore folders.
 .storage
 .cloud
