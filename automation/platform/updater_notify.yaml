@@ -1,5 +1,5 @@
 alias: 'HA Update Available Notifications'
-initial_state: 'on'
+initial_state: true
 trigger:
   platform: state
   entity_id: updater.updater
