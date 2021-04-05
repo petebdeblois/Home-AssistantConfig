@@ -1,0 +1,56 @@
+
+- cal_id: 9dp4f6ctu4iveu2jq4444vjrhk@group.calendar.google.com
+  entities:
+  - device_id: work
+    ignore_availability: true
+    name: Work
+    track: true
+
+- cal_id: p#weather@group.v.calendar.google.com
+  entities:
+  - device_id: meteo
+    ignore_availability: true
+    name: "M\xE9t\xE9o"
+    track: true
+
+- cal_id: f1vb77p2dlrj5i1d45esd6p0ak@group.calendar.google.com
+  entities:
+  - device_id: polar_training_targets
+    ignore_availability: true
+    name: Polar training targets
+    track: true
+
+- cal_id: r18vmad7k835nveo4e08rmhc9g@group.calendar.google.com
+  entities:
+  - device_id: polar_training_results
+    ignore_availability: true
+    name: Polar training results
+    track: true
+
+- cal_id: petebdeblois@gmail.com
+  entities:
+  - device_id: petebdeblois_gmail_com
+    ignore_availability: true
+    name: petebdeblois@gmail.com
+    track: true
+
+- cal_id: 250b3n967jn8ig9qrlhrljurj8@group.calendar.google.com
+  entities:
+  - device_id: jiu_jitsu
+    ignore_availability: true
+    name: Jiu Jitsu
+    track: true
+
+- cal_id: pbdbjfagenda@gmail.com
+  entities:
+  - device_id: famille
+    ignore_availability: true
+    name: Famille
+    track: true
+
+- cal_id: 271q0upfs3pogocbdh24fvski99ajd6l@import.calendar.google.com
+  entities:
+  - device_id: 2021_fia_formula_one_world_championship_race_calendar
+    ignore_availability: true
+    name: 2021 FIA Formula One World Championship Race Calendar
+    track: true

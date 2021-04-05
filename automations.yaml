@@ -34,11 +34,10 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.soil_moisture_level
-    below: '30'
+    below: '65'
   condition:
   - condition: sun
     before: sunset
-    after: sunrise
   action:
   - service: tts.google_translate_say
     data:
@@ -46,8 +45,8 @@
       message: Your plant need water
   - service: notify.mobile_app_pete_s20
     data:
-      title: plant
-      message: please water the plant
+      message: Please water the plant
+      title: Plant
   mode: single
 - id: '1616116127975'
   alias: Dishwasher test
@@ -89,7 +88,6 @@
   condition:
   - condition: sun
     before: sunset
-    after: sunrise
   action:
   - service: tts.google_translate_say
     data:
@@ -110,4 +108,68 @@
     data:
       title: HA - Notify
       message: Home -> Away
+  mode: single
+- id: '1617646087748'
+  alias: Rain Alert
+  description: ''
+  trigger:
+  - platform: time
+    at: '14:15:00'
+  condition:
+  - condition: template
+    value_template: '{{ ''cloudy'' in state_attr(''weather.my_home'', ''forecast'')[:days]  |
+      map(attribute=''condition'') }}  '
+  action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Rain is expected, close the window
+  mode: single
+  variables:
+    days: 4
+- id: '1617646293726'
+  alias: Rain Alert
+  description: ''
+  trigger:
+  - platform: time
+    at: '14:15:00'
+  condition:
+  - condition: template
+    value_template: '{{ ''cloudy'' in state_attr(''weather.maison_2'', ''forecast'')[:days]  |
+      map(attribute=''condition'') }}  '
+  action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Rain is expected, close the window
+  variables:
+    days: 4
+  mode: single
+- id: '1617649810386'
+  alias: Rain Alert Bool Turn On
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:00:00'
+  condition:
+  - condition: template
+    value_template: '{{ states.weather.maison_2.attributes.forecast[1].precipitation_probability
+      >= 51 }}'
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.rain_tomorrow
+  mode: single
+- id: '1617650162551'
+  alias: Rain Alert Bool Turn Off
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:00:00'
+  condition:
+  - condition: template
+    value_template: '{{ states.weather.maison_2.attributes.forecast[1].precipitation_probability
+      <= 50 }}'
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.rain_tomorrow
   mode: single
