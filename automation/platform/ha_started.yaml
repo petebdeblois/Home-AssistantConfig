@@ -6,4 +6,4 @@ trigger:
 action:
   - service: notify.mobile_app_pete_s20
     data:
-      message: "Home Assistant {{ states('sensor.hass_installed') }} has started on Server ({{ as_timestamp(utcnow())|timestamp_utc }})"
+      message: "Home Assistant {{ states('sensor.latest_version') }} has started on Server ({{ as_timestamp(utcnow())|timestamp_utc }})"
