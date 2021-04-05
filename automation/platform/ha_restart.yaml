@@ -1,0 +1,13 @@
+alias: Restart HA
+description: ''
+trigger:
+- at: 02:00:00
+  platform: time
+condition:
+- condition: time
+  weekday:
+  - sun
+action:
+- data: {}
+  service: homeassistant.restart
+mode: single

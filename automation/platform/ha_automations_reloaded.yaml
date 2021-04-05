@@ -4,6 +4,7 @@ trigger:
   - platform: event
     event_type: automation_reloaded
 action:
-  - service: script.notify_Julie
+  - service: notify.mobile_app_pete_s20
     data:
-      message: "Automations on Vision have been reloaded at {{ as_timestamp(now())|timestamp_local }} local"
+      message: "Automations on Server have been reloaded at {{ as_timestamp(now())|timestamp_local }} local"
+      title: HA automations reloaded

@@ -13,7 +13,7 @@ input_number: !include_dir_named input_number/
 input_select: !include_dir_named input_select/
 #input_text: !include_dir_named input_text/
 input_boolean: !include_dir_named input_boolean/
-automation: !include automations.yaml
+automation: !include_dir_named automation/
 script: !include scripts.yaml
 scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml

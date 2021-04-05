@@ -1,0 +1,10 @@
+alias: "HA started"
+initial_state: "on"
+trigger:
+  platform: homeassistant
+  event: start
+action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: "Home Assistant {{ states('sensor.hass_installed') }} has started on Server ({{ as_timestamp(utcnow())|timestamp_utc }})"
+

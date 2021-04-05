@@ -1,0 +1,14 @@
+alias: Notification Test
+description: ''
+trigger:
+- platform: state
+  entity_id: person.pierre
+  from: Home
+  to: Away
+condition: []
+action:
+- service: notify.mobile_app_pete_s20
+  data:
+    title: HA - Notify
+    message: Home -> Away
+mode: single

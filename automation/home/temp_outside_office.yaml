@@ -1,0 +1,15 @@
+alias: Temp Office Below outside
+description: ''
+trigger:
+- platform: template
+  value_template: "{{ states.sensor.openweathermap_temperature.state < \n     states.sensor.office_temperature_2.state\
+    \ }}"
+condition:
+- condition: sun
+  before: sunset
+action:
+- service: tts.google_translate_say
+  data:
+    entity_id: media_player.officemini
+    message: The temperature outside is below the temp inside
+mode: single

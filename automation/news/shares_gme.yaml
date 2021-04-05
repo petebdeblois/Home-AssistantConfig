@@ -1,0 +1,11 @@
+alias: 'Shares: GME'
+trigger:
+- platform: numeric_state
+  entity_id: yahoofinance.gme
+  below: '200'
+action:
+- service: tts.google_translate_say
+  data:
+    entity_id: media_player.officemini
+    message: The GME shares are below 200$
+mode: single

@@ -7,16 +7,12 @@ condition:
     value_template: "{{ states('sensor.hacs') != 'unknown'}}"
   - condition: template
     value_template: "{{ (states('sensor.hacs') | float) != 0}}"
-  - condition: state
-    entity_id: input_boolean.Julie_home
-    state: "on"
 action:
-  service: notify.Julie_telegram
+- service: notify.mobile_app_pete_s20
   data:
     title: Updates ({{ states('sensor.hacs') }}) pending in HACS
     message: >-
       {% for repo in state_attr('sensor.hacs', 'repositories') %}
         **{{ repo.display_name }}** _{{ repo["installed version"] }}_ -> _{{ repo["available version"] }}_
       {% endfor %}
-    data:
-      disable_notification: true
+

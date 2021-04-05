@@ -1,9 +1,0 @@
-alias: "HA stopped"
-initial_state: "on"
-trigger:
-  platform: homeassistant
-  event: shutdown
-action:
-  - service: script.notify_Julie
-    data:
-      message: "Home Assistant {{ states('sensor.hass_installed') }} has shut down on Vision ({{ as_timestamp(utcnow())|timestamp_utc }})"
