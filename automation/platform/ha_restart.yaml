@@ -1,4 +1,4 @@
-alias: Restart HA
+alias: Ha restart
 description: ''
 trigger:
 - at: 02:00:00
