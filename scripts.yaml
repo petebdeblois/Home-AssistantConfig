@@ -1,5 +1,0 @@
-#nick_wifi_unthrottle:
-  #alias: "Nick Wifi Unthrottle"
-  #sequence:
-    #- service: shell_command.wifi_nick_unthrottle
-    #- service: shell_command.wifi_nick_unthrottle_tablet

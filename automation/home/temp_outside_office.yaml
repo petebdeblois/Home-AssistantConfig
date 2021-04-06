@@ -2,7 +2,7 @@ alias: Temp Office Below outside
 description: ''
 trigger:
 - platform: template
-  value_template: "{{ states.sensor.openweathermap_temperature.state < \n     states.sensor.office_temperature_2.state\
+  value_template: "{{ states.sensor.openweathermap_temperature.state < \n     states.sensor.office_temperature.state\
     \ }}"
 condition:
 - condition: sun

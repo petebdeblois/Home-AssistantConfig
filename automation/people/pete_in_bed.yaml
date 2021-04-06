@@ -1,0 +1,21 @@
+alias: Pete in bed
+trigger:
+- platform: state
+  entity_id: binary_sensor.pete_s20_is_charging
+  to: on
+condition:
+- condition: and
+  conditions:
+  - condition: state
+    entity_id: input_boolean.pete_in_bed
+    state: 'off'
+  - condition: state
+    entity_id: device_tracker.pete_s20_ping
+    state: home
+  - condition: time
+    after: '21:00:00'
+    before: 05:00:00
+action:
+- service: input_boolean.turn_on
+  entity_id: input_boolean.pete_in_bed
+initial_state: true

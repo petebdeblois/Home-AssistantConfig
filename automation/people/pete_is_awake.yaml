@@ -1,0 +1,23 @@
+alias: "Pete is Up"
+initial_state: true
+trigger:
+  # Something gets unplugged
+  - platform: state
+    entity_id: binary_sensor.pete_s20_is_charging
+    to: off
+condition:
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.pete_is_home
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.pete_in_bed
+        state: "on"
+      - condition: time
+        after: "05:00:00"
+        before: "21:00:00"
+action:
+  - service: input_boolean.turn_off
+    entity_id:
+      - input_boolean.pete_in_bed
