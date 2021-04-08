@@ -15,7 +15,7 @@
       message: the dishwasher is now {{states.sensor.dishwasher_dishwasher_job_state.state}}
   mode: single
 
-- id: 'home'
+- id: 'homenotoccupied'
   alias: "Home not occupied"
   initial_state: true
   trigger:
@@ -37,3 +37,540 @@
   action:
     - service: input_boolean.turn_off
       entity_id: input_boolean.home_occupied
+
+- id: 'homeoccupied'
+  alias: "Home occupied"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id:
+        - device_tracker.julie_s20_ping
+        - device_tracker.pete_s20_ping
+      to: home
+  #condition:
+    #condition: and
+    #conditions:
+      # We're all away
+      #- condition: state
+      #  entity_id: input_boolean.julie_is_home
+      #  state: "on"
+      #- condition: state
+      #  entity_id: input_boolean.pete_is_home
+      #  state: "on"
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.home_occupied
+
+- id: 'houseisawake'
+  alias: "House awake"
+  initial_state: true
+  trigger:
+    # Consider the house awake if I'm up, Pete is up, or the TV comes on after 03:00
+    - platform: state
+      entity_id:
+        - input_boolean.julie_is_awake
+        - input_boolean.jete_is_awake
+
+      to: "on"
+  condition:
+    - condition: time
+      after: "05:00:00"
+    - condition: or
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity_id: input_boolean.julie_is_home
+              state: "off"
+            - condition: and
+              conditions:
+                - condition: state
+                  entity_id: input_boolean.julie_is_awake
+                  state: "on"
+                - condition: state
+                  entity_id: input_boolean.julie_is_home
+                  state: "on"
+        - condition: or
+          conditions:
+            - condition: state
+              entity_id: input_boolean.pete_is_home
+              state: "off"
+            - condition: and
+              conditions:
+                - condition: state
+                  entity_id: input_boolean.pete_is_awake
+                  state: "on"
+                - condition: state
+                  entity_id: input_boolean.pete_is_home
+                  state: "on"
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.bedtime
+
+- id: 'housebedtime'
+  alias: "House Bedtime"
+  initial_state: true
+  trigger:
+    # Everybody is in bed
+    - platform: state
+      entity_id:
+        - input_boolean.julie_in_bed
+        - input_boolean.pete_in_bed
+      to: 'on'
+  action:
+    - service: notify.logfile
+      data:
+        message: "Bedtime: {{ states('input_boolean.julie_in_bed') }}/{{ states('input_boolean.Pete_in_bed') }}"
+    - service: notify.logfile
+      data:
+        message: "Bedtime: Everybody is in bed"
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.bedtime
+
+- id: 'tempofficebelowoutside'
+  alias: Temp Office Below outside
+  description: ''
+  trigger:
+  - platform: template
+    value_template: "{{ states.sensor.openweathermap_temperature.state < \n     states.sensor.office_temperature.state\
+      \ }}"
+  condition:
+  - condition: sun
+    before: sunset
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.officemini
+      message: The temperature outside is below the temp inside
+  mode: single
+
+- id: 'waterplants'
+  alias: Water the Plant
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.plante_max_moisture_level
+    below: 40
+  condition:
+  - condition: sun
+    before: sunset
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.kitchenmini
+      message: Your plant need water
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Please water the plant
+      title: Plant
+  mode: single
+
+- id: 'ninwishlist'
+  alias: Nintendo WIshlist
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.nintendo_wishlist_final_fantasy_viii_remastered
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: "THe game is on sale Nintendo"
+  mode: single
+
+- id: 'nintendowishlist'
+  alias: Nintendo WIshlist
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.nintendo_wishlist_final_fantasy_viii_remastered
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: "THe game is on sale Nintendo"
+  mode: single
+
+- id: 'sharesgme'
+  alias: 'Shares: GME'
+  trigger:
+  - platform: numeric_state
+    entity_id: yahoofinance.gme
+    below: '200'
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.officemini
+      message: The GME shares are below 200$
+  mode: single
+
+- id: 'updatestock'
+  alias: 'Shares: Update prices'
+  trigger:
+  - platform: time_pattern
+    minutes: /5
+  condition:
+  - condition: time
+    after: 07:59:00
+    before: '20:01:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: yahoofinance.refresh_symbols
+  mode: single
+
+- id: 'julieinbed'
+  alias: Julie in bed
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.julie_s20_en_charge
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.julie_in_bed
+      state: 'off'
+    - condition: state
+      entity_id: device_tracker.julie_s20_ping
+      state: home
+    - condition: time
+      after: '21:00:00'
+      before: 05:00:00
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.julie_in_bed
+  initial_state: true
+
+- id: 'julieisup'
+  alias: "Julie is Up"
+  initial_state: true
+  trigger:
+    # Something gets unplugged
+    - platform: state
+      entity_id: binary_sensor.julie_s20_en_charge
+      to: 'off'
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.julie_is_home
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.julie_in_bed
+          state: "on"
+        - condition: time
+          after: "05:00:00"
+          before: "21:00:00"
+  action:
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.julie_in_bed
+        - input_boolean.bedtime
+  
+- id: 'julieishome'
+  alias: Julie Is Home
+  description: ''
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: device_tracker.julie_s20_ping
+      to: home
+  condition: []
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.julie_is_home
+
+- id: 'peteinbed'
+  alias: Pete in bed
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.pete_s20_is_charging
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.pete_in_bed
+      state: 'off'
+    - condition: state
+      entity_id: device_tracker.pete_s20_ping
+      state: home
+    - condition: time
+      after: '21:00:00'
+      before: 05:00:00
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.pete_in_bed
+  initial_state: true
+
+- id: 'peteisup'
+  alias: "Pete is Up"
+  initial_state: true
+  trigger:
+    # Something gets unplugged
+    - platform: state
+      entity_id: binary_sensor.pete_s20_is_charging
+      to: 'off'
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.pete_is_home
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.pete_in_bed
+          state: "on"
+        - condition: time
+          after: "05:00:00"
+          before: "21:00:00"
+  action:
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.pete_in_bed
+        - input_boolean.bedtime
+
+- id: 'peteishome'
+  alias: Pete Is Home
+  description: ''
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: device_tracker.pete_s20_ping
+      to: home
+  condition: []
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.pete_is_home
+  
+- id: 'hareloaded'
+  alias: "HA automations reloaded"
+  initial_state: true
+  trigger:
+    - platform: event
+      event_type: automation_reloaded
+  action:
+    - service: notify.mobile_app_pete_s20
+      data:
+        message: "Automations on Server have been reloaded at {{ as_timestamp(now())|timestamp_local }} local"
+        title: HA automations reloaded
+  
+- id: 'harestart'
+  alias: Ha restart
+  description: ''
+  trigger:
+  - at: 02:00:00
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - sun
+  action:
+  - data: {}
+    service: homeassistant.restart
+  mode: single
+  
+- id: start
+  alias: "HA started"
+  initial_state: true
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: notify.mobile_app_pete_s20
+      data:
+        message: "Home Assistant {{ states('sensor.latest_version') }} has started on Server ({{ as_timestamp(utcnow())|timestamp_utc }})"
+  
+- id: 'haupdate'
+  alias: 'HA Update Available Notifications'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: updater.updater
+  action:
+    service: notify.logfile
+    data:
+      message: 'SENDME SYSTEM Update for Home Assistant is available on Vision.'
+  
+- id: 'seasonautum'
+  alias: 'Season is autumn'
+  initial_state: true
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: '03:00:00'
+  condition:
+    - condition: template
+      value_template: '{{ 12 > now().month > 8  }}'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: input_select.season
+        state: 'Autumn'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.season
+        option: Autumn
+
+- id: 'seasonchristas'
+  alias: 'Season is Christmas'
+  initial_state: true
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: '02:00:00'
+  condition:
+    - condition: template
+      value_template: '{{ ( now().month == 1 and now().day < 7 ) or ( now().month == 12 and now().day >= 12 ) }}'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: input_select.season
+        state: 'Christmas'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.season
+        option: Christmas
+
+- id: 'sesaonissrpign'
+  alias: 'Season is spring'
+  initial_state: true
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: '03:00:00'
+  condition:
+    - condition: and
+      conditions:
+      - condition: template
+        value_template: '{{ 6 > now().month > 2  }}'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: input_select.season
+        state: 'Spring'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.season
+        option: Spring
+
+- id: ' seasonissummer'
+  alias: 'Season is summer'
+  initial_state: true
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: '03:00:00'
+  condition:
+    - condition: template
+      value_template: '{{ 9 > now().month > 5  }}'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: input_select.season
+        state: 'Summer'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.season
+        option: Summer
+  
+- id: 'seasonwinter'
+  alias: 'Season is winter'
+  initial_state: true
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: '03:00:00'
+  condition:
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: input_select.season
+        state: 'Winter'
+    - condition: template
+      value_template: '{{ ( now().month == 12 ) or ( now().month < 3 ) }}'
+    - condition: or
+      conditions:
+      # Either after the 7th of January
+      - condition: template
+        value_template: '{{ now().month == 1 and now().day >= 7 }}'
+      - condition: and
+        conditions:
+        # before the 12th of January and we've not turned it on early
+        - condition: template
+          value_template: '{{ now().month == 12 and now().day < 12 }}'
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_select.season
+            state: 'Christmas'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.season
+        option: Winter
+  
+- id: 'rainalertoff'
+  alias: Rain Alert Bool Turn Off
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:00:00'
+  condition:
+  - condition: template
+    value_template: '{{ states.weather.maison_2.attributes.forecast[1].precipitation_probability
+      <= 50 }}'
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.rain_tomorrow
+  mode: single
+  
+- id: 'rainaleron'
+  alias: Rain Alert Bool Turn On
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:00:00'
+  condition:
+  - condition: template
+    value_template: '{{ states.weather.maison_2.attributes.forecast[1].precipitation_probability
+      >= 51 }}'
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.rain_tomorrow
+  mode: single
+
+- id: 'rainalert'
+  alias: Rain Alert
+  description: ''
+  trigger:
+  - platform: time
+    at: '14:15:00'
+  condition:
+  - condition: template
+    value_template: '{{ ''cloudy'' in state_attr(''weather.maison_2'', ''forecast'')[:days]  |
+      map(attribute=''condition'') }}  '
+  action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Rain is expected, close the window
+  variables:
+    days: 4
+  mode: single

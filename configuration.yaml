@@ -1,19 +1,11 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-# Text to speech
-tts:
-  - platform: google_translate
 
 sensor: !include sensors.yaml
 shell_command: !include shell_command.yaml
 group: !include_dir_named groups/
-#automation: !include_dir_list automations/
-# My own handmade automations
-automation manual: !include_dir_merge_list automations/
-
-# Automations I create in the UI
-automation ui: !include automations.yaml
+automation: !include automations.yaml
 input_datetime: !include_dir_named input_datetime/
 input_number: !include_dir_named input_number/
 input_select: !include_dir_named input_select/
@@ -24,7 +16,10 @@ scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml
 device_tracker: !include device_tracker.yaml
 nintendo_wishlist: !include nintendo_wishlist.yaml
-#secret: !include secrets.yaml
+
+# Text to speech
+tts:
+  - platform: google_translate
 
 influxdb:
   host: a0d7b954-influxdb

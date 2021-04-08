@@ -6,4 +6,19 @@
   host: 192.168.2.1
   name: Gateway
   scan_interval: 60
-
+- platform: ping
+  host: 192.168.2.60
+  name: Machine
+  scan_interval: 60
+- platform: ping
+  host: 192.168.2.65
+  name: Server
+  scan_interval: 60
+- platform: ping
+  host: 192.168.2.150
+  name: Laurel
+  scan_interval: 60
+- platform: ping
+  host: 192.168.2.151
+  name: Hardy
+  scan_interval: 60
