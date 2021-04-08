@@ -8,7 +8,12 @@ tts:
 sensor: !include sensors.yaml
 shell_command: !include shell_command.yaml
 group: !include_dir_named groups/
-automation: !include_dir_list automation/
+#automation: !include_dir_list automations/
+# My own handmade automations
+automation manual: !include_dir_merge_list automations/
+
+# Automations I create in the UI
+automation ui: !include automations.yaml
 input_datetime: !include_dir_named input_datetime/
 input_number: !include_dir_named input_number/
 input_select: !include_dir_named input_select/
@@ -18,6 +23,7 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml
 device_tracker: !include device_tracker.yaml
+nintendo_wishlist: !include nintendo_wishlist.yaml
 #secret: !include secrets.yaml
 
 influxdb:
@@ -31,7 +37,7 @@ influxdb:
 
 
 recorder:
-  purge_keep_days: 15
+  #purge_keep_days: 7
   db_url: !secret mariadb_conn_string
   purge_interval: 1
   exclude:
@@ -98,6 +104,15 @@ google:
   client_secret: !secret googlecalendar_client_secret
 
   # Example configuration.yaml entry
-spotcast:
-  sp_dc: !secret spotify_spotcast_dc
-  sp_key: !secret spotify_spotcast_key
+#spotcast:
+#  sp_dc: !secret spotify_spotcast_dc
+#  sp_key: !secret spotify_spotcast_key
+mqtt:
+  discovery: true
+  discovery_prefix: homeassistant
+  broker: 192.168.2.65
+  port: 1883
+  client_id: home-assistant-1
+  keepalive: 60
+  username: !secret mqtt_user
+  password: !secret mqtt_pw

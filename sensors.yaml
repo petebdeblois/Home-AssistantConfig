@@ -99,3 +99,10 @@
             {% if minute not in [0, 12] %}{{ fuzzytext[minute] }} {% endif %}{{ hourtext[hour] }}{% if minute in [0, 12] and hour not in [0, 12, 24] %} {{ fuzzytext[minute] }}{% endif %}
       icon_template: 'hass:clock'
       friendly_name: 'Fuzzy Time'
+
+- platform: template
+  sensors:
+    last_snapshot_backup:
+      friendly_name: "Last Snapshot"
+      value_template: "{{ as_timestamp(state_attr('sensor.snapshot_backup', 'last_snapshot')) | timestamp_custom('%m/%d@%-I%p') }}"
+

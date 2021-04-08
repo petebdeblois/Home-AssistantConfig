@@ -1,43 +1,43 @@
 alias: "House awake"
-initial_state: "on"
+initial_state: true
 trigger:
   # Consider the house awake if I'm up, Pete is up, or the TV comes on after 03:00
   - platform: state
     entity_id:
-      - input_boolean.Julie_is_awake
-      - input_boolean.Pete_is_awake
-      - input_boolean.person3_is_awake
+      - input_boolean.julie_is_awake
+      - input_boolean.jete_is_awake
+
     to: "on"
 condition:
   - condition: time
-    after: "03:00:00"
+    after: "05:00:00"
   - condition: or
     conditions:
       - condition: or
         conditions:
           - condition: state
-            entity_id: input_boolean.Julie_home
+            entity_id: input_boolean.julie_is_home
             state: "off"
           - condition: and
             conditions:
               - condition: state
-                entity_id: input_boolean.Julie_is_awake
+                entity_id: input_boolean.julie_is_awake
                 state: "on"
               - condition: state
-                entity_id: input_boolean.Julie_home
+                entity_id: input_boolean.julie_is_home
                 state: "on"
       - condition: or
         conditions:
           - condition: state
-            entity_id: input_boolean.Pete_home
+            entity_id: input_boolean.pete_is_home
             state: "off"
           - condition: and
             conditions:
               - condition: state
-                entity_id: input_boolean.Pete_is_awake
+                entity_id: input_boolean.pete_is_awake
                 state: "on"
               - condition: state
-                entity_id: input_boolean.Pete_home
+                entity_id: input_boolean.pete_is_home
                 state: "on"
 action:
   - service: input_boolean.turn_off

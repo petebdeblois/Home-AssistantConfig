@@ -1,12 +1,12 @@
 initial_state: true
-alias: "Bedtime"
+alias: "House Bedtime"
 trigger:
   # Everybody is in bed
   - platform: state
     entity_id:
       - input_boolean.julie_in_bed
       - input_boolean.pete_in_bed
-    to: on
+    to: 'on'
 action:
   - service: notify.logfile
     data:

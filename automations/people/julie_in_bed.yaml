@@ -2,7 +2,7 @@ alias: Julie in bed
 trigger:
 - platform: state
   entity_id: binary_sensor.julie_s20_en_charge
-  to: on
+  to: 'on'
 condition:
 - condition: and
   conditions:
