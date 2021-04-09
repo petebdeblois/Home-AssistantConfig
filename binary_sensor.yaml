@@ -22,3 +22,6 @@
   host: 192.168.2.151
   name: Hardy
   scan_interval: 60
+
+- platform: workday
+  country: CA

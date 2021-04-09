@@ -93,7 +93,7 @@ lovelace:
       show_in_sidebar: true
       require_admin: true
 
-# Example configuration.yaml entry
+# https://www.home-assistant.io/integrations/calendar.google/
 google:
   client_id: !secret googlecalendar_client_id
   client_secret: !secret googlecalendar_client_secret
@@ -111,3 +111,19 @@ mqtt:
   keepalive: 60
   username: !secret mqtt_user
   password: !secret mqtt_pw
+
+# https://www.home-assistant.io/integrations/environment_canada/
+weather:
+  - platform: environment_canada
+    station: QC/s0000620
+
+    # https://www.home-assistant.io/integrations/plant/
+plant:
+  max_plant:
+    sensors:
+      moisture: sensor.plante_max_moisture_level
+      #battery: sensor.my_sensor_battery
+      temperature: sensor.office_temperature
+      #conductivity: sensor.my_sensor_conductivity
+      #brightness: sensor.my_sensor_brightness
+    min_moisture: 20

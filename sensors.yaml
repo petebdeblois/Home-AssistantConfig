@@ -1,4 +1,3 @@
-
 - platform: uptime
   name: Hassio Uptime
 
@@ -37,54 +36,53 @@
 #  It creates a sensor called sensor.last_successful_authentication.
 #- platform: authenticated
 
-# This sensor displays any pending updates within Supervisor (add-on store) by using the 'command line' platform. 
+# This sensor displays any pending updates within Supervisor (add-on store) by using the 'command line' platform.
 # The sensor name for this one is sensor.supervisor_updates.
 - platform: command_line
   name: Supervisor updates
   command: 'curl http://supervisor/supervisor/info -H "Authorization: Bearer $(printenv SUPERVISOR_TOKEN)" | jq ''{"newest_version":.data.version_latest,"current_version":.data.version,"addons":[.data.addons[] | select(.version != .installed)]}'''
   value_template: "{{ value_json.addons | length }}"
   json_attributes:
-  - newest_version
-  - current_version
-  - addons
-
+    - newest_version
+    - current_version
+    - addons
 
 - platform: template
   sensors:
-  #----- Count Automations
+    #----- Count Automations
     count_automations:
       value_template: "{{ states.automation | list | length }}"
-  #----- Count Scripts
+    #----- Count Scripts
     count_scripts:
       value_template: "{{ states.script| list | length }}"
-  #----- Count Device Trackers
+    #----- Count Device Trackers
     count_device_trackers:
       value_template: "{{ states.device_tracker | list | length }}"
-  #----- Count Binary Sensors
+    #----- Count Binary Sensors
     count_binary_sensors:
       value_template: "{{ states.binary_sensor| list | length }}"
-  #----- Count Sensors
+    #----- Count Sensors
     count_sensors:
       value_template: "{{ states.sensor | list | length }}"
-  #----- Count Switches
+    #----- Count Switches
     count_switches:
       value_template: "{{ states.switch | list | length }}"
-  #----- Count Zones
+    #----- Count Zones
     count_zones:
       value_template: "{{ states.zone | list | length }}"
-  #----- Input Booleans
+    #----- Input Booleans
     count_input_booleans:
       value_template: "{{ states.input_boolean | list | length }}"
-  #----- Input Numbers
+    #----- Input Numbers
     count_input_numbers:
       value_template: "{{ states.input_number | list | length }}"
-  #----- Input Texts
+    #----- Input Texts
     count_input_texts:
       value_template: "{{ states.input_text | list | length }}"
-  #----- Input Selects
+    #----- Input Selects
     count_input_selects:
       value_template: "{{ states.input_select | list | length }}"
-  #----- Input Date Times
+    #----- Input Date Times
     count_input_datetimes:
       value_template: "{{ states.input_datetime | list | length }}"
 
@@ -92,13 +90,13 @@
   sensors:
     fuzzy_time:
       value_template: >-
-            {% set minute = (now().minute / 5)|round %}
-            {% if minute > 6 %} {% set hour = now().hour + 1 %}{% else %}{% set hour = now().hour %}{% endif %}
-            {% set hourtext = [("midnight"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("noon"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("midnight")] %}
-            {% set fuzzytext = [("o'clock"), ("five past"), ("ten past"), ("quarter past"), ("twenty past"), ("twenty five past"), ("half past"), ("twenty five to"), ("twenty to"), ("quarter to"), ("ten to"), ("five to"), ("o'clock")] %}
-            {% if minute not in [0, 12] %}{{ fuzzytext[minute] }} {% endif %}{{ hourtext[hour] }}{% if minute in [0, 12] and hour not in [0, 12, 24] %} {{ fuzzytext[minute] }}{% endif %}
-      icon_template: 'hass:clock'
-      friendly_name: 'Fuzzy Time'
+        {% set minute = (now().minute / 5)|round %}
+        {% if minute > 6 %} {% set hour = now().hour + 1 %}{% else %}{% set hour = now().hour %}{% endif %}
+        {% set hourtext = [("midnight"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("noon"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("midnight")] %}
+        {% set fuzzytext = [("o'clock"), ("five past"), ("ten past"), ("quarter past"), ("twenty past"), ("twenty five past"), ("half past"), ("twenty five to"), ("twenty to"), ("quarter to"), ("ten to"), ("five to"), ("o'clock")] %}
+        {% if minute not in [0, 12] %}{{ fuzzytext[minute] }} {% endif %}{{ hourtext[hour] }}{% if minute in [0, 12] and hour not in [0, 12, 24] %} {{ fuzzytext[minute] }}{% endif %}
+      icon_template: "hass:clock"
+      friendly_name: "Fuzzy Time"
 
 - platform: template
   sensors:
@@ -106,3 +104,63 @@
       friendly_name: "Last Snapshot"
       value_template: "{{ as_timestamp(state_attr('sensor.snapshot_backup', 'last_snapshot')) | timestamp_custom('%m/%d@%-I%p') }}"
 
+- platform: environment_canada
+
+- platform: sql
+  #db_url: mysql://user:password@localhost/hass
+  db_url: !secret mariadb_conn_string
+  queries:
+    - name: mariaDB size
+      query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1024 / 1024, 1) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+      column: "value"
+      unit_of_measurement: MB
+
+# Tracking entity to entity
+# https://www.home-assistant.io/integrations/google_travel_time/
+#- platform: google_travel_time
+#  name: To Coveo
+#  api_key: !secret google_distance_key
+#  origin: zone.home
+#  destination: zone.coveo
+- platform: template
+  sensors:
+    dest_address:
+      value_template: >-
+        {%- if is_state("input_select.destination", "Home")  -%}
+          1138 Boulevard des Chutes, Québec, QC G1E 2G4, Canada
+        {%- elif is_state("input_select.destination", "Work")  -%}
+          35-3175 Chemin des Quatre-Bourgeois, Québec, QC G1W 2K7, Canada
+        {%- elif is_state("input_select.destination", "Parents")  -%}
+          178 Broadway, Brooklyn, NY 11211, USA
+        {%- else -%}
+          Unknown
+        {%- endif %}
+
+  # Tracking entity to entity
+- platform: waze_travel_time
+  name: "Waze home to destination"
+  origin: zone.home
+  destination: sensor.dest_address
+  region: "US"
+
+  # Tracking entity to zone friendly name
+- platform: waze_travel_time
+  name: Home to Coveo
+  origin: zone.home
+  destination: zone.coveo 
+  region: "US"
+
+- platform: waze_travel_time
+  name: Home to Cochon
+  origin: zone.home
+  destination: zone.cochon 
+  region: "US"
+
+#https://www.home-assistant.io/integrations/season/
+- platform: season
+
+# https://www.home-assistant.io/integrations/qbittorrent/
+#- platform: qbittorrent
+#  url: "http://<hostname>:<port>"
+#  username: YOUR_USERNAME
+#  password: YOUR_PASSWORD
