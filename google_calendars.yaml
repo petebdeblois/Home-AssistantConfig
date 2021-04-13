@@ -54,3 +54,10 @@
     ignore_availability: true
     name: 2021 FIA Formula One World Championship Race Calendar
     track: true
+
+- cal_id: ihmlkd9jeevhmo90036eo8q6n4@group.calendar.google.com
+  entities:
+  - device_id: official_ufc_schedule_canada
+    ignore_availability: true
+    name: 'OFFICIAL UFC SCHEDULE - CANADA '
+    track: true

@@ -16,74 +16,31 @@
   mode: single
 - id: homenotoccupied
   alias: Home not occupied
-  initial_state: true
   trigger:
   - platform: state
-    entity_id:
-    - device_tracker.julie_s20_ping
-    - device_tracker.pete_s20_ping
-    to: away
+    entity_id: device_tracker.julie_s20
+    from: home
+  - platform: state
+    entity_id: device_tracker.pete_s20
+    from: home
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.home_occupied
+  initial_state: true
+  mode: single
 - id: homeoccupied
   alias: Home occupied
-  initial_state: true
   trigger:
   - platform: state
-    entity_id:
-    - device_tracker.julie_s20_ping
-    - device_tracker.pete_s20_ping
+    entity_id: device_tracker.julie_s20,device_tracker.pete_s20
     to: home
   action:
   - service: input_boolean.turn_on
     entity_id: input_boolean.home_occupied
-- id: houseisawake
-  alias: House awake
   initial_state: true
-  trigger:
-  - platform: state
-    entity_id:
-    - input_boolean.julie_is_awake
-    - input_boolean.jete_is_awake
-    to: 'on'
-  condition:
-  - condition: time
-    after: 05:00:00
-  - condition: or
-    conditions:
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: input_boolean.julie_is_home
-        state: 'off'
-      - condition: and
-        conditions:
-        - condition: state
-          entity_id: input_boolean.julie_is_awake
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.julie_is_home
-          state: 'on'
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: input_boolean.pete_is_home
-        state: 'off'
-      - condition: and
-        conditions:
-        - condition: state
-          entity_id: input_boolean.pete_is_awake
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.pete_is_home
-          state: 'on'
-  action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.bedtime
+  mode: single
 - id: housebedtime
   alias: House Bedtime
-  initial_state: true
   trigger:
   - platform: state
     entity_id:
@@ -91,22 +48,21 @@
     - input_boolean.pete_in_bed
     to: 'on'
   action:
-  - service: notify.logfile
-    data:
-      message: 'Bedtime: {{ states(''input_boolean.julie_in_bed'') }}/{{ states(''input_boolean.Pete_in_bed'')
-        }}'
-  - service: notify.logfile
-    data:
-      message: 'Bedtime: Everybody is in bed'
   - service: input_boolean.turn_on
-    entity_id: input_boolean.bedtime
+    target:
+      entity_id: input_boolean.bedtime
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: bedtime
+  initial_state: true
+  mode: single
 - id: tempofficebelowoutside
   alias: Temp Office Below outside
   description: ''
   trigger:
   - platform: template
-    value_template: "{{ states.sensor.openweathermap_temperature.state < \n     states.sensor.office_temperature.state\
-      \ }}"
+    value_template: "{{ states.sensor.environment_canada_temperature.state < \n  \
+      \   states.sensor.office_temperature.state }}"
   condition:
   - condition: sun
     before: sunset
@@ -122,7 +78,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.plante_max_moisture_level
-    below: 40
+    below: '25'
   condition:
   - condition: sun
     before: sunset
@@ -203,7 +159,6 @@
   initial_state: true
 - id: julieisup
   alias: Julie is Up
-  initial_state: true
   trigger:
   - platform: state
     entity_id: binary_sensor.julie_s20_en_charge
@@ -212,8 +167,8 @@
   - condition: and
     conditions:
     - condition: state
-      entity_id: input_boolean.julie_is_home
-      state: 'on'
+      entity_id: device_tracker.julie_s20
+      state: home
     - condition: state
       entity_id: input_boolean.julie_in_bed
       state: 'on'
@@ -222,21 +177,12 @@
       before: '21:00:00'
   action:
   - service: input_boolean.turn_off
-    entity_id:
-    - input_boolean.julie_in_bed
-    - input_boolean.bedtime
-- id: julieishome
-  alias: Julie Is Home
-  description: ''
+    target:
+      entity_id:
+      - input_boolean.bedtime
+      - input_boolean.julie_in_bed
+  initial_state: true
   mode: single
-  trigger:
-  - platform: state
-    entity_id: device_tracker.julie_s20_ping
-    to: home
-  condition: []
-  action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.julie_is_home
 - id: peteinbed
   alias: Pete in bed
   trigger:
@@ -250,7 +196,7 @@
       entity_id: input_boolean.pete_in_bed
       state: 'off'
     - condition: state
-      entity_id: device_tracker.pete_s20_ping
+      entity_id: device_tracker.pete_s20
       state: home
     - condition: time
       after: '21:00:00'
@@ -259,9 +205,9 @@
   - service: input_boolean.turn_on
     entity_id: input_boolean.pete_in_bed
   initial_state: true
+  mode: single
 - id: peteisup
   alias: Pete is Up
-  initial_state: true
   trigger:
   - platform: state
     entity_id: binary_sensor.pete_s20_is_charging
@@ -280,9 +226,12 @@
       before: '21:00:00'
   action:
   - service: input_boolean.turn_off
-    entity_id:
-    - input_boolean.pete_in_bed
-    - input_boolean.bedtime
+    target:
+      entity_id:
+      - input_boolean.bedtime
+      - input_boolean.pete_in_bed
+  initial_state: true
+  mode: single
 - id: peteishome
   alias: Pete Is Home
   description: ''
@@ -334,14 +283,15 @@
         Server ({{ as_timestamp(utcnow())|timestamp_utc }})
 - id: haupdate
   alias: HA Update Available Notifications
-  initial_state: true
   trigger:
-    platform: state
+  - platform: state
     entity_id: updater.updater
   action:
-    service: notify.logfile
+  - service: notify.mobile_app_pete_s20
     data:
-      message: SENDME SYSTEM Update for Home Assistant is available on Vision.
+      message: update available
+  initial_state: true
+  mode: single
 - id: rainalertoff
   alias: Rain Alert Bool Turn Off
   description: ''
