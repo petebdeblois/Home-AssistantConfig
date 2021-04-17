@@ -300,7 +300,7 @@
     at: '16:00:00'
   condition:
   - condition: template
-    value_template: '{{ states.weather.maison_2.attributes.forecast[1].precipitation_probability
+    value_template: '{{ states.weather.quebec.attributes.forecast[1].precipitation_probability
       <= 50 }}'
   action:
   - service: input_boolean.turn_off
@@ -315,7 +315,7 @@
     at: '16:00:00'
   condition:
   - condition: template
-    value_template: '{{ states.weather.maison_2.attributes.forecast[1].precipitation_probability
+    value_template: '{{ states.weather.quebec.attributes.forecast[1].precipitation_probability
       >= 51 }}'
   action:
   - service: input_boolean.turn_on

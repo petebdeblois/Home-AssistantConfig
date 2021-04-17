@@ -182,3 +182,12 @@
     - show
   exclude_keywords:
     - kardashian
+
+# https://www.home-assistant.io/integrations/github/
+- platform: github
+  access_token: !secret github_access_token
+  repositories:
+    - path: 'home-assistant/core'
+      name: github.ha_core
+    - path: 'petebdeblois/SQL_inventory_backend'
+      name: github.SQL_backend
