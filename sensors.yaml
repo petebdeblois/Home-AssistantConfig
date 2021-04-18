@@ -191,3 +191,8 @@
       name: github.ha_core
     - path: 'petebdeblois/SQL_inventory_backend'
       name: github.SQL_backend
+
+- platform: google_fit
+  name: Google Fit
+  client_id: !secret googlecalendar_client_id
+  client_secret: !secret googlecalendar_client_secret

@@ -112,7 +112,6 @@ mqtt:
   username: !secret mqtt_user
   password: !secret mqtt_pw
 
-
 # https://www.home-assistant.io/integrations/environment_canada/
 weather:
   - platform: environment_canada
