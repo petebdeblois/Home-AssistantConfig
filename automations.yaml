@@ -394,8 +394,8 @@
   description: ''
   trigger:
   - platform: time
-    at: '11:35:00'
+    at: '11:51:00'
   condition: []
   action:
-    service: shell_command.push
+  - service: shell_command.push
   mode: single

@@ -118,7 +118,7 @@ weather:
   - platform: environment_canada
     station: QC/s0000620
 
-    # https://www.home-assistant.io/integrations/plant/
+# https://www.home-assistant.io/integrations/plant/
 plant:
   max_plant:
     sensors:
