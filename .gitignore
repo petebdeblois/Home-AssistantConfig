@@ -7,7 +7,7 @@
 !*.md
 /appdaemon
 /blueprints
-/custom_components
+
 /themes
 /tts
 
