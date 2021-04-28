@@ -3,6 +3,7 @@ python:
 - "3.7"
 before_install:
 - mv travis_secrets.yaml secrets.yaml
+- mv .travis_ip_authenticated.yaml .ip_authenticated.yaml
 - sudo apt-get install -y libudev-dev
 install:
 - pip3 install homeassistant
