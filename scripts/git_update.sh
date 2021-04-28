@@ -1,15 +1,14 @@
 #!/bin/bash
 
-cd /home/homeassistant/.homeassistant
-source /srv/homeassistant/bin/activate
-hass --script check_config
+# Go to /config folder or 
+# Change this to your Home Assistant config folder if it is different
+cd /config
 
+# Add all files to the repository with respect to .gitignore rules
 git add .
-git status
 
-echo -n "Enter the Description for the Change: " [Minor Update]
-read CHANGE_MSG
+# Commit changes with message with current date stamp
+git commit -m "config files on `date +'%d-%m-%Y %H:%M:%S'`"
 
-git commit -m "${CHANGE_MSG}"
-git push origin master
-exit
+# Push changes towards GitHub
+git push -u origin master

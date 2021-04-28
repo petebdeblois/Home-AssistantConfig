@@ -40,20 +40,26 @@
   initial_state: true
   mode: single
 - id: housebedtime
-  alias: House Bedtime
+  alias: House Bedtime Julie
   trigger:
   - platform: state
     entity_id:
     - input_boolean.julie_in_bed
-    - input_boolean.pete_in_bed
     to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.pete_in_bed
+    state: 'on'
+  - condition: time
+    after: '21:30'
+    before: '5:00'
   action:
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.bedtime
   - service: notify.mobile_app_pete_s20
     data:
-      message: bedtime
+      message: Bedtime!
   initial_state: true
   mode: single
 - id: tempofficebelowoutside
@@ -339,24 +345,26 @@
   variables:
     days: 4
   mode: single
-- id: update_morning_commute_sensor
-  alias: Commute - Update morning commute to coveo
+- id: '1619007437837'
+  alias: House Bedtime Pete
+  description: ''
   trigger:
-  - platform: time_pattern
-    minutes: /10
+  - platform: state
+    entity_id: input_boolean.pete_in_bed
+    to: 'on'
   condition:
+  - condition: state
+    entity_id: input_boolean.julie_in_bed
+    state: 'on'
   - condition: time
-    after: 06:00:00
-    before: 08:00:00
-    weekday:
-    - mon
-    - tue
-    - wed
-    - thu
-    - fri
+    after: '21:30'
+    before: '5:00'
   action:
-  - service: homeassistant.update_entity
+  - service: input_boolean.turn_on
     target:
-      entity_id: sensor.to_coveo
-  initial_state: 'on'
+      entity_id: input_boolean.bedtime
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Bedtime!
   mode: single
+  initial_state: true

@@ -1,25 +1,25 @@
-- platform: ping
-  consider_home: 600
-  hosts:
-    pete_s20_ping: 192.168.2.100
-    julie_s20_ping: 192.168.2.101
+#- platform: ping
+  #consider_home: 600
+  #hosts:
+    #pete_s20_ping: 192.168.2.100
+    #julie_s20_ping: 192.168.2.101
 #    ipad_ping: 192.168.2.103
 #    ps3: 192.168.52.12
 #    ps4: 192.168.52.11
 #    lgtv: 192.168.9.65
 #    nick: 192.168.51.101
 #    shannon: 192.168.51.107
-- platform: ping
-  consider_home: 30
-  hosts:
-    livingroom_ps4: 192.168.2.121
-    switch: 192.168.2.120
-    #den_ps3: 192.168.52.12
+#- platform: ping
+  #consider_home: 60
+  #hosts:
+    #livingroom_ps4: 192.168.2.121
+    #switch: 192.168.2.120
+    #dash_ping: 192.168.52.105
     #den_ps4: 192.168.52.11
     #den_lgtv: 192.168.9.65
     #kids_tv: 192.168.51.108
     #kids_xbox: 192.168.51.105
-#- platform: owntracks_http
+#- platform: ownt inracks_http
 #- platform: gpslogger
 #- platform: unifi
 #  username: !secret unifi_user

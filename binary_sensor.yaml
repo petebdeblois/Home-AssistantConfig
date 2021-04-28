@@ -22,6 +22,18 @@
   host: 192.168.2.151
   name: Hardy
   scan_interval: 60
+- platform: ping
+  host: 192.168.2.105
+  name: Dash
+  scan_interval: 60
+- platform: ping
+  host: 192.168.2.120
+  name: Living Room ps4
+  scan_interval: 60
+- platform: ping
+  host: 192.168.2.121
+  name: Switch
+  scan_interval: 60
 
 - platform: workday
   country: CA

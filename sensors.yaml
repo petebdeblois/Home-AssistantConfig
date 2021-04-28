@@ -32,6 +32,8 @@
 - platform: version
   source: hassio
 
+- platform: version
+
 - platform: authenticated
 #  It creates a sensor called sensor.last_successful_authentication.
 #- platform: authenticated
@@ -196,3 +198,6 @@
   name: Google Fit
   client_id: !secret googlecalendar_client_id
   client_secret: !secret googlecalendar_client_secret
+
+- platform: travisci
+  api_key: !secret github_access_token

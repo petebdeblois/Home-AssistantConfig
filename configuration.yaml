@@ -14,9 +14,10 @@ input_boolean: !include_dir_named input_boolean/
 script: !include scripts.yaml
 scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml
-device_tracker: !include device_tracker.yaml
+#device_tracker: !include device_tracker.yaml
 nintendo_wishlist: !include nintendo_wishlist.yaml
-
+frontend:
+  themes: !include_dir_merge_named themes
 # Text to speech
 tts:
   - platform: google_translate
