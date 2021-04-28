@@ -368,3 +368,25 @@
       message: Bedtime!
   mode: single
   initial_state: true
+- id: l1k3
+  alias: push HA configuration to GitHub repo
+  trigger:
+  # Everyday at 23:23:23 time
+  - at: '10:55:00'
+    platform: time
+  action:
+  - data:
+      addon: addon_a0d7b954_ssh
+      input: /config/git_update.sh
+    service: hassio.addon_stdin
+- id: l1k35
+  alias: push HA configuration to GitHub repo
+  trigger:
+  # Everyday at 23:23:23 time
+  - at: '10:58:00'
+    platform: time
+  action:
+  - data:
+      addon: a0d7b954_ssh
+      input: /config/git_update.sh
+    service: hassio.addon_stdin
