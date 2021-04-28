@@ -1,1 +1,0 @@
-0 2 * * * /bin/bash -c "cd /home/homeassistant/.homeassistant && git add --all && git commit -m 'Daily commit `date`' --quiet &> /dev/null && git push --quiet"
