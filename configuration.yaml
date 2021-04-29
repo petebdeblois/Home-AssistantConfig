@@ -3,7 +3,7 @@ default_config:
 
 
 sensor: !include sensors.yaml
-shell_command: !include lib/shell_command.yaml
+shell_command: !include shell_command.yaml
 group: !include_dir_named groups/
 automation: !include automations.yaml
 input_datetime: !include_dir_named lib/input_datetime/
