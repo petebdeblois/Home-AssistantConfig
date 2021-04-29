@@ -3,19 +3,19 @@ default_config:
 
 
 sensor: !include sensors.yaml
-shell_command: !include shell_command.yaml
+shell_command: !include lib/shell_command.yaml
 group: !include_dir_named groups/
 automation: !include automations.yaml
-input_datetime: !include_dir_named input_datetime/
-input_number: !include_dir_named input_number/
-input_select: !include_dir_named input_select/
+input_datetime: !include_dir_named lib/input_datetime/
+input_number: !include_dir_named lib/input_number/
+input_select: !include_dir_named lib/input_select/
 #input_text: !include_dir_named input_text/
-input_boolean: !include_dir_named input_boolean/
-script: !include scripts.yaml
-scene: !include scenes.yaml
-binary_sensor: !include binary_sensor.yaml
+input_boolean: !include_dir_named lib/input_boolean/
+script: !include lib/scripts.yaml
+scene: !include lib/scenes.yaml
+binary_sensor: !include lib/binary_sensor.yaml
 #device_tracker: !include device_tracker.yaml
-nintendo_wishlist: !include nintendo_wishlist.yaml
+nintendo_wishlist: !include lib/nintendo_wishlist.yaml
 frontend:
   themes: !include_dir_merge_named themes
 # Text to speech
