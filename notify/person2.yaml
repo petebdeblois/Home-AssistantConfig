@@ -1,4 +1,0 @@
-- name: Julie
-  platform: pushover
-  api_key: !secret Julie_pushover_api_key
-  user_key: !secret Julie_pushover_user_key

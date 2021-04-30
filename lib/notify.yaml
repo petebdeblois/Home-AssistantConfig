@@ -1,0 +1,4 @@
+- name: logfile
+  platform: file
+  filename: /config/data/notify.log
+  timestamp: true
