@@ -129,4 +129,6 @@ plant:
       #brightness: sensor.my_sensor_brightness
     min_moisture: 25
     
-
+# Example configuration.yaml entry
+camera:
+  - platform: environment_canada

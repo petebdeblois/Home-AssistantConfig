@@ -101,7 +101,8 @@
     target:
       entity_id: light.office_ceiling_1
     data:
-      rgb_color: (255,0,0)
+      color_name: red
+      brightness_pct: 97
   mode: single
 - id: nintendowishlist
   alias: Nintendo WIshlist
@@ -159,7 +160,7 @@
       entity_id: input_boolean.julie_in_bed
       state: 'off'
     - condition: state
-      entity_id: device_tracker.julie_s20_ping
+      entity_id: device_tracker.julie_s20
       state: home
     - condition: time
       after: '21:00:00'
@@ -168,6 +169,7 @@
   - service: input_boolean.turn_on
     entity_id: input_boolean.julie_in_bed
   initial_state: true
+  mode: single
 - id: julieisup
   alias: Julie is Up
   trigger:
@@ -329,12 +331,17 @@
   condition:
   - condition: template
     value_template: '{{ states.weather.quebec.attributes.forecast[1].precipitation_probability
-      >= 51 }}'
+      >= 35 }}'
   action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Rain is expected, close the window
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.rain_tomorrow
   mode: single
+  variables:
+    days: 4
 - id: rainalert
   alias: Rain Alert
   description: ''
