@@ -97,6 +97,11 @@
     data:
       message: Please water the plant
       title: Plant
+  - service: light.turn_on
+    target:
+      entity_id: light.office_ceiling_1
+    data:
+      rgb_color: (255,0,0)
   mode: single
 - id: nintendowishlist
   alias: Nintendo WIshlist
@@ -444,4 +449,82 @@
         , ''off'') %} midnight_blue {% else %} default {% endif %}
 
         '
+  mode: single
+- id: '1620512797995'
+  alias: Lights - Turn On Office Light 7AM
+  description: urn On Office Light 7AM
+  trigger:
+  - platform: time
+    at: '6:55:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.office_lights
+    data:
+      transition: 60
+  mode: single
+- id: '1620513188057'
+  alias: Lights - Turn Off Office Light 10PM
+  description: Turn Off Office Light 10PM
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.office_lights
+    data:
+      transition: 60
+  mode: single
+- id: '1620513319973'
+  alias: Lights - Turn Off Office Light 10PM (Duplicate)
+  description: Turn Off Office Light 10PM
+  trigger:
+  - platform: time
+    at: '18:41:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.office_lights
+  mode: single
+- id: '1620518831826'
+  alias: Water the Plant (Duplicate)
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.plante_max_moisture_level
+    below: '72'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.office_ceiling_1
+    data:
+      color_name: red
   mode: single

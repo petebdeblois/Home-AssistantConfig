@@ -1,0 +1,11 @@
+
+- platform: group
+  name: Office Lights
+  entities:
+    - light.office_ceiling_1
+    - light.office_ceiling_2
+- platform: group
+  name: All Lights
+  entities:
+    - light.office_ceiling_1
+    - light.office_ceiling_2
