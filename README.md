@@ -30,7 +30,7 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 ## <a name="outlets">Outlets & Switches</a>
 
-| [Go to Menu](#menu) | [Home Screenshot](images/home-screenshot.jpg?raw=true "Home Page") |
+| [Go to Menu](#menu) | 
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
@@ -38,11 +38,10 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 ## <a name="media">Media</a>
 
-| [Go to Menu](#menu) | [Media Screenshot](images/media-screenshot.jpg?raw=true "Media") |
+| [Go to Menu](#menu) |  
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-
 | [Plex Media Server](https://plex.tv) | 1 | Ethernet | [Plex](https://www.home-assistant.io/components/media_player.plex) / [Plex Activity Monitor](https://www.home-assistant.io/components/sensor.plex/) |  Media Server|  
 
 ## <a name="voice">Voice Assistant</a>
