@@ -326,19 +326,15 @@
   alias: Rain Alert Bool Turn On
   description: ''
   trigger:
-  - platform: time
-    at: '16:00:00'
-  condition:
-  - condition: template
-    value_template: '{{ states.weather.quebec.attributes.forecast[1].precipitation_probability
-      >= 35 }}'
+  - platform: state
+    entity_id: sensor.rain_alert_test
+    to: 'on'
+  condition: []
   action:
   - service: notify.mobile_app_pete_s20
     data:
       message: Rain is expected, close the window
-  - service: input_boolean.turn_on
-    target:
-      entity_id: input_boolean.rain_tomorrow
+      title: Rain
   mode: single
   variables:
     days: 4
