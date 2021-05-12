@@ -37,3 +37,39 @@
 
 - platform: workday
   country: CA
+
+- platform: template
+  sensors:
+    rain_alert:
+      value_template: >-
+        {% set D0 = states.weather.openweathermap.attributes.forecast[0].precipitation_probability | int %}
+        {% set D1 = states.weather.openweathermap.attributes.forecast[1].precipitation_probability | int %}
+        {% set D2 = states.weather.openweathermap.attributes.forecast[2].precipitation_probability | int %}
+        {% set D3 = states.weather.openweathermap.attributes.forecast[3].precipitation_probability | int %}
+        {% set D4 = states.weather.openweathermap.attributes.forecast[4].precipitation_probability | int %}
+        {% set D5 = states.weather.openweathermap.attributes.forecast[5].precipitation_probability | int %}
+        {% set D6 = states.weather.openweathermap.attributes.forecast[6].precipitation_probability | int %}
+        {% set D7 = states.weather.openweathermap.attributes.forecast[7].precipitation_probability | int %}
+        {% set D8 = states.weather.openweathermap.attributes.forecast[8].precipitation_probability | int %}
+        {% set D9 = states.weather.openweathermap.attributes.forecast[9].precipitation_probability | int %}
+        {% set D10 = states.weather.openweathermap.attributes.forecast[10].precipitation_probability | int %}
+        {% set D11 = states.weather.openweathermap.attributes.forecast[11].precipitation_probability | int %}
+        {% if D0 > 50 %} on
+        {% elif D1 > 50 %} on
+        {% elif D2 > 60 %} on
+        {% elif D3 > 70 %} on
+        {% elif D4 > 73 %} on
+        {% elif D5 > 75 %} on
+        {% elif D6 > 75 %} on
+        {% elif D7 > 75 %} on
+        {% elif D8 > 75 %} on
+        {% elif D9 > 90 %} on
+        {% elif D10 > 90 %} on
+        {% elif D11 > 90 %} on
+        {% elif (D1+D2+D3+D4+D5) > 100 %} on
+        {% else %} off
+        {% endif %}
+      icon_template: >
+          {% if is_state('binary_sensor.rain_alert','on') %} mdi:weather-pouring
+          {% else %} mdi:weather-sunny
+          {% endif %}

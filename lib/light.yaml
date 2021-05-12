@@ -5,7 +5,14 @@
     - light.office_ceiling_1
     - light.office_ceiling_2
 - platform: group
+  name: Living Room Lights
+  entities:
+    - light.living_room_lamp_1
+    - light.living_room_lamp_2
+- platform: group
   name: All Lights
   entities:
     - light.office_ceiling_1
     - light.office_ceiling_2
+    - light.living_room_lamp_1
+    - light.living_room_lamp_2
