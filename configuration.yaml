@@ -133,3 +133,26 @@ plant:
 # Example configuration.yaml entry
 camera:
   - platform: environment_canada
+# https://www.home-assistant.io/integrations/todoist/
+calendar:
+  - platform: todoist
+    token: !secret todoist_api
+    custom_projects:
+      - name: 'All Projects'
+      - name: 'Due Today'
+        due_date_days: 0
+      - name: 'Due This Week'
+        due_date_days: 7
+      - name: 'Due Next 30 days'
+        due_date_days: 30
+      - name: 'GCal'
+        labels:
+          - GCal
+
+# https://github.com/grinstantin/todoist-card
+rest_command:
+  todoist:
+    method: post
+    url: 'https://api.todoist.com/sync/v8/sync'
+    payload: !secret todoist_api_payload
+    content_type: 'application/x-www-form-urlencoded'

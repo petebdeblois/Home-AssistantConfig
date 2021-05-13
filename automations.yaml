@@ -10,6 +10,11 @@
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.home_occupied
+  - service: light.turn_off
+    data:
+      transition: 37
+    target:
+      entity_id: light.all_lights
   initial_state: true
   mode: single
 - id: homeoccupied
@@ -75,8 +80,8 @@
   action:
   - service: tts.google_translate_say
     data:
-      entity_id: media_player.kitchenmini
       message: Your plant need water
+      entity_id: media_player.officemini
   - service: notify.mobile_app_pete_s20
     data:
       message: Please water the plant
@@ -379,8 +384,8 @@
         '
   mode: single
 - id: '1620512797995'
-  alias: Lights - Turn On Office Light 7AM
-  description: urn On Office Light 7AM
+  alias: 'Lights - Office Light 7AM -> Turn On '
+  description: Turn On Office Light 7AM
   trigger:
   - platform: time
     at: 06:55:00
@@ -397,7 +402,9 @@
     target:
       entity_id: light.office_lights
     data:
-      transition: 60
+      transition: 0
+      brightness_pct: 100
+      color_temp: 252
   mode: single
 - id: '1620513188057'
   alias: Lights - Turn Off Office Light 10PM
@@ -467,7 +474,7 @@
     data:
       transition: 10
       color_temp: 447
-      brightness_pct: 65
+      brightness_pct: 40
     target:
       entity_id: light.living_room_lamps
   mode: single
@@ -482,15 +489,12 @@
   - condition: state
     entity_id: sun.sun
     state: below_horizon
-  - condition: state
-    entity_id: input_boolean.disable_media_lights
-    state: 'off'
   action:
   - service: light.turn_on
     data:
-      transition: 5
       color_temp: 447
-      brightness_pct: 10
+      transition: 15
+      brightness_pct: 1
     target:
       entity_id: light.living_room_lights
   mode: single

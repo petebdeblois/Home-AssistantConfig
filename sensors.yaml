@@ -206,3 +206,49 @@
   - last_build_finished_at
   - last_build_started_at
   - last_build_duration
+
+# https://github.com/grinstantin/todoist-card
+- platform: rest
+  name: To-do Finance
+  method: GET
+  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
+  params:
+    token: !secret todoist_api
+    project_id: 1767426044
+  value_template: '{{value_json[''project''][''id'']}}'
+  json_attributes:
+    - items
+  scan_interval: 60
+- platform: rest
+  name: To-do Errands
+  method: GET
+  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
+  params:
+    token: !secret todoist_api
+    project_id: 1767426042
+  value_template: '{{value_json[''project''][''id'']}}'
+  json_attributes:
+    - items
+  scan_interval: 60
+- platform: rest
+  name: To-do Home
+  method: GET
+  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
+  params:
+    token: !secret todoist_api
+    project_id: 1767426041
+  value_template: '{{value_json[''project''][''id'']}}'
+  json_attributes:
+    - items
+  scan_interval: 60
+- platform: rest
+  name: To-do Dev
+  method: GET
+  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
+  params:
+    token: !secret todoist_api
+    project_id: 2265408384
+  value_template: '{{value_json[''project''][''id'']}}'
+  json_attributes:
+    - items
+  scan_interval: 60
