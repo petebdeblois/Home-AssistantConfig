@@ -50,6 +50,19 @@ proximity:
       - work
     devices:
       - device_tracker.pete_s20
+      - device_tracker.julie_s20
+    tolerance: 50
+    unit_of_measurement: km
+  julie:
+    zone: home
+    devices:
+      - device_tracker.julie_s20
+    tolerance: 50
+    unit_of_measurement: km
+  pete:
+    zone: home
+    devices:
+      - device_tracker.pete_s20
     tolerance: 50
     unit_of_measurement: km
 #history:

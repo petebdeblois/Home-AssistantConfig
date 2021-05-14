@@ -4,3 +4,5 @@ media_player.playstation_4_living:
   friendly_name: PlayStation 4 Living
 media_player.playstation_4:
   friendly_name: PlayStation 4 Master
+zone.home:
+  radius: 200

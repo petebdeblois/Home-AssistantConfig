@@ -2,10 +2,9 @@
   alias: Home - Not occupied
   trigger:
   - platform: state
-    entity_id: device_tracker.julie_s20
-    from: home
-  - platform: state
-    entity_id: device_tracker.pete_s20
+    entity_id:
+    - device_tracker.julie_s20
+    - device_tracker.pete_s20
     from: home
   action:
   - service: input_boolean.turn_off
@@ -402,7 +401,6 @@
     target:
       entity_id: light.office_lights
     data:
-      transition: 0
       brightness_pct: 100
       color_temp: 252
   mode: single
@@ -463,12 +461,8 @@
     entity_id: media_player.playstation_4_living
     to: standby
   condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  - condition: state
-    entity_id: input_boolean.watching_tv
-    state: 'on'
+  - condition: time
+    after: '18:00:00'
   action:
   - service: light.turn_on
     data:
@@ -486,9 +480,8 @@
     to: playing
     for: 0:00:05
   condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+  - condition: time
+    after: '18:45:00'
   action:
   - service: light.turn_on
     data:
@@ -497,6 +490,9 @@
       brightness_pct: 1
     target:
       entity_id: light.living_room_lights
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.watching_tv
   mode: single
 - id: media_turn_off_watching_plex_boolean
   alias: Media - Turn Off Watching Plex Boolean
@@ -531,4 +527,69 @@
       entity_id: light.all_lights
     data:
       transition: 5
+  mode: single
+- id: Home_Nearly_Home_Ligths_on
+  alias: Home - Nearly Home -> Ligths on
+  trigger:
+  - platform: zone
+    entity_id:
+    - device_tracker.pete_s20
+    - device_tracker.julie_s20
+    zone: zone.home
+    event: enter
+  condition:
+  - condition: state
+    entity_id: input_boolean.home_occupied
+    state: 'off'
+    for: 00:10:00
+  - condition: time
+    after: '18:00:00'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.living_room_lights
+    data:
+      transition: 15
+      color_temp: 420
+      brightness_pct: 10
+  mode: single
+- id: '1620924425457'
+  alias: TEST - Home - Nearly Home -> Ligths on
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.julie_s20
+    zone: zone.home
+    event: enter
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      color_name: darkmagenta
+    target:
+      entity_id:
+      - light.office_ceiling_1
+      - light.office_ceiling_2
+  mode: single
+- id: '1620948261153'
+  alias: Media - 18h45 Started -> Lights Tame
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:45:00'
+  condition:
+  - condition: state
+    entity_id: media_player.playstation_4_living
+    state: playing
+  action:
+  - service: light.turn_on
+    data:
+      color_temp: 447
+      transition: 15
+      brightness_pct: 1
+    target:
+      entity_id: light.living_room_lights
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.watching_tv
   mode: single
