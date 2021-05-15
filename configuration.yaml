@@ -146,7 +146,10 @@ plant:
 # Example configuration.yaml entry
 camera:
   - platform: environment_canada
+  
+##########################################################
 # https://www.home-assistant.io/integrations/todoist/
+##########################################################
 calendar:
   - platform: todoist
     token: !secret todoist_api
@@ -162,10 +165,55 @@ calendar:
         labels:
           - GCal
 
+
+##########################################################
 # https://github.com/grinstantin/todoist-card
+##########################################################
 rest_command:
   todoist:
     method: post
     url: 'https://api.todoist.com/sync/v8/sync'
     payload: !secret todoist_api_payload
     content_type: 'application/x-www-form-urlencoded'
+
+
+
+ourgroceries:
+  username: !secret email
+  password: !secret password
+
+##########################################################
+# https://github.com/burnnat/ha-polar/blob/master/info.md
+##########################################################
+# polar:
+#     client_id: !secret polar_id
+#     client_secret: !secret polar_secret
+#     unit_system: metric # Defaults to global unit_system if not specified
+#     monitored_resources:
+#         daily_activity:
+#             - "calories"
+#             - "duration"
+#             - "active-calories"
+#             - "active-steps"
+#         training_data:
+#             - "calories"
+#             - "club-id"
+#             - "club-name"
+#             - "detailed-sport-info"
+#             - "device"
+#             - "distance"
+#             - "duration"
+#             - "has-route"
+#             - "heart-rate/average"
+#             - "heart-rate/maximum"
+#             - "start-time"
+#             - "sport"
+#             - "training-load"
+#         physical_info:
+#             - "aerobic-threshold"
+#             - "anaerobic-threshold"
+#             - "height"
+#             - "maximum-heart-rate"
+#             - "resting-heart-rate"
+#             - "vo2-max"
+#             - "weight"

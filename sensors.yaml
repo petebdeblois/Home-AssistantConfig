@@ -252,3 +252,40 @@
   json_attributes:
     - items
   scan_interval: 60
+
+
+# https://github.com/custom-components/feedparser
+- platform: feedparser
+  name: News Rad Can Grands Titres
+  feed_url: 'https://ici.radio-canada.ca/rss/4159'
+  date_format: '%a, %b %d %I:%M %p'
+  inclusions:
+    - title
+    - link
+    - description
+    - pubDate
+  exclusions:
+    - language
+
+- platform: feedparser
+  name: News F1.com
+  feed_url: 'https://www.formula1.com/content/fom-website/en/latest/all.xml'
+  date_format: '%a, %b %d %I:%M %p'
+  inclusions:
+    - title
+    - link
+    - description
+  exclusions:
+    - guid
+- platform: feedparser
+  name: News MMA Fighting
+  feed_url: 'https://www.mmafighting.com/rss/current'
+  date_format: '%a, %b %d %I:%M %p'
+  inclusions:
+    - title
+    - link
+    - description
+    - published
+    - link
+  exclusions:
+    - updated
