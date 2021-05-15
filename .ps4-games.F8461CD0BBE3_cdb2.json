@@ -22,5 +22,11 @@
         "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/ca/en/999/CUSA15607_00/image",
         "media_content_type": "app",
         "locked": false
+    },
+    "CUSA00130": {
+        "media_title": "Amazon Prime Video",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/ca/en/999/CUSA00130_00/image",
+        "media_content_type": "app",
+        "locked": false
     }
 }

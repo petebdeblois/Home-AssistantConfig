@@ -593,3 +593,58 @@
     target:
       entity_id: input_boolean.watching_tv
   mode: single
+- id: '1621121277976'
+  alias: Climate - Temp Above 30 - Turn on
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.office_temperature
+    above: '30'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.office_fan
+  mode: single
+- id: '1621121415545'
+  alias: Climate - Temp Below 30 - Turn Off
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.office_temperature
+    below: '30'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.office_fan
+  mode: single
+- id: '1621121821192'
+  alias: Climate - Fan - Aeration
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  - platform: time
+    at: '13:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.office_fan
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_off
+    target:
+      entity_id: switch.office_fan
+  mode: single

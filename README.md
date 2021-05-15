@@ -34,7 +34,7 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| | 0 | Wi-Fi | |  |
+| [Globe Electrics Wifi Switch](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 1 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
 
 ## <a name="media">Media</a>
 
