@@ -44,6 +44,16 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 | ------------- | :---: | ------------- | ------------- | ------------- |
 | [Plex Media Server](https://plex.tv) | 1 | Ethernet | [Plex](https://www.home-assistant.io/components/media_player.plex) / [Plex Activity Monitor](https://www.home-assistant.io/components/sensor.plex/) |  Media Server|  
 
+## <a name="media">Arduino Related</a>
+
+| [Go to Menu](#menu) |  
+
+| Device  | Quantity | Connection | Home Assistant | Notes |
+| ------------- | :---: | ------------- | ------------- | ------------- |
+| [Wemos D1 Mini Pro]() | 3 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  ESP8266 | 
+| [Temperature Sensor]() | 3 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  BME280 |
+| [Soil Humidity Sensor]() | 1 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  BME280 | 
+
 ## <a name="voice">Voice Assistant</a>
 
 | [Go to Menu](#menu) |
