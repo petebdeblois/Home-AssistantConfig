@@ -648,3 +648,19 @@
     target:
       entity_id: switch.office_fan
   mode: single
+- id: '1621213114790'
+  alias: People - Aurelie - Pils
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:58:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.kids_week
+    state: 'on'
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.home
+      message: Aurelie, its time to focus
+  mode: single
