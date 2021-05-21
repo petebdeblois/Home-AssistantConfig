@@ -597,7 +597,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.office_temperature
-    above: '30'
+    above: '27'
   condition: []
   action:
   - service: switch.turn_on
@@ -610,7 +610,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.office_temperature
-    below: '30'
+    below: '27'
   condition: []
   action:
   - service: switch.turn_off
