@@ -40,5 +40,11 @@
         "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/ca/en/999/CUSA01015_00/image",
         "media_content_type": "app",
         "locked": false
+    },
+    "CUSA10938": {
+        "media_title": "Shadow of the Tomb Raider",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/ca/en/999/CUSA10938_00/image",
+        "media_content_type": "game",
+        "locked": false
     }
 }
