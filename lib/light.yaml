@@ -16,3 +16,8 @@
     - light.office_ceiling_2
     - light.living_room_lamp_1
     - light.living_room_lamp_2
+- platform: group
+  name: Simulation lights
+  entities:
+    - light.office_ceiling_1 # Lamp friendly name A ..
+    - light.living_room_lamp_1 # Lamp friendly name B ..

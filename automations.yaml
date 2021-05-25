@@ -662,3 +662,25 @@
       entity_id: media_player.home
       message: Aurelie, its time to focus
   mode: single
+- id: '243214321423423423'
+  alias: Lights - Random Away Lights
+  description: https://community.home-assistant.io/t/holiday-vacation-mode/151426/21
+  trigger:
+  - platform: time_pattern
+    minutes: /15
+  condition:
+  - condition: sun
+    after: sunset
+    after_offset: -00:30:00
+  - condition: time
+    before: '23:00:00'
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'on'
+  action:
+  - service: script.light_duration
+    data:
+      light: '{{states.light.simulation_lights.attributes.entity_id | random}}'
+      duration: 00:{{ '{:02}'.format(range(5,30) | random | int) }}:00
+  mode: parallel
+  max: 5
