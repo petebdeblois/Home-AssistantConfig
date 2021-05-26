@@ -8,31 +8,31 @@ zone.home:
   radius: 200
 sensor.hydroquebec_balance:
   friendly_name: Hydro Quebec Balance
-sensor.hydroquebec_311993189_period_average_temperature:
+sensor.hydroquebec_period_average_temperature:
   friendly_name: Hydro Quebec Period Avg Temp
-sensor.hydroquebec_311993189_period_higher_price_consumption:
+sensor.hydroquebec_period_higher_price_consumption:
   friendly_name: Hydro Quebec Period Higher Price Consumption
-sensor.hydroquebec_311993189_period_length:
+sensor.hydroquebec_period_length:
   friendly_name: Hydro Quebec Period Length
-sensor.hydroquebec_311993189_period_lower_price_consumption:
+sensor.hydroquebec_period_lower_price_consumption:
   friendly_name: Hydro Quebec Period Lower Price Consumption
-sensor.hydroquebec_311993189_period_mean_daily_bill:
+sensor.hydroquebec_period_mean_daily_bill:
   friendly_name: Hydro Quebec Period Mean Daily Bill
-sensor.hydroquebec_311993189_period_projection:
+sensor.hydroquebec_period_projection:
   friendly_name: Hydro Quebec Period Projection
-sensor.hydroquebec_311993189_period_mean_daily_consumption:
+sensor.hydroquebec_period_mean_daily_consumption:
   friendly_name: Hydro Quebec Period Mean Daily Consumption
-sensor.hydroquebec_311993189_period_total_bill:
+sensor.hydroquebec_period_total_bill:
   friendly_name: Hydro Quebec Period Total Bill
-sensor.hydroquebec_311993189_period_total_consumption:
+sensor.hydroquebec_period_total_consumption:
   friendly_name: Hydro Quebec Period Total Consumption
-sensor.hydroquebec_311993189_period_total_days:
+sensor.hydroquebec_period_total_days:
   friendly_name: Hydro Quebec Period Total Days
-sensor.hydroquebec_311993189_yesterday_average_temperature:
+sensor.hydroquebec_yesterday_average_temperature:
   friendly_name: Hydro Quebec Yesterday Average Temperature
-sensor.hydroquebec_311993189_yesterday_higher_price_consumption:
+sensor.hydroquebec_yesterday_higher_price_consumption:
   friendly_name: Hydro Quebec Yesterday Higher Price Consumption
-sensor.hydroquebec_311993189_yesterday_total_consumption:
+sensor.hydroquebec_yesterday_total_consumption:
   friendly_name: Hydro Quebec Yesterday Total Consumption
-sensor.hydroquebec_311993189_yesterday_lower_price_consumption:
+sensor.hydroquebec_yesterday_lower_price_consumption:
   friendly_name: Hydro Quebec Yesterday Lower Price Consumption
