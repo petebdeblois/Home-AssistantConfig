@@ -1,7 +1,7 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 homeassistant:
-  customize: !include customize.yaml
+  customize: !include lib/customize.yaml
 
 #customize: !include customize.yaml
 light: !include lib/light.yaml

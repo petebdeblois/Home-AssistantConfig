@@ -50,9 +50,9 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| [Wemos D1 Mini Pro]() | 3 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  ESP8266 | 
-| [Temperature Sensor]() | 3 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  BME280 |
-| [Soil Humidity Sensor]() | 1 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  BME280 | 
+| [Wemos D1 Mini Pro](https://www.electromike.com/wemos-d1-mini-arduino-wemos-d1.html) | 3 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  ESP8266 | 
+| [Temperature Sensor](https://www.electromike.com/bme280-capteur-numerique-temperature-humidite-pression-barometrique-arduino-mod-bme280.html) | 3 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  BME280 |
+| [Soil Humidity Sensor](https://www.electromike.com/capteur-d-humidite-pour-le-sol-compatible-arduino-arduino-sens-soil.html) | 1 | Wifi | [ESPHome](https://esphome.io/guides/getting_started_hassio.html) |  BME280 | 
 
 ## <a name="voice">Voice Assistant</a>
 
