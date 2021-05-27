@@ -684,3 +684,22 @@
       duration: 00:{{ '{:02}'.format(range(5,30) | random | int) }}:00
   mode: parallel
   max: 5
+- id: '1622042235333'
+  alias: Home - Water the Plant - Turn Off Red
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.plante_max_moisture_level
+    above: '25'
+  condition:
+  - condition: sun
+    before: sunset
+  action:
+  - service: tts.google_translate_say
+    data:
+      message: Your plant doesn't need water anymore
+      entity_id: media_player.officemini
+  - service: light.turn_off
+    target:
+      entity_id: light.office_ceiling_1
+  mode: single
