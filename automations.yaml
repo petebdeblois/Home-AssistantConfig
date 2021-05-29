@@ -703,3 +703,19 @@
     target:
       entity_id: light.office_ceiling_1
   mode: single
+- id: '1622257539223'
+  alias: Home - Turn off holiday mode
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.adults
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.holiday_mode
+  mode: single
