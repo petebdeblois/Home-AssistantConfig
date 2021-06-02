@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, date
 """
 Time test script 
 """
-@time_trigger("once(14:39:00)")
+@time_trigger("once(08:00:00)")
 def update_history_hydro():
 
 

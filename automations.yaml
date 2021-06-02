@@ -325,10 +325,7 @@
   - platform: state
     entity_id: binary_sensor.wan
     to: 'off'
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
+    for: 0:01:00
   condition: []
   action:
   - service: persistent_notification.create
@@ -336,6 +333,10 @@
       message: Internet Down
       title: Wan
       notification_id: '1'
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Network is down
+      title: ALERT
   mode: single
 - id: '1619632671274'
   alias: Network - Up
@@ -344,10 +345,7 @@
   - platform: state
     entity_id: binary_sensor.wan
     to: 'on'
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
+    for: 0:01:00
   condition: []
   action:
   - service: persistent_notification.create
@@ -355,6 +353,9 @@
       message: Internet Up
       title: Wan
       notification_id: '1'
+  - service: notify.mobile_app_pete_s20
+    data:
+      title: ALL GOOD
   mode: single
 - id: '1619659073387'
   alias: HA - Set HA theme
@@ -524,10 +525,10 @@
     target:
       entity_id: light.all_lights
     data:
-      transition: 5
+      transition: 10
   mode: single
 - id: Home_Nearly_Home_Ligths_on
-  alias: Home - Nearly Home -> Ligths on
+  alias: Lights - Nearly Home -> on
   trigger:
   - platform: zone
     entity_id:
@@ -651,7 +652,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:58:00
+    at: 06:55:00
   condition:
   - condition: state
     entity_id: input_boolean.kids_week
@@ -718,4 +719,25 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.holiday_mode
+  mode: single
+- id: '1622590818527'
+  alias: Lights - Kids Closet ON
+  description: ''
+  trigger:
+  - platform: time
+    at: '16:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.kids_week
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.kids_closet
+    data:
+      brightness_pct: 5
+      kelvin: 2600
   mode: single

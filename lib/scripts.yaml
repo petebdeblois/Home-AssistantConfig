@@ -1,0 +1,28 @@
+turn_on_office_light:
+  alias: Office lights on
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: light.office_lights
+    data:
+      brightness: 50
+  mode: single
+light_duration:
+  alias: light duration
+  mode: parallel
+  description: Turns on a light for a while, and then turns it off
+  fields:
+    light:
+      description: A specific light
+      example: light.simulation_lights
+    duration:
+      description: How long the light should be on in minutes
+      example: '25'
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: '{{ light }}'
+  - delay: '{{ duration }}'
+  - service: light.turn_off
+    data:
+      entity_id: '{{ light }}'
