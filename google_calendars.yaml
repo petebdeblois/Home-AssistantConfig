@@ -61,3 +61,10 @@
     ignore_availability: true
     name: 'OFFICIAL UFC SCHEDULE - CANADA '
     track: true
+
+- cal_id: k4a83o5o33qpulo5dqhoospr1lob2qf6@import.calendar.google.com
+  entities:
+  - device_id: calendar
+    ignore_availability: true
+    name: Calendar
+    track: true

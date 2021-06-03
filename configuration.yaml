@@ -1,6 +1,9 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
+homeassistant:
+  customize: !include lib/customize.yaml
 
+#customize: !include customize.yaml
 light: !include lib/light.yaml
 notify: !include lib/notify.yaml
 sensor: !include sensors.yaml
@@ -47,6 +50,19 @@ proximity:
   home:
     ignored_zones:
       - work
+    devices:
+      - device_tracker.pete_s20
+      - device_tracker.julie_s20
+    tolerance: 50
+    unit_of_measurement: km
+  julie:
+    zone: home
+    devices:
+      - device_tracker.julie_s20
+    tolerance: 50
+    unit_of_measurement: km
+  pete:
+    zone: home
     devices:
       - device_tracker.pete_s20
     tolerance: 50
@@ -132,3 +148,74 @@ plant:
 # Example configuration.yaml entry
 camera:
   - platform: environment_canada
+  
+##########################################################
+# https://www.home-assistant.io/integrations/todoist/
+##########################################################
+calendar:
+  - platform: todoist
+    token: !secret todoist_api
+    custom_projects:
+      - name: 'All Projects'
+      - name: 'Due Today'
+        due_date_days: 0
+      - name: 'Due This Week'
+        due_date_days: 7
+      - name: 'Due Next 30 days'
+        due_date_days: 30
+      - name: 'GCal'
+        labels:
+          - GCal
+
+
+##########################################################
+# https://github.com/grinstantin/todoist-card
+##########################################################
+rest_command:
+  todoist:
+    method: post
+    url: 'https://api.todoist.com/sync/v8/sync'
+    payload: !secret todoist_api_payload
+    content_type: 'application/x-www-form-urlencoded'
+
+
+
+ourgroceries:
+  username: !secret email
+  password: !secret password
+
+##########################################################
+# https://github.com/burnnat/ha-polar/blob/master/info.md
+##########################################################
+# polar:
+#     client_id: !secret polar_id
+#     client_secret: !secret polar_secret
+#     unit_system: metric # Defaults to global unit_system if not specified
+#     monitored_resources:
+#         daily_activity:
+#             - "calories"
+#             - "duration"
+#             - "active-calories"
+#             - "active-steps"
+#         training_data:
+#             - "calories"
+#             - "club-id"
+#             - "club-name"
+#             - "detailed-sport-info"
+#             - "device"
+#             - "distance"
+#             - "duration"
+#             - "has-route"
+#             - "heart-rate/average"
+#             - "heart-rate/maximum"
+#             - "start-time"
+#             - "sport"
+#             - "training-load"
+#         physical_info:
+#             - "aerobic-threshold"
+#             - "anaerobic-threshold"
+#             - "height"
+#             - "maximum-heart-rate"
+#             - "resting-heart-rate"
+#             - "vo2-max"
+#             - "weight"
