@@ -402,6 +402,9 @@
     data:
       brightness_pct: 65
       color_temp: 252
+  - service: switch.turn_on
+    target:
+      entity_id: switch.office_screens
   mode: single
 - id: '1620513188057'
   alias: Lights - Turn Off Office Light 10PM
@@ -526,6 +529,11 @@
       entity_id: light.all_lights
     data:
       transition: 10
+  - service: switch.turn_off
+    target:
+      entity_id:
+      - switch.office_fan
+      - switch.office_screens
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on

@@ -5,6 +5,7 @@ homeassistant:
 
 #customize: !include customize.yaml
 light: !include lib/light.yaml
+#switch: !include lib/switch.yaml
 notify: !include lib/notify.yaml
 sensor: !include sensors.yaml
 shell_command: !include shell_command.yaml
