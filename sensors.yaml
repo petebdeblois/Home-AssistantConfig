@@ -294,18 +294,6 @@
   clock_format: 24H
   unit_system: en_US
   monitored_resources:
-  - "body/weight"
-  - "activities/activityCalories"
-  - "activities/calories"
-  - "activities/caloriesBMR"
-  - "activities/elevation"
-  - "activities/floors"
-  - "activities/heart"
-  - "activities/minutesFairlyActive"
-  - "activities/minutesLightlyActive"
-  - "activities/minutesSedentary"
-  - "activities/minutesVeryActive"
-  - "activities/steps"
   - "activities/tracker/activityCalories"
   - "activities/tracker/calories"
   - "activities/tracker/distance"
