@@ -749,3 +749,16 @@
       brightness_pct: 5
       kelvin: 2600
   mode: single
+- id: '1622931804356'
+  alias: Home - Julie leaves Cochon
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.julie_s20
+    from: Cochon
+  condition: []
+  action:
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: She is coming home
+  mode: single
