@@ -304,6 +304,7 @@
   - "activities/tracker/minutesSedentary"
   - "activities/tracker/minutesVeryActive"
   - "activities/tracker/steps"
+  - "activities/heart"
   - "body/bmi"
   - "body/fat"
   - "body/weight"
