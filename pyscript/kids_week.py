@@ -1,5 +1,5 @@
 import datetime
-@time_trigger("once(friday)")
+@time_trigger("once(friday + 18 hours)")
 def manage_kids_week():
     day = datetime.datetime.today().weekday()
     week = datetime.datetime.today().isocalendar()[1]
