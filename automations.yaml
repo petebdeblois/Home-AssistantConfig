@@ -765,3 +765,22 @@
     data:
       message: She is coming home
   mode: single
+- id: '1623619226791'
+  alias: Infra - Lights -> unavailable
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.office_ceiling_1,light.office_ceiling_2 ,light.living_room_lamp_1,light.living_room_lamp_2
+      ,light.kids_closet
+    to: unavailable
+  condition: []
+  action:
+  - service: persistent_notification.create
+    data:
+      message: There is a light unavailable
+      title: Light unavailable
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: There is a light unavailable
+      title: There is a light unavailable
+  mode: single
