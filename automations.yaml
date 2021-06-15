@@ -663,7 +663,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:55:00
+    at: 06:40:00
   condition:
   - condition: state
     entity_id: input_boolean.kids_week
