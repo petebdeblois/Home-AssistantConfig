@@ -24,7 +24,8 @@ My personal [Home Assistant Container](https://home-assistant.io) configurations
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| [Globe Electrics A19 LED Light Smart Bulb 10 W](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-paquet-de-2-4201085) | 4 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
+| [Globe Electrics A19 LED Light Smart Bulb 10 W RGB](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-paquet-de-2-4201085) | 4 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
+| [Globe Electrics A19 LED Light Smart Bulb 10 W](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-4141360) | 1 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
 
 Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-AssistantConfig/blob/master/lib/light.yaml)
 
@@ -34,7 +35,7 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| [Globe Electrics Wifi Switch](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 1 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
+| [Globe Electrics Wifi Switch](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
 
 ## <a name="media">Media</a>
 
