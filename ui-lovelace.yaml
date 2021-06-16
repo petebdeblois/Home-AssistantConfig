@@ -1,0 +1,4 @@
+# https://github.com/bramkragten/swipe-card
+resources:
+  - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
+    type: module
