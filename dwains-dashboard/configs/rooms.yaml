@@ -1,0 +1,81 @@
+# https://dwainscheeren.github.io/dwains-lovelace-dashboard/configuration/rooms.html
+
+rooms:
+  - name: Office
+    icon: mdi:chair-school
+    light: light.office_lights
+    temperature: sensor.office_temperature
+    #climate: climate.hallway_climate
+    humidity: sensor.office_humidity
+    pressure: sensor.office_pressure
+    #motion: binary_sensor.hallway_sensor_motion
+    #door: binary_sensor.hallway_door_contact
+    #window: binary_sensor.hallway_window_contact
+    #safety: sensor.smoke_sensor
+    device: group.office_switches
+    #vacuum: 
+      #entity: vacuum.rockrobo
+      #camera: camera.rockrobo_map
+    plant: plant.max_plant
+    media_player: media_player.plex_plex_web_chrome_windows
+    #more_entities:
+      #entities:
+        #- entity: sensor.office_pressure
+  - name: Living Room
+    icon: mdi:sofa-outline
+    light: light.living_room_lights
+    temperature: sensor.living_room_temperature
+    humidity: sensor.living_room_humidity
+    pressure: sensor.living_room_pressure
+    media_player: media_player.playstation_4_master
+    #door: group.garage_doors
+    #addons:
+    #  - name: Hello room
+    #    icon: mdi:puzzle
+    #    path: 'dwains-dashboard/addons/rooms/hello-room/page.yaml'
+    #    button_path: 'dwains-dashboard/addons/rooms/hello-room/button.yaml'
+    #    data:
+    #      some_data: 'This is some data parsed.'
+    #      some_other_data: 'and some other data.'
+    #      entity: vacuum.roborock
+  - name: Master
+    icon: mdi:bed
+    temperature: sensor.bedroom_temperature
+    #climate: climate.hallway_climate
+    humidity: sensor.bedroom_humidity
+    #media_player: 
+    #  - media_player.master_bedroom_speaker
+    #  - media_player.playstation_4_master
+    #  - media_player.plex_plex_for_roku_bedroom
+    more_entities:
+      columns: 2 #optional
+      entities:
+        - entity: sensor.bedroom_pressure
+    #    - entity: sensor.name2
+    #page_entities:
+    #  columns: 1 #optional
+    #  entities:
+    #    - entity: sensor.name1
+    #    - entity: sensor.name2
+  - name: Kids
+    icon: mdi:account-child
+    light: light.kids_lights
+    #temperature: sensor.bedroom_temperature
+    #climate: climate.hallway_climate
+    #humidity: sensor.bedroom_humidity
+    #media_player: 
+    #  - media_player.master_bedroom_speaker
+    #  - media_player.playstation_4_master
+    #  - media_player.plex_plex_for_roku_bedroom
+    #more_entities:
+    #  columns: 2 #optional
+    #  entities:
+    #    - entity: sensor.name1
+    #    - entity: sensor.name2
+    #page_entities:
+    #  columns: 1 #optional
+    #  entities:
+    #    - entity: sensor.name1
+    #    - entity: sensor.name2
+  - name: Bathroom
+    icon: mdi:paper-roll

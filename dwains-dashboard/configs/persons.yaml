@@ -1,0 +1,47 @@
+# https://dwainscheeren.github.io/dwains-lovelace-dashboard/configuration/persons.html
+
+persons: 
+  - name: Pete
+    track: person.pierre
+#    more_entities:
+#      columns: 1 #optional
+#      entities:
+#        - entity: sensor.tracker_steps
+#        - entity: sensor.pete_s20_steps_sensor
+    page_entities:
+      columns: 2 #optional
+      entities:
+        - entity: sensor.tracker_steps
+        - entity: sensor.pete_p20_battery_level
+#     addons:
+#       - name: Test addon
+#         icon: fas:chart-area
+#         path: 'dwains-dashboard/addons/persons/test/test.yaml'
+#         data:
+#           battery_level: sensor.battery_level
+  - name: Julie
+    track: person.julie
+    more_entities:
+      columns: 1 #optional
+      entities:
+        - entity: sensor.julie_s20_capteur_de_pas
+  - name: Aurelie
+    track: person.aurelie
+    page_entities:
+      columns: 2 #optional
+      entities:
+        - entity: sensor.aurelie_p20_battery_level
+    more_entities:
+      columns: 1 #optional
+      #entities:
+        #- entity: sensor.julie_s20_capteur_de_pas
+  - name: Chloe
+    track: person.chloe
+    page_entities:
+      columns: 2 #optional
+      entities:
+        - entity: sensor.chloe_p20_battery_level
+    more_entities:
+      columns: 1 #optional
+      #entities:
+        #- entity: sensor.julie_s20_capteur_de_pas
