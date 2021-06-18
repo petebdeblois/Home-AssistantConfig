@@ -1,0 +1,6 @@
+name: Dishwasher
+options:
+  - Chloe
+  - Aurelie
+initial: Aurelie
+icon: mdi:food-fork-drink

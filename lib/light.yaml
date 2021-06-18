@@ -9,6 +9,7 @@
   entities:
     - light.living_room_lamp_1
     - light.living_room_lamp_2
+    - light.living_room_rgb
 - platform: group
   name: All Lights
   entities:
@@ -17,11 +18,13 @@
     - light.living_room_lamp_1
     - light.living_room_lamp_2
     - light.kids_closet
+    - light.living_room_rgb
 - platform: group
   name: Simulation lights
   entities:
     - light.office_ceiling_1 # Lamp friendly name A ..
     - light.living_room_lamp_1 # Lamp friendly name B ..
+    - light.living_room_rgb
 - platform: group
   name: Kids lights
   entities:

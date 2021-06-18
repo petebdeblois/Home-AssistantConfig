@@ -11,10 +11,10 @@ condition:
   - condition: not
     conditions:
     - condition: state
-      entity_id: input_select.season
+      entity_id: input_select.festivities
       state: 'Christmas'
 action:
   - service: input_select.select_option
     data:
-      entity_id: input_select.season
+      entity_id: input_select.festivities
       option: Christmas
