@@ -27,6 +27,7 @@ api:
   password: "password"
 
 ota:
+  safe_mode: True
   password: "password"
 
 i2c: 
