@@ -35,15 +35,15 @@
         "media_content_type": "game",
         "locked": false
     },
-    "CUSA00129": {
-        "media_title": "Netflix",
-        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/ca/en/999/CUSA00129_00/image",
-        "media_content_type": "app",
-        "locked": false
-    },
     "CUSA01850": {
         "media_title": "Plex",
         "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/ca/en/999/CUSA01850_00/image",
+        "media_content_type": "app",
+        "locked": false
+    },
+    "CUSA00129": {
+        "media_title": "Netflix",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/ca/en/999/CUSA00129_00/image",
         "media_content_type": "app",
         "locked": false
     }

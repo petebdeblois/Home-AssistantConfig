@@ -92,7 +92,8 @@ yahoofinance:
     hours: 24
 logger:
     default: info
-
+    logs:
+      custom_components.localtuya: debug
     # Example configuration.yaml entry
 spotify:
   client_id: !secret spotify_id
