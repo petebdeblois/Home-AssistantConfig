@@ -875,3 +875,29 @@
       flash: long
       effect: colorloop
   mode: single
+- id: '1624227931791'
+  alias: 'Home - Washing Machine '
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.washine_machine_current_consumption
+    below: '5'
+  condition:
+  - condition: state
+    entity_id: input_boolean.bedtime
+    state: 'off'
+  action:
+  - service: notify.mobile_app_julie_s20
+    data:
+      title: LAVAGE
+      message: Allez Femme, lavage termine
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.kitchenmini
+      message: The Washing Machine has completed the cycle
+      cache: true
+  - service: tts.cloud_say
+    data:
+      message: The Washing Machine has completed the cycle
+      entity_id: media_player.master_bedroom_speaker
+  mode: single
