@@ -882,6 +882,8 @@
   - platform: numeric_state
     entity_id: sensor.washine_machine_current_consumption
     below: '5'
+    for:
+      minutes: 1
   condition:
   - condition: state
     entity_id: input_boolean.bedtime
