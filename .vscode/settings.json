@@ -1,8 +1,5 @@
 {
-<<<<<<< HEAD
-=======
   "python.pythonPath": "/usr/bin/python",
->>>>>>> ff416444e6091bbf21217fe4b167b86fcee50d5b
   "files.associations": {
     "*.yaml": "home-assistant"
   },
