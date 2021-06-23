@@ -40,9 +40,6 @@ influxdb:
 recorder:
   purge_keep_days: 14
   db_url: !secret mariadb_conn_string
-  exclude:
-    entities:
-      - sensor.spacex_next_launch_countdown
   #include:
   #domains:
   #- sensor
@@ -92,8 +89,6 @@ yahoofinance:
     hours: 24
 logger:
     default: info
-    logs:
-      custom_components.localtuya: debug
     # Example configuration.yaml entry
 spotify:
   client_id: !secret spotify_id
