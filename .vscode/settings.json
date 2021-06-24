@@ -1,6 +1,5 @@
 {
   "files.associations": {
-    "*.yaml": "home-assistant"
-  },
-  "workbench.startupEditor": "none"
+    "*.yaml": "yaml"
+  }
 }

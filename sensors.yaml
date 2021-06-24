@@ -335,14 +335,14 @@
 
 - platform: template
   sensors:
-    washine_machine_voltage:
+    washing_machine_voltage:
       value_template: "{{ state_attr('switch.bathroom_washing_machine', 'voltage') }}"
       unit_of_measurement: 'V'
-    washine_machine_current:
+    washing_machine_current:
       value_template: 
         "{{ states.switch.bathroom_washing_machine.attributes.current }}"
       unit_of_measurement: 'mA'
-    washine_machine_current_consumption:
+    washing_machine_current_consumption:
       value_template: 
         "{{ states.switch.bathroom_washing_machine.attributes.current_consumption }}"
       unit_of_measurement: 'W'
