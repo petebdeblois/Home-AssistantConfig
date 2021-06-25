@@ -1,5 +1,5 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/petebdeblois/Home-AssistantConfig)
-[![HA Version](https://img.shields.io/badge/Running%20Home%20Assistant-2021.5.1%20-darkblue)](https://github.com/home-assistant/home-assistant/releases/latest)
+[![HA Version](https://img.shields.io/badge/Running%20Home%20Assistant-2021.6.6%20-darkblue)](https://github.com/home-assistant/home-assistant/releases/latest)
 ![Travis (.org)](https://img.shields.io/travis/petebdeblois/Home-AssistantConfig)
 
 
@@ -36,6 +36,7 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
 | [Globe Electrics Wifi Switch](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
+| [Avatar Controls Smart Plug WiFi Outlets Oval Socket Energy Monitoring](https://www.newegg.ca/p/35B-0048-00022?Item=9SIAPAHBGB5816) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/) /  [Local Tuya](https://github.com/rospogrigio/localtuya)  |To get Consumption, I am using Local Tuya and some [Sensor](https://github.com/petebdeblois/Home-AssistantConfig/blob/master/sensors.yaml) |
 
 ## <a name="media">Media</a>
 

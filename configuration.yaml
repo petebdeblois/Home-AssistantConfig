@@ -9,12 +9,12 @@ light: !include lib/light.yaml
 notify: !include lib/notify.yaml
 sensor: !include sensors.yaml
 shell_command: !include shell_command.yaml
-group: !include_dir_named groups/
+group: !include_dir_named lib/groups/
 automation: !include automations.yaml
 input_datetime: !include_dir_named lib/input_datetime/
 input_number: !include_dir_named lib/input_number/
 input_select: !include_dir_named lib/input_select/
-#input_text: !include_dir_named input_text/
+input_text: !include_dir_named lib/input_text/
 input_boolean: !include_dir_named lib/input_boolean/
 script: !include lib/scripts.yaml
 scene: !include lib/scenes.yaml
@@ -38,7 +38,7 @@ influxdb:
 
 
 recorder:
-  purge_keep_days: 14
+  purge_keep_days: 31
   db_url: !secret mariadb_conn_string
   #include:
   #domains:

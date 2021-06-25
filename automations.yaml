@@ -246,6 +246,7 @@
     weekday:
     - sun
   action:
+  - service: tts.clear_cache
   - data: {}
     service: homeassistant.restart
   mode: single
@@ -517,7 +518,9 @@
   action:
   - service: light.turn_on
     target:
-      entity_id: light.living_room_lights
+      entity_id:
+      - light.living_room_lamp_1
+      - light.living_room_lamp_2
     data:
       transition: 15
       color_temp: 420
@@ -558,13 +561,22 @@
       transition: 15
       brightness_pct: 1
     target:
-      entity_id: light.living_room_lights
+      entity_id:
+      - light.living_room_lamp_1
+      - light.living_room_lamp_2
+  - service: light.turn_on
+    target:
+      entity_id: light.living_room_rgb
+    data:
+      color_name: aliceblue
+      brightness_pct: 97
+      transition: 61
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.watching_tv
   mode: single
 - id: '1621121277976'
-  alias: Climate - Temp Above 30 - Turn on
+  alias: Climate - Temp Above 27 - Turn on Office Fan
   description: ''
   trigger:
   - platform: numeric_state
@@ -577,12 +589,12 @@
       entity_id: switch.office_fan
   mode: single
 - id: '1621121415545'
-  alias: Climate - Temp Below 30 - Turn Off
+  alias: Climate - Temp Below 25 - Turn Off Office Fan
   description: ''
   trigger:
   - platform: numeric_state
     entity_id: sensor.office_temperature
-    below: '27'
+    below: '25'
   condition: []
   action:
   - service: switch.turn_off
@@ -818,7 +830,7 @@
   description: ''
   trigger:
   - platform: time
-    at: '19:20'
+    at: '16:00'
   condition:
   - condition: state
     entity_id: input_select.festivities

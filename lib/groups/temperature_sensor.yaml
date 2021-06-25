@@ -2,4 +2,4 @@ name: Temperature Sensor
 entities: 
   - sensor.bedroom_temperature
   - sensor.living_room_temperature
-  - sensor.office_temperature_2
+  - sensor.office_temperature
