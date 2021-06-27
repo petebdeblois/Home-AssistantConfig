@@ -892,10 +892,9 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: sensor.washine_machine_current_consumption
+    entity_id: sensor.washing_machine_current_consumption
     below: '5'
-    for:
-      minutes: 1
+    for: 0:01:00
   condition:
   - condition: state
     entity_id: input_boolean.bedtime
