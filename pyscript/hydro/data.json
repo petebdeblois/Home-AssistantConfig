@@ -1,0 +1,207 @@
+{
+    "overview": {
+        "contract_id": "311993189",
+        "account_id": "0103139830",
+        "customer_id": "0103139830",
+        "balance": 0.0
+    },
+    "current_period": {
+        "period_total_bill": 118.83,
+        "period_projection": 164.7,
+        "period_length": 45,
+        "period_total_days": 62,
+        "period_mean_daily_bill": 2.64,
+        "period_mean_daily_consumption": 30.6,
+        "period_total_consumption": 1377,
+        "period_lower_price_consumption": 1377,
+        "period_higher_price_consumption": 0,
+        "period_average_temperature": 16
+    },
+    "current_annual_data": {
+        "annual_mean_daily_consumption": 37.5,
+        "annual_total_consumption": 13672,
+        "annual_total_bill": 1154.12,
+        "annual_mean_daily_bill": 3.16,
+        "annual_length": 365,
+        "annual_kwh_price_cent": 8.44,
+        "annual_date_start": "2020-05-13",
+        "annual_date_end": "2021-05-12"
+    },
+    "yesterday_data": {
+        "date": "2021-06-26",
+        "total_consumption": 47.17,
+        "lower_price_consumption": 47.17,
+        "higher_price_consumption": 0,
+        "average_temperature": 18
+    },
+    "hourly_data": [
+        {
+            "hour": 0,
+            "average_temperature": 16,
+            "lower_price_consumption": 1.14,
+            "higher_price_consumption": 0,
+            "total_consumption": 1.14
+        },
+        {
+            "hour": 1,
+            "average_temperature": 17,
+            "lower_price_consumption": 0.64,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.64
+        },
+        {
+            "hour": 2,
+            "average_temperature": 18,
+            "lower_price_consumption": 0.4,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.4
+        },
+        {
+            "hour": 3,
+            "average_temperature": 17,
+            "lower_price_consumption": 0.35,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.35
+        },
+        {
+            "hour": 4,
+            "average_temperature": 16,
+            "lower_price_consumption": 0.41,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.41
+        },
+        {
+            "hour": 5,
+            "average_temperature": 17,
+            "lower_price_consumption": 0.68,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.68
+        },
+        {
+            "hour": 6,
+            "average_temperature": 17,
+            "lower_price_consumption": 0.39,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.39
+        },
+        {
+            "hour": 7,
+            "average_temperature": 19,
+            "lower_price_consumption": 0.45,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.45
+        },
+        {
+            "hour": 8,
+            "average_temperature": 20,
+            "lower_price_consumption": 0.86,
+            "higher_price_consumption": 0,
+            "total_consumption": 0.86
+        },
+        {
+            "hour": 9,
+            "average_temperature": 20,
+            "lower_price_consumption": 2.2,
+            "higher_price_consumption": 0,
+            "total_consumption": 2.2
+        },
+        {
+            "hour": 10,
+            "average_temperature": 19,
+            "lower_price_consumption": 3.61,
+            "higher_price_consumption": 0,
+            "total_consumption": 3.61
+        },
+        {
+            "hour": 11,
+            "average_temperature": 19,
+            "lower_price_consumption": 2.39,
+            "higher_price_consumption": 0,
+            "total_consumption": 2.39
+        },
+        {
+            "hour": 12,
+            "average_temperature": 19,
+            "lower_price_consumption": 4.02,
+            "higher_price_consumption": 0,
+            "total_consumption": 4.02
+        },
+        {
+            "hour": 13,
+            "average_temperature": 17,
+            "lower_price_consumption": 2.45,
+            "higher_price_consumption": 0,
+            "total_consumption": 2.45
+        },
+        {
+            "hour": 14,
+            "average_temperature": 17,
+            "lower_price_consumption": 1.41,
+            "higher_price_consumption": 0,
+            "total_consumption": 1.41
+        },
+        {
+            "hour": 15,
+            "average_temperature": 17,
+            "lower_price_consumption": 1.77,
+            "higher_price_consumption": 0,
+            "total_consumption": 1.77
+        },
+        {
+            "hour": 16,
+            "average_temperature": 17,
+            "lower_price_consumption": 3.23,
+            "higher_price_consumption": 0,
+            "total_consumption": 3.23
+        },
+        {
+            "hour": 17,
+            "average_temperature": 17,
+            "lower_price_consumption": 4.53,
+            "higher_price_consumption": 0,
+            "total_consumption": 4.53
+        },
+        {
+            "hour": 18,
+            "average_temperature": 18,
+            "lower_price_consumption": 3.59,
+            "higher_price_consumption": 0,
+            "total_consumption": 3.59
+        },
+        {
+            "hour": 19,
+            "average_temperature": 18,
+            "lower_price_consumption": 5.48,
+            "higher_price_consumption": 0,
+            "total_consumption": 5.48
+        },
+        {
+            "hour": 20,
+            "average_temperature": 18,
+            "lower_price_consumption": 1.96,
+            "higher_price_consumption": 0,
+            "total_consumption": 1.96
+        },
+        {
+            "hour": 21,
+            "average_temperature": 18,
+            "lower_price_consumption": 1.61,
+            "higher_price_consumption": 0,
+            "total_consumption": 1.61
+        },
+        {
+            "hour": 22,
+            "average_temperature": 21,
+            "lower_price_consumption": 2.48,
+            "higher_price_consumption": 0,
+            "total_consumption": 2.48
+        },
+        {
+            "hour": 23,
+            "average_temperature": 21,
+            "lower_price_consumption": 1.12,
+            "higher_price_consumption": 0,
+            "total_consumption": 1.12
+        }
+    ]
+}

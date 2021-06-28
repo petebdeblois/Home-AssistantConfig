@@ -1,3 +1,4 @@
 bi_active: curl http://192.168.53.55:81/admin?profile=1
 push: bash /config/scripts/git_update.sh
 pull: bash /config/scripts/git_pull.sh
+hydro_hourly: bash /config/scripts/hydro_json_hourly.sh

@@ -472,12 +472,21 @@
     data:
       color_temp: 447
       transition: 15
-      brightness_pct: 1
+      brightness_pct: 5
     target:
-      entity_id: light.living_room_lights
+      entity_id:
+      - light.living_room_lamp_1
+      - light.living_room_lamp_2
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.watching_tv
+  - service: light.turn_on
+    target:
+      entity_id: light.living_room_rgb
+    data:
+      transition: 24
+      color_name: red
+      brightness_pct: 100
   mode: single
 - id: '1620782893266'
   alias: Home - Bedtime -> Everything OFF

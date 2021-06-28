@@ -25,3 +25,5 @@ known_devices.yaml
 home-assistant.log
 .ip_authenticated.yaml
 /www/upcoming-media-card-images
+
+/scripts/hydro_json_hourly.sh

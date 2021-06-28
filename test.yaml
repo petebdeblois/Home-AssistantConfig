@@ -1,0 +1,17 @@
+sensor:
+  - platform: command_line
+    command: python3 /home/homeassistant/.homeassistant/maps/GetInfo.py 123345
+    name: bus
+    scan_interval: 30
+    value_template: "{{ value_json }}"
+  - platform: template
+    sensors:
+      any_template:
+        friendly_name: "my bus"
+        value_template: "{% for attr in states.sensor.bus.state%}{{ attr }}{% endfor %}"
+
+sensor:
+  - platform: file
+    file_path: /config/python_scripts/pfSense_rules.json
+    name: pfSense_rule_office
+    value_template: '{{ value_json ????}}'
