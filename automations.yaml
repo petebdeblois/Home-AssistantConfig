@@ -199,9 +199,12 @@
 - id: peteisup
   alias: Home - Pete is Up
   trigger:
-  - platform: state
-    entity_id: binary_sensor.pete_s20_is_charging
-    to: 'off'
+  - platform: time
+    at: 06:00
+  - platform: time
+    at: 07:00
+  - platform: time
+    at: 09:00
   condition:
   - condition: and
     conditions:
@@ -211,9 +214,9 @@
     - condition: state
       entity_id: input_boolean.pete_in_bed
       state: 'on'
-    - condition: time
-      after: 05:00:00
-      before: '21:00:00'
+    - condition: state
+      entity_id: binary_sensor.pete_s20_is_charging
+      state: 'off'
   action:
   - service: input_boolean.turn_off
     target:
@@ -922,4 +925,34 @@
     data:
       message: The Washing Machine has completed the cycle
       entity_id: media_player.master_bedroom_speaker
+  mode: single
+- id: '1624882306131'
+  alias: Home - Turn Off Machine at 23h59
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:59'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.pete_s20_is_charging
+    state: 'off'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.machine_sleep
+  mode: single
+- id: '1624885130536'
+  alias: Home - Turn On Machine at 6:55
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:59'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.pete_s20_is_charging
+    state: 'off'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.machine_wakeup
   mode: single

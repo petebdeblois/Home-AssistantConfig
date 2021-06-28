@@ -1,9 +1,0 @@
-alias: 'HA Update Available Notifications'
-initial_state: true
-trigger:
-  platform: state
-  entity_id: updater.updater
-action:
-  service: notify.logfile
-  data:
-    message: 'SENDME SYSTEM Update for Home Assistant is available on Vision.'

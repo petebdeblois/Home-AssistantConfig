@@ -1,5 +1,0 @@
-- name: adults
-  platform: group
-  services:
-    - service: Pete
-    - service: Julie

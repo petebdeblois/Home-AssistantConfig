@@ -31,26 +31,16 @@ list_consumption = {}
 list_hour = {}
 list_date = None
 
-
-
-
-
 @pyscript_compile
 def hydro_open():
-  with open('config/pyscript/hydro/data.json') as f:
+  with open('config/data/data.json') as f:
     data = json.load(f)
   for i in range(len(data['hourly_data'])):
     list_date = data['yesterday_data']['date']
     list_consumption[i] = data['hourly_data'][i]['total_consumption']
     list_hour[i] = data['hourly_data'][i]['hour']
-    #if i < 10:
-    #  globals()['yesterday_hourly_hour_0%s' % i] = data['hourly_data'][i]['hour']
-    #else:
-    #  globals()['yesterday_hourly_hour_%s' % i] = data['hourly_data'][i]['hour']
-    #print(yesterday_hourly_hour_0)
 
-
-@time_trigger("once(17:37:00)")
+@time_trigger("once(07:00:00)")
 def hydro_states():
     hydro_open()
     for i in range(len(list_var)):
@@ -61,3 +51,5 @@ def hydro_states():
       state.setattr("sensor." + list_var[i]+ ".friendly_name", "Consumption at " + str(list_hour[i]) )
       state.setattr("sensor." + list_var[i]+ ".icon", "mdi:flash" )
       state.setattr("sensor." + list_var[i]+ ".date", "Consumption on " + str(list_date) )
+    log.info("Hourly hydro script has run")
+

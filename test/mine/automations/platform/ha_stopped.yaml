@@ -1,9 +1,0 @@
-alias: "HA stopped"
-initial_state: true
-trigger:
-  platform: homeassistant
-  event: shutdown
-action:
-  - service: notify.mobile_app_pete_s20
-    data:
-      message: "Home Assistant {{ states('sensor.latest_version') }} has shut down on Server ({{ as_timestamp(utcnow())|timestamp_utc }})"

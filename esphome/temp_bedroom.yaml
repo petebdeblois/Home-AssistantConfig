@@ -44,7 +44,3 @@ sensor:
       name: "Bedroom Humidity"
     address: 0x76
     update_interval: 30s
-    
-deep_sleep:
-  run_duration: 1min
-  sleep_duration: 10min

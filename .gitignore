@@ -27,3 +27,10 @@ home-assistant.log
 /www/upcoming-media-card-images
 
 /scripts/hydro_json_hourly.sh
+.ps4-games.F8461CD0BBE3_cdb2.json
+/pyscript/hydro/__pycache__
+config
+home-assistant_v2.db
+data
+.vscode
+image
