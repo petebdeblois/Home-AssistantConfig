@@ -4,12 +4,34 @@
   entities:
     - light.office_ceiling_1
     - light.office_ceiling_2
+    - light.office_lamp
+- platform: group
+  name: Office Ceiling
+  entities:
+    - light.office_ceiling_1
+    - light.office_ceiling_2
 - platform: group
   name: Living Room Lights
   entities:
     - light.living_room_lamp_1
     - light.living_room_lamp_2
     - light.living_room_rgb
+- platform: group
+  name: Living Room Lamp
+  entities:
+    - light.living_room_lamp_1
+    - light.living_room_lamp_2
+- platform: group
+  name: Simulation lights
+  entities:
+    - light.office_ceiling_1
+    - light.living_room_lamp_1
+    - light.living_room_rgb
+    - light.office_lamp
+- platform: group
+  name: Kids lights
+  entities:
+    - light.kids_closet 
 - platform: group
   name: All Lights
   entities:
@@ -19,13 +41,4 @@
     - light.living_room_lamp_2
     - light.kids_closet
     - light.living_room_rgb
-- platform: group
-  name: Simulation lights
-  entities:
-    - light.office_ceiling_1 # Lamp friendly name A ..
-    - light.living_room_lamp_1 # Lamp friendly name B ..
-    - light.living_room_rgb
-- platform: group
-  name: Kids lights
-  entities:
-    - light.kids_closet # Lamp friendly name A ..
+    - light.office_lamp

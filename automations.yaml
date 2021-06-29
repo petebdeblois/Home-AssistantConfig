@@ -86,12 +86,24 @@
     data:
       message: Please water the plant
       title: Plant
+  - service: light.turn_off
   - service: light.turn_on
-    target:
-      entity_id: light.office_ceiling_1
     data:
-      color_name: red
       brightness_pct: 97
+      effect: colorloop
+      flash: short
+      color_name: red
+      hs_color:
+      - 360
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      xy_color:
+      - 0.701.0.299
+    target:
+      entity_id: light.office_lamp
   mode: single
 - id: nintendowishlist
   alias: Device - Nintendo Wishlist
@@ -695,9 +707,12 @@
     data:
       message: Your plant doesn't need water anymore
       entity_id: media_player.officemini
-  - service: light.turn_off
+  - service: light.turn_on
+    data:
+      color_temp: 204
+      brightness: 28
     target:
-      entity_id: light.office_ceiling_1
+      entity_id: light.office_lamp
   mode: single
 - id: '1622257539223'
   alias: Home - Turn off holiday mode
