@@ -375,6 +375,7 @@
   - service: notify.mobile_app_pete_s20
     data:
       title: ALL GOOD
+      message: Network Back Up
   mode: single
 - id: '1619659073387'
   alias: HA - Set HA theme
