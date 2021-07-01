@@ -160,12 +160,6 @@
 #https://www.home-assistant.io/integrations/season/
 - platform: season
 
-# https://www.home-assistant.io/integrations/qbittorrent/
-- platform: qbittorrent
-  url: !secret qtorrent_port
-  username: !secret qtorrent_user
-  password: !secret qtorrent_pw
-
 - platform: plex_recently_added
   name: Recently Added Movies # will create sensor.recently_added_movies
   token: !secret plex_token
