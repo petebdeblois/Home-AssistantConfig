@@ -9,8 +9,6 @@ from tuya_iot import TuyaDevice, TuyaDeviceManager
 
 from homeassistant.components.vacuum import (
     DOMAIN as DEVICE_DOMAIN,
-    SUPPORT_TURN_ON,
-    SUPPORT_TURN_OFF,
     SUPPORT_STATE,
     SUPPORT_STATUS,
     SUPPORT_BATTERY,
@@ -23,7 +21,6 @@ from homeassistant.components.vacuum import (
     STATE_PAUSED,
     STATE_IDLE,
     STATE_RETURNING,
-    STATE_ERROR,
     StateVacuumEntity,
 )
 from homeassistant.config_entries import ConfigEntry
@@ -160,9 +157,7 @@ class TuyaHaVacuum(TuyaHaDevice, StateVacuumEntity):
         """Turn the device on."""
         _LOGGER.debug(f"Starting {self.name}")
 
-        self.tuya_device_manager.sendCommands(
-            self.tuya_device.id, [{"code": DPCODE_POWER_GO, "value": True}]
-        )
+        self._send_command([{"code": DPCODE_POWER_GO, "value": True}])
 
     # Turn off/pause/stop all do the same thing
 
@@ -176,16 +171,12 @@ class TuyaHaVacuum(TuyaHaDevice, StateVacuumEntity):
     def stop(self, **kwargs: Any) -> None:
         """Turn the device off."""
         _LOGGER.debug(f"Stopping {self.name}")
-        self.tuya_device_manager.sendCommands(
-            self.tuya_device.id, [{"code": DPCODE_POWER_GO, "value": False}]
-        )
+        self._send_command([{"code": DPCODE_POWER_GO, "value": False}])
 
     def pause(self, **kwargs: Any) -> None:
         """Pause the device."""
         _LOGGER.debug(f"Pausing {self.name}")
-        self.tuya_device_manager.sendCommands(
-            self.tuya_device.id, [{"code": DPCODE_PAUSE, "value": True}]
-        )
+        self._send_command([{"code": DPCODE_PAUSE, "value": True}])
 
     # def start_pause(self, **kwargs: Any) -> None:
     #     """Start/Pause the device"""
@@ -199,6 +190,4 @@ class TuyaHaVacuum(TuyaHaDevice, StateVacuumEntity):
     def return_to_base(self, **kwargs: Any) -> None:
         """Return device to Dock"""
         _LOGGER.debug(f"Return to base device {self.name}")
-        self.tuya_device_manager.sendCommands(
-            self.tuya_device.id, [{"code": DPCODE_MODE, "value": "chargego"}]
-        )
+        self._send_command([{"code": DPCODE_MODE, "value": "chargego"}])

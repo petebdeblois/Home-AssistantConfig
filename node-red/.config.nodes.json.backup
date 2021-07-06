@@ -924,7 +924,7 @@
     },
     "node-red-dashboard": {
         "name": "node-red-dashboard",
-        "version": "2.29.3",
+        "version": "2.29.1",
         "local": false,
         "user": false,
         "nodes": {

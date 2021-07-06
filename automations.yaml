@@ -920,7 +920,7 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: sensor.washing_machine_current_consumption
+    entity_id: sensor.bathroom_washing_machine_current
     below: '5'
     for: 0:01:00
   condition:
