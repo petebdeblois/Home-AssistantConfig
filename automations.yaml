@@ -931,7 +931,7 @@
   - service: notify.mobile_app_julie_s20
     data:
       title: LAVAGE
-      message: Allez Femme, lavage termine
+      message: Lavage termine
   - service: tts.google_translate_say
     data:
       entity_id: media_player.kitchenmini
@@ -971,4 +971,31 @@
   - service: switch.turn_off
     target:
       entity_id: switch.machine_wakeup
+  mode: single
+- id: '1625601426159'
+  alias: Home - Freezer Door opened
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.infra_test_power
+    above: '110'
+    for: 0:10:00
+  condition: []
+  action:
+  - service: notify.mobile_app_julie_s20
+    data:
+      message: FREEZER OPEN
+      title: FREEZER OPEN
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: FREEZER OPEN
+      title: FREEZER OPEN
+  - service: notify.logfile
+    data:
+      message: FREEZER OPEN
+      title: FREEZER OPEN
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.officemini
+      message: FREEZER OPEN
   mode: single
