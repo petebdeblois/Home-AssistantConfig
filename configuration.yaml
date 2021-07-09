@@ -3,24 +3,25 @@ default_config:
 homeassistant:
   customize: !include lib/customize.yaml
 
-#customize: !include customize.yaml
-light: !include lib/light.yaml
-#switch: !include lib/switch.yaml
-notify: !include lib/notify.yaml
-sensor: !include sensors.yaml
-shell_command: !include shell_command.yaml
-group: !include_dir_named lib/groups/
 automation: !include automations.yaml
+binary_sensor: !include lib/binary_sensor.yaml
+group: !include_dir_named lib/groups/
+input_boolean: !include_dir_named lib/input_boolean/
 input_datetime: !include_dir_named lib/input_datetime/
 input_number: !include_dir_named lib/input_number/
 input_select: !include_dir_named lib/input_select/
 input_text: !include_dir_named lib/input_text/
-input_boolean: !include_dir_named lib/input_boolean/
-script: !include lib/scripts.yaml
-scene: !include lib/scenes.yaml
-binary_sensor: !include lib/binary_sensor.yaml
-#device_tracker: !include device_tracker.yaml
+light: !include lib/light.yaml
 nintendo_wishlist: !include lib/nintendo_wishlist.yaml
+notify: !include lib/notify.yaml
+scene: !include lib/scenes.yaml
+script: !include lib/scripts.yaml
+sensor: !include sensors.yaml
+shell_command: !include shell_command.yaml
+#switch: !include lib/switch.yaml
+
+#device_tracker: !include device_tracker.yaml
+#customize: !include customize.yaml
 frontend:
   themes: !include_dir_merge_named themes
 # Text to speech
@@ -180,3 +181,11 @@ rest_command:
 ourgroceries:
   username: !secret email
   password: !secret password
+
+
+# home-assistant.io/integrations/wake_on_lan/
+wake_on_lan:
+switch:
+  - platform: wake_on_lan
+    name: wake_machine
+    mac: b4:2e:99:84:e9:1b

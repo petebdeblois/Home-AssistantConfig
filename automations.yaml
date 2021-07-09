@@ -277,17 +277,6 @@
         Server ({{ as_timestamp(utcnow())|timestamp_utc }})
   initial_state: true
   mode: single
-- id: haupdate
-  alias: HA - Update Available Notifications
-  trigger:
-  - platform: state
-    entity_id: updater.updater
-  action:
-  - service: notify.mobile_app_pete_s20
-    data:
-      message: update available
-  initial_state: true
-  mode: single
 - id: rainaleron
   alias: Rain Alert Turn On
   description: ''
@@ -402,7 +391,7 @@
         '
   mode: single
 - id: '1620512797995'
-  alias: 'Lights - Office Light 7AM -> Turn On '
+  alias: 'Home - Wake Up Office Light 7AM -> Turn On '
   description: Turn On Office Light 7AM
   trigger:
   - platform: time
@@ -424,7 +413,9 @@
       color_temp: 252
   - service: switch.turn_on
     target:
-      entity_id: switch.office_screens
+      entity_id:
+      - switch.office_screens
+      - switch.wake_machine
   mode: single
 - id: '1620513319973'
   alias: Lights - Turn Off Office Light 10PM (Duplicate)
@@ -921,7 +912,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.bathroom_washing_machine_current
-    below: '5'
+    below: '20'
     for: 0:01:00
   condition:
   - condition: state
@@ -951,7 +942,7 @@
   condition:
   - condition: state
     entity_id: binary_sensor.pete_s20_is_charging
-    state: 'off'
+    state: 'on'
   action:
   - service: switch.turn_off
     target:
@@ -977,7 +968,7 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: sensor.infra_test_power
+    entity_id: sensor.infra_freezer_power
     above: '110'
     for: 0:10:00
   condition: []
@@ -998,4 +989,41 @@
     data:
       entity_id: media_player.officemini
       message: FREEZER OPEN
+  - service: notify.logfile
+    data:
+      title: Automation
+      message: Freezer open
   mode: single
+- id: '1622563811541'
+  alias: 'Washing Machine automation '
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bathroom_washing_machine_power
+    attribute: power
+    for: 00:00:30
+    above: '1'
+  condition: []
+  action:
+  - wait_for_trigger:
+    - platform: numeric_state
+      entity_id: sensor.bathroom_washing_machine_power
+      below: '.3'
+      for: 00:00:30
+      attribute: power
+    continue_on_timeout: false
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.kitchenmini
+      message: The Washing Machine has completed the cycle
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.officemini
+  - service: notify.logfile
+    data:
+      message: Washing Machine
+      title: Automation
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: Lavage
+  mode: restart

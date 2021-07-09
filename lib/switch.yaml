@@ -3,3 +3,7 @@
   entities:
     - switch.office_fan
     - switch.office_screens
+
+# Example configuration.yaml entry
+
+
