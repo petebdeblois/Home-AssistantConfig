@@ -1026,4 +1026,5 @@
   - service: notify.mobile_app_pete_s20
     data:
       message: Lavage
+      title: "{{ now().timestamp() | timestamp_local() }}"
   mode: restart

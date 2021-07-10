@@ -311,3 +311,53 @@
   - "sleep/minutesToFallAsleep"
   - "sleep/startTime"
   - "sleep/timeInBed"
+
+# - platform: template
+  # sensors:
+    # test_voltage:
+      # value_template: "{{ state_attr('switch.test', 'voltage') }}"
+      # unit_of_measurement: 'V'
+    # test_current:
+      # value_template: 
+        # "{{ states.switch.test.attributes.current }}"
+      # unit_of_measurement: 'mA'
+    # test_current_consumption:
+      # value_template: 
+        # "{{ states.switch.test.attributes.current_consumption }}"
+      # unit_of_measurement: 'W'
+# 
+# - platform: template
+  # sensors:
+    # washing_machine_voltage:
+      # value_template: "{{ state_attr('switch.bathroom_washing_machine', 'voltage') }}"
+      # unit_of_measurement: 'V'
+    # washing_machine_current:
+      # value_template: 
+        # "{{ states.switch.bathroom_washing_machine.attributes.current }}"
+      # unit_of_measurement: 'mA'
+    # washing_machine_current_consumption:
+      # value_template: 
+        # "{{ states.switch.bathroom_washing_machine.attributes.current_consumption }}"
+      # unit_of_measurement: 'W'
+
+#https://community.home-assistant.io/t/trigger-on-washing-machine-finish/251990/2
+- platform: template
+  sensors:
+    washing_maching_is_running:
+      friendly_name: Washing Machine Is Running
+      value_template: >-
+        {% if states('sensor.bathroom_washing_machine_power')|float > 3 %}
+          True
+        {% else %}
+          False
+        {% endif %} 
+# - id: notify_wash_cycle_completed
+#   alias: Notify Wash Cycle Completed
+#   trigger:
+#     - entity_id: sensor.washing_maching_is_running
+#       platform: state
+#       to: 'false'
+#       for:
+#         minutes: 3
+#   action:
+#     service: script.set_washing_machine_alert
