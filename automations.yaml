@@ -1002,29 +1002,47 @@
     entity_id: sensor.bathroom_washing_machine_power
     attribute: power
     for: 00:00:30
-    above: '1'
+    above: '100'
   condition: []
   action:
   - wait_for_trigger:
     - platform: numeric_state
       entity_id: sensor.bathroom_washing_machine_power
-      below: '.3'
-      for: 00:00:30
+      for: 00:01:30
       attribute: power
+      below: '5'
     continue_on_timeout: false
   - service: tts.google_translate_say
     data:
       entity_id: media_player.kitchenmini
-      message: The Washing Machine has completed the cycle
-  - service: tts.google_translate_say
-    data:
-      entity_id: media_player.officemini
+      message: test automation - The Washing Machine has completed the cycle
   - service: notify.logfile
     data:
-      message: Washing Machine
+      message: Washing Machine test
       title: Automation
-  - service: notify.mobile_app_pete_s20
+  mode: restart
+- id: '1626028995760'
+  alias: Washing Machine automation  (Duplicate)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.washing_maching_is_running
+    to: 'True'
+    for: 00:01:00
+  condition: []
+  action:
+  - wait_for_trigger:
+    - platform: state
+      entity_id: sensor.washing_maching_is_running
+      to: 'False'
+      for: 00:01:00
+    continue_on_timeout: false
+  - service: tts.google_translate_say
     data:
-      message: Lavage
-      title: "{{ now().timestamp() | timestamp_local() }}"
+      entity_id: media_player.kitchenmini
+      message: test automation - The Washing Machine has completed the cycle
+  - service: notify.logfile
+    data:
+      message: Washing Machine test Bool
+      title: Automation
   mode: restart
