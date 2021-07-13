@@ -79,3 +79,7 @@ rooms:
     #    - entity: sensor.name2
   - name: Bathroom
     icon: mdi:paper-roll
+  - name: Infra
+    icon: mdi:paper-roll
+  - name: Kitchen
+    icon: mdi:paper-roll

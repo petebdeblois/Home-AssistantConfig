@@ -40,7 +40,7 @@ def hydro_open():
     list_consumption[i] = data['hourly_data'][i]['total_consumption']
     list_hour[i] = data['hourly_data'][i]['hour']
 
-@time_trigger("once(08:46:00)")
+@time_trigger("once(07:00:00)")
 def hydro_states():
     hydro_open()
     for i in range(len(list_var)):

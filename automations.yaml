@@ -1046,3 +1046,34 @@
       message: Washing Machine test Bool
       title: Automation
   mode: restart
+- id: '1626095265544'
+  alias: Infra - One of the Cold Box is dead
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.freezer_power
+    for: '12:00:00'
+    below: '1'
+  - platform: numeric_state
+    entity_id: sensor.fridge_power
+    below: '1'
+    for: '12:00:00'
+  condition: []
+  action:
+  - service: notify.persistent_notification
+    data:
+      message: One of the Cold Box is dead
+      title: ATTENTION
+  - service: notify.logfile
+    data:
+      message: One of the Cold Box is dead
+      title: Attention
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.kitchenmini,media_player.master_bedroom_speaker
+      message: One of the Cold Box is dead
+  - service: notify.mobile_app_pete_s20
+    data:
+      title: 'ATTENTION '
+      message: One of the Cold Box is dead
+  mode: single
