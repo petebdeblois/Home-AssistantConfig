@@ -1020,7 +1020,7 @@
     data:
       message: Washing Machine test
       title: Automation
-  mode: restart
+  mode: single
 - id: '1626028995760'
   alias: Washing Machine automation  (Duplicate)
   description: ''
@@ -1045,7 +1045,7 @@
     data:
       message: Washing Machine test Bool
       title: Automation
-  mode: restart
+  mode: single
 - id: '1626095265544'
   alias: Infra - One of the Cold Box is dead
   description: ''
