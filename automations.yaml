@@ -404,6 +404,9 @@
     - wed
     - thu
     - fri
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
   action:
   - service: light.turn_on
     target:
@@ -418,7 +421,7 @@
       - switch.wake_machine
   mode: single
 - id: '1620513319973'
-  alias: Lights - Turn Off Office Light 10PM (Duplicate)
+  alias: Lights - Office Light 10PM Turn Off (Duplicate)
   description: Turn Off Office Light 10PM
   trigger:
   - platform: time
@@ -524,6 +527,10 @@
     - device_tracker.julie_s20
     zone: zone.home
     event: enter
+  - platform: state
+    entity_id: sensor.pete_s20_wifi_connection
+    id: wifi
+    to: Legendary
   condition:
   - condition: state
     entity_id: input_boolean.home_occupied
@@ -533,14 +540,12 @@
     after: '18:00:00'
   action:
   - service: light.turn_on
-    target:
-      entity_id:
-      - light.living_room_lamp_1
-      - light.living_room_lamp_2
     data:
       transition: 15
       color_temp: 420
       brightness_pct: 10
+    target:
+      entity_id: light.living_room_lamp
   mode: single
 - id: '1620924425457'
   alias: TEST - Home - Nearly Home -> Ligths on
@@ -598,7 +603,10 @@
   - platform: numeric_state
     entity_id: sensor.office_temperature
     above: '27'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
   action:
   - service: switch.turn_on
     target:
@@ -656,6 +664,9 @@
   - condition: state
     entity_id: input_boolean.kids_week
     state: 'on'
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
   action:
   - service: tts.google_translate_say
     data:
@@ -707,7 +718,7 @@
       entity_id: light.office_lamp
   mode: single
 - id: '1622257539223'
-  alias: Home - Turn off holiday mode
+  alias: Home - Holiday Mode Turn Off
   description: ''
   trigger:
   - platform: state
@@ -791,12 +802,16 @@
     - condition: state
       entity_id: input_select.festivities
       state: Christmas
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
   action:
   - service: input_select.select_option
     data:
       entity_id: input_select.festivities
       option: Christmas
   initial_state: true
+  mode: single
 - id: '1623947812057'
   alias: Festivity - Halloween
   trigger:
@@ -934,7 +949,7 @@
       entity_id: media_player.master_bedroom_speaker
   mode: single
 - id: '1624882306131'
-  alias: Home - Turn Off Machine at 23h59
+  alias: Home - Machine at 23h59 Turn Off
   description: ''
   trigger:
   - platform: time
@@ -1076,4 +1091,34 @@
     data:
       title: 'ATTENTION '
       message: One of the Cold Box is dead
+  mode: single
+- id: '1626369426769'
+  alias: Home - Holiday Mode Turn On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.adults
+    to: home
+    for: '24:00:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.holiday_mode
+  mode: single
+- id: '1626370032720'
+  alias: Home - Handle Holiday
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.holiday_mode
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.presence_simulation
   mode: single
