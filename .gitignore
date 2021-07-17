@@ -37,3 +37,4 @@ data
 .vscode
 image
 fitbit.conf
+pyscript/data.json
