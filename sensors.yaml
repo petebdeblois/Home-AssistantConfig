@@ -346,7 +346,7 @@
     washing_maching_is_running:
       friendly_name: Washing Machine Is Running
       value_template: >-
-        {% if states('sensor.bathroom_washing_machine_power')|float > 3 %}
+        {% if states('sensor.bathroom_washing_machine_power')|float > 6 %}
           True
         {% else %}
           False

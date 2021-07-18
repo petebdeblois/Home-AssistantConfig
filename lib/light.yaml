@@ -28,10 +28,15 @@
     - light.living_room_lamp_1
     - light.living_room_rgb
     - light.office_lamp
+    - light.bedroom_rgb
 - platform: group
   name: Kids lights
   entities:
     - light.kids_closet 
+- platform: group
+  name: Bedroom lights
+  entities:
+    - light.bedroom_rgb 
 - platform: group
   name: All Lights
   entities:
@@ -42,3 +47,4 @@
     - light.kids_closet
     - light.living_room_rgb
     - light.office_lamp
+    - light.bedroom_rgb

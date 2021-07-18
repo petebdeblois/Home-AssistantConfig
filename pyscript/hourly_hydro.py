@@ -40,7 +40,7 @@ def hydro_open():
     list_consumption[i] = data['hourly_data'][i]['total_consumption']
     list_hour[i] = data['hourly_data'][i]['hour']
 
-@time_trigger("once(07:00:00)")
+@time_trigger("once(06:30:00)")
 def hydro_states():
     hydro_open()
     for i in range(len(list_var)):
@@ -48,7 +48,10 @@ def hydro_states():
       state.set("sensor." + list_var[i], value=list_consumption[i],)
       state.setattr("sensor." + list_var[i]+ ".unit_of_measurement", "Kwh")
     #state.setattr("sensor.hydroquebec_02_days_ago.icon, "'mdi:flash'"")
-      state.setattr("sensor." + list_var[i]+ ".friendly_name", "Consumption at " + str(list_hour[i]) )
+      if (list_hour[i] < 10):
+        state.setattr("sensor." + list_var[i]+ ".friendly_name", "Consumption at 0" + str(list_hour[i]) )  
+      else:
+        state.setattr("sensor." + list_var[i]+ ".friendly_name", "Consumption at " + str(list_hour[i]) )
       state.setattr("sensor." + list_var[i]+ ".icon", "mdi:flash" )
       state.setattr("sensor." + list_var[i]+ ".date", "Consumption on " + str(list_date) )
     log.info("Hourly hydro script has run")
