@@ -42,11 +42,10 @@ rooms:
     icon: mdi:bed
     temperature: sensor.bedroom_temperature
     #climate: climate.hallway_climate
+    pressure: sensor.bedroom_pressure
     humidity: sensor.bedroom_humidity
     #media_player: 
     #  - media_player.master_bedroom_speaker
-    #  - media_player.playstation_4_master
-    #  - media_player.plex_plex_for_roku_bedroom
     more_entities:
       columns: 2 #optional
       entities:
@@ -79,6 +78,9 @@ rooms:
     #    - entity: sensor.name2
   - name: Bathroom
     icon: mdi:paper-roll
+    temperature: sensor.bathroom_temperature
+    humidity: sensor.bathroom_humidity
+    pressure: sensor.bathroom_pressure
   - name: Infra
     icon: mdi:paper-roll
   - name: Kitchen

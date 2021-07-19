@@ -59,10 +59,11 @@ sensor:
             return (0.63-x) / (0.63-0.31) * 100.0;
           }
     name: "Plante Max Moisture Level"
-    update_interval: 45s
+    update_interval: 
+      minutes: 5
 
 
     
-deep_sleep:
-  run_duration: 1min
-  sleep_duration: 10min
+#deep_sleep:
+#  run_duration: 1min
+#  sleep_duration: 10min

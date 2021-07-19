@@ -921,33 +921,6 @@
       flash: long
       effect: colorloop
   mode: single
-- id: '1624227931791'
-  alias: 'Home - Washing Machine '
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.bathroom_washing_machine_current
-    below: '20'
-    for: 0:01:00
-  condition:
-  - condition: state
-    entity_id: input_boolean.bedtime
-    state: 'off'
-  action:
-  - service: notify.mobile_app_julie_s20
-    data:
-      title: LAVAGE
-      message: Lavage termine
-  - service: tts.google_translate_say
-    data:
-      entity_id: media_player.kitchenmini
-      message: The Washing Machine has completed the cycle
-      cache: true
-  - service: tts.cloud_say
-    data:
-      message: The Washing Machine has completed the cycle
-      entity_id: media_player.master_bedroom_speaker
-  mode: single
 - id: '1624882306131'
   alias: Home - Machine at 23h59 Turn Off
   description: ''
@@ -1009,35 +982,8 @@
       title: Automation
       message: Freezer open
   mode: single
-- id: '1622563811541'
-  alias: 'Washing Machine automation '
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.bathroom_washing_machine_power
-    attribute: power
-    for: 00:00:30
-    above: '100'
-  condition: []
-  action:
-  - wait_for_trigger:
-    - platform: numeric_state
-      entity_id: sensor.bathroom_washing_machine_power
-      for: 00:01:30
-      attribute: power
-      below: '5'
-    continue_on_timeout: false
-  - service: tts.google_translate_say
-    data:
-      entity_id: media_player.kitchenmini
-      message: test automation - The Washing Machine has completed the cycle
-  - service: notify.logfile
-    data:
-      message: Washing Machine test
-      title: Automation
-  mode: single
 - id: '1626028995760'
-  alias: Washing Machine automation  (Duplicate)
+  alias: Infra - Washing Machine
   description: ''
   trigger:
   - platform: state
@@ -1054,8 +1000,12 @@
     continue_on_timeout: false
   - service: tts.google_translate_say
     data:
-      entity_id: media_player.kitchenmini
-      message: test automation - The Washing Machine has completed the cycle
+      entity_id: media_player.officemini, media_player.kitchenmini
+      message: The Washing Machine has completed the cycle
+  - service: notify.mobile_app_julie_s20
+    data:
+      message: Lavage est termine
+      title: LAVEUSE
   - service: notify.logfile
     data:
       message: Washing Machine test Bool

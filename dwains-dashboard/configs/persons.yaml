@@ -25,6 +25,7 @@ persons:
       columns: 1 #optional
       entities:
         - entity: sensor.julie_s20_capteur_de_pas
+        - entity: sensor.julie_s20_niveau_de_batterie
   - name: Aurelie
     track: person.aurelie
     page_entities:
