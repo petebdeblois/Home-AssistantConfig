@@ -28,15 +28,11 @@
     - type: throughput_network_out
       arg: enp1s0
     - type: processor_use
-# This sensor will display the current version of HA, another simple sensor setup which will create sensor.latest_version.
-- platform: version
-  source: hassio
 
+# This sensor will display the current version of HA, another simple sensor setup which will create sensor.latest_version.
 - platform: version
 
 - platform: authenticated
-#  It creates a sensor called sensor.last_successful_authentication.
-#- platform: authenticated
 
 # This sensor displays any pending updates within Supervisor (add-on store) by using the 'command line' platform.
 # The sensor name for this one is sensor.supervisor_updates.
