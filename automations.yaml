@@ -996,7 +996,7 @@
     - platform: state
       entity_id: sensor.washing_maching_is_running
       to: 'False'
-      for: 00:05:00
+      for: 00:10:00
     continue_on_timeout: false
   - service: tts.google_translate_say
     data:
