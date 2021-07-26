@@ -641,6 +641,9 @@
     - wed
     - thu
     - fri
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
   action:
   - service: switch.turn_on
     target:
