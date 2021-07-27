@@ -1075,3 +1075,31 @@
     target:
       entity_id: switch.presence_simulation
   mode: single
+- id: '1627303533185'
+  alias: Home - Handle Holiday turn off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.holiday_mode
+    to: 'off'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.presence_simulation
+  mode: single
+- id: '1627349999689'
+  alias: Home - Bedroom Turn On Lights 9 PM
+  description: ''
+  trigger:
+  - platform: time
+    at: '21:00:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_lights
+  mode: single
