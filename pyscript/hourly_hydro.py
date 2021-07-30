@@ -44,7 +44,6 @@ def hydro_open():
 def hydro_states():
     hydro_open()
     for i in range(len(list_var)):
-      #log.info(list_var[i] + ' = ' + str(list_consumption[i]))
       state.set("sensor." + list_var[i], value=list_consumption[i],)
       state.setattr("sensor." + list_var[i]+ ".unit_of_measurement", "Kwh")
     #state.setattr("sensor.hydroquebec_02_days_ago.icon, "'mdi:flash'"")

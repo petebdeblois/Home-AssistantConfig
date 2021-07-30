@@ -1,13 +1,11 @@
-import datetime
-#@time_trigger("once(friday + 18 hours)")
-#def manage_kids_week():
-#    day = datetime.datetime.today().weekday()
-#    week = datetime.datetime.today().isocalendar()[1]
-#    if(week % 2 == 0):
-    # call service turn on
-#        input_boolean.turn_off(entity_id='input_boolean.kids_week')
-#        log.info("KIDS WEEK => False")
-#    else:
-    #call service turn off
-#        input_boolean.turn_on(entity_id='input_boolean.kids_week')
-#        log.info("KIDS WEEK => True")
+from datetime import date
+
+@time_trigger("once(21:46:00)")
+def summer_vacation():
+    today = date.today()
+    d = int(today.strftime("%d"))
+    m = int(today.strftime("%m"))
+    if d == 28 and m == 8:
+        log.info('yes ' + str(d) + str(m))
+    else:
+        log.info('no ' + str(d) + str(m))

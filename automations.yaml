@@ -670,6 +670,9 @@
   - condition: state
     entity_id: input_boolean.holiday_mode
     state: 'off'
+  - condition: state
+    entity_id: input_boolean.school_summer_vacation
+    state: 'off'
   action:
   - service: tts.google_translate_say
     data:
@@ -705,9 +708,7 @@
   - platform: numeric_state
     entity_id: sensor.plante_max_moisture_level
     above: '25'
-  condition:
-  - condition: sun
-    before: sunset
+  condition: []
   action:
   - service: tts.google_translate_say
     data:
