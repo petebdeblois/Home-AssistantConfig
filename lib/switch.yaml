@@ -1,8 +1,8 @@
-- platform: group 
-  name: Office Switches
-  entities:
-    - switch.office_fan
-    - switch.office_screens
+# - platform: group 
+#   name: Office Switches
+#   entities:
+#     - switch.office_fan
+#     - switch.office_screens
 
 # Example configuration.yaml entry
 
