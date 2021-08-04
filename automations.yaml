@@ -80,13 +80,15 @@
   action:
   - service: tts.google_translate_say
     data:
-      message: Your plant need water
+      message: Your plant needs water
       entity_id: media_player.officemini
   - service: notify.mobile_app_pete_s20
     data:
       message: Please water the plant
       title: Plant
   - service: light.turn_off
+    target:
+      entity_id: light.office_lamp
   - service: light.turn_on
     data:
       brightness_pct: 97
@@ -482,11 +484,9 @@
     data:
       color_temp: 447
       transition: 15
-      brightness_pct: 5
+      brightness_pct: 4
     target:
-      entity_id:
-      - light.living_room_lamp_1
-      - light.living_room_lamp_2
+      entity_id: light.living_room_lamp
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.watching_tv
