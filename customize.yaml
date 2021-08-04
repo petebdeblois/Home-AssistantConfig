@@ -1,0 +1,2 @@
+sensor.freezer_power:
+  device_class: energy
