@@ -1,7 +1,6 @@
 - platform: uptime
-  name: Hassio Uptime
+  name: Home Assistant Uptime
 
-# Example configuration.yaml entry
 - platform: systemmonitor
   resources:
     - type: disk_use_percent
