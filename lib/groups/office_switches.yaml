@@ -1,4 +1,4 @@
-# name: Office Switches
-# entities:
-#     - switch.office_fan
-#     - switch.office_screens
+name: Office Switches
+entities:
+    - switch.office_fan
+    - switch.office_screens

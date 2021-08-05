@@ -318,13 +318,45 @@
         {% else %}
           False
         {% endif %} 
-# - id: notify_wash_cycle_completed
-#   alias: Notify Wash Cycle Completed
-#   trigger:
-#     - entity_id: sensor.washing_maching_is_running
-#       platform: state
-#       to: 'false'
-#       for:
-#         minutes: 3
-#   action:
-#     service: script.set_washing_machine_alert
+
+- platform: template
+  sensors:
+    lights_turned_on:
+      friendly_name: Numbers of lights turned on
+      value_template: >-
+        {% set ns = namespace(res=0) %}
+        {% for light in state_attr('light.all_lights', 'entity_id') if is_state(light, 'on') %}
+          {% set ns.res = ns.res + 1 %}
+        {%endfor%}
+        {{ ns.res }}
+- platform: template
+  sensors:
+    lights_turned_off:
+      friendly_name: Numbers of lights turned off
+      value_template: >-
+        {% set ns = namespace(res=0) %}
+        {% for light in state_attr('light.all_lights', 'entity_id') if is_state(light, 'off') %}
+          {% set ns.res = ns.res + 1 %}
+        {%endfor%}
+        {{ ns.res }}
+
+- platform: template
+  sensors:
+    lights_turned_on:
+      friendly_name: Numbers of switches turned on
+      value_template: >-
+        {% set ns = namespace(res=0) %}
+        {% for switch in state_attr('group.all_switches', 'entity_id') if is_state(switch, 'on') %}
+          {% set ns.res = ns.res + 1 %}
+        {%endfor%}
+        {{ ns.res }}
+- platform: template
+  sensors:
+    lights_turned_off:
+      friendly_name: Numbers of switches turned off
+      value_template: >-
+        {% set ns = namespace(res=0) %}
+        {% for switch in state_attr('group.all_switches', 'entity_id') if is_state(switch, 'off') %}
+          {% set ns.res = ns.res + 1 %}
+        {%endfor%}
+        {{ ns.res }}

@@ -1,0 +1,12 @@
+name: All Switches
+entities:
+    - switch.office_fan
+    - switch.office_screens
+    - switch.office_secondary
+    - switch.dishwasher
+    - switch.freezer
+    - switch.fridge
+    - switch.infra_test
+    - switch.infra_extra
+    - switch.bathroom_washing_machine
+    - switch.living_room_entertainment

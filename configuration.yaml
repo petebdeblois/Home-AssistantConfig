@@ -1,7 +1,7 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 homeassistant:
-  customize: !include lib/customize.yaml
+  customize: !include customize.yaml
 
 automation: !include automations.yaml
 binary_sensor: !include lib/binary_sensor.yaml
