@@ -342,7 +342,7 @@
 
 - platform: template
   sensors:
-    lights_turned_on:
+    switches_turned_on:
       friendly_name: Numbers of switches turned on
       value_template: >-
         {% set ns = namespace(res=0) %}
@@ -352,7 +352,7 @@
         {{ ns.res }}
 - platform: template
   sensors:
-    lights_turned_off:
+    switches_turned_off:
       friendly_name: Numbers of switches turned off
       value_template: >-
         {% set ns = namespace(res=0) %}

@@ -421,6 +421,8 @@
       entity_id:
       - switch.office_screens
       - switch.wake_machine
+      - switch.infra_test
+      - switch.infra_extra
   mode: single
 - id: '1620513319973'
   alias: Lights - Office Light 10PM Turn Off (Duplicate)
@@ -517,6 +519,8 @@
       entity_id:
       - switch.office_fan
       - switch.office_screens
+      - switch.infra_test
+      - switch.infra_extra
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on
