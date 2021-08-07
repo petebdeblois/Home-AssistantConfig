@@ -14,7 +14,9 @@
       entity_id: light.all_lights
   - service: switch.turn_off
     target:
-      entity_id: switch.office_screens
+      entity_id:
+      - switch.office_screens
+      - switch.infra_test
   initial_state: true
   mode: single
 - id: homeoccupied
@@ -550,6 +552,9 @@
       brightness_pct: 10
     target:
       entity_id: light.living_room_lamp
+  - service: switch.turn_on
+    target:
+      entity_id: switch.infra_test
   mode: single
 - id: '1620924425457'
   alias: TEST - Home - Nearly Home -> Ligths on
@@ -1136,14 +1141,16 @@
     entity_id: media_player.playstation_4_living
     attribute: source
     to: Netflix
-  condition: []
+  condition:
+  - condition: time
+    after: '18:45:00'
   action:
   - service: light.turn_on
     target:
       entity_id:
       - light.living_room_rgb
-      - light.living_room_lamp_1_v2
-      - light.living_room_lamp_2_v2
+      - light.living_room_lamp_1
+      - light.living_room_lamp_2
     data:
       color_name: red
       brightness: 255
