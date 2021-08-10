@@ -785,8 +785,7 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: light.office_ceiling_1,light.office_ceiling_2 ,light.living_room_lamp_1,light.living_room_lamp_2
-      ,light.kids_closet
+    entity_id: light.office_ceiling_1,light.office_ceiling_2 ,light.living_room_lamp_1,light.living_room_lamp_2,light.kids_closet
     to: unavailable
   condition: []
   action:
@@ -1141,6 +1140,7 @@
     entity_id: media_player.playstation_4_living
     attribute: source
     to: Netflix
+    id: netflix
   condition:
   - condition: time
     after: '18:45:00'
