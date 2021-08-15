@@ -28,6 +28,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
+from homeassistant.util import dt
 
 from .base import TuyaHaDevice
 from .const import (
@@ -81,7 +82,9 @@ DPCODE_HUMIDITY_VALUE = "humidity_value"
 DPCODE_CURRENT = "cur_current"
 DPCODE_POWER = "cur_power"
 DPCODE_VOLTAGE = "cur_voltage"
+DPCODE_ADD_ELE = "add_ele"
 DPCODE_TOTAL_FORWARD_ENERGY = "total_forward_energy"
+
 
 DPCODE_BRIGHT_VALUE = "bright_value"
 
@@ -401,6 +404,16 @@ def _setup_entities(hass, device_ids: List):
                         ),
                     )
                 )
+            if DPCODE_ADD_ELE in device.status:
+                entities.append(
+                    TuyaHaSensor(
+                        device,
+                        device_manager,
+                        DEVICE_CLASS_ENERGY,
+                        DPCODE_ADD_ELE,
+                        "kWh",
+                    )
+                )
             if DPCODE_BRIGHT_VALUE in device.status and device.category != "dj":
                 entities.append(
                     TuyaHaSensor(
@@ -467,11 +480,13 @@ class TuyaHaSensor(TuyaHaDevice, SensorEntity):
         sensor_type: str,
         sensor_code: str,
         sensor_unit: str,
+        #sensor_state_class: str,
     ):
         """Init TuyaHaSensor."""
         self._type = sensor_type
         self._code = sensor_code
         self._unit = sensor_unit
+        #self._state_class = sensor_state_class
         super().__init__(device, device_manager)
 
     @property
@@ -503,6 +518,12 @@ class TuyaHaSensor(TuyaHaDevice, SensorEntity):
         return ""
 
     @property
+    def state_class(self):
+        """State class of this entity."""
+        return "measurement"
+        #self._state_class
+
+    @property
     def unit_of_measurement(self):
         """Return the units of measurement."""
         return self._unit
@@ -511,6 +532,11 @@ class TuyaHaSensor(TuyaHaDevice, SensorEntity):
     def device_class(self):
         """Device class of this entity."""
         return self._type
+
+    @property
+    def last_reset(self):
+        """Return the date of device's value reset."""
+        return dt.utc_from_timestamp(0)
 
     @property
     def available(self) -> bool:
