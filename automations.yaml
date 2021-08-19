@@ -411,6 +411,9 @@
   - condition: state
     entity_id: input_boolean.holiday_mode
     state: 'off'
+  - condition: state
+    entity_id: device_tracker.pete_s20
+    state: home
   action:
   - service: light.turn_on
     target:
