@@ -1157,4 +1157,5 @@
     data:
       color_name: red
       brightness: 255
+      brightness_pct: 100
   mode: single
