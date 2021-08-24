@@ -546,7 +546,7 @@
     state: 'off'
     for: 00:10:00
   - condition: time
-    after: '18:00:00'
+    after: '17:00:00'
   action:
   - service: light.turn_on
     data:
@@ -554,10 +554,9 @@
       color_temp: 420
       brightness_pct: 10
     target:
-      entity_id: light.living_room_lamp
-  - service: switch.turn_on
-    target:
-      entity_id: switch.infra_test
+      entity_id:
+      - light.living_room_lamp
+      - light.living_room_rgb
   mode: single
 - id: '1620924425457'
   alias: TEST - Home - Nearly Home -> Ligths on
@@ -592,11 +591,12 @@
     data:
       color_temp: 447
       transition: 15
-      brightness_pct: 1
+      brightness_pct: 5
     target:
       entity_id:
       - light.living_room_lamp_1
       - light.living_room_lamp_2
+      - light.living_room_rgb
   - service: light.turn_on
     target:
       entity_id: light.living_room_rgb
@@ -951,21 +951,6 @@
     target:
       entity_id: switch.machine_sleep
   mode: single
-- id: '1624885130536'
-  alias: Home - Turn On Machine at 6:55
-  description: ''
-  trigger:
-  - platform: time
-    at: '23:59'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.pete_s20_is_charging
-    state: 'off'
-  action:
-  - service: switch.turn_off
-    target:
-      entity_id: switch.machine_wakeup
-  mode: single
 - id: '1625601426159'
   alias: Home - Freezer Door opened
   description: ''
@@ -1115,47 +1100,28 @@
     target:
       entity_id: light.bedroom_lights
   mode: single
-- id: '1627683337680'
-  alias: Test - Playstation Playing Plex
+- id: '1629764365504'
+  alias: 'Infra - Nearly Home -> on '
   description: ''
   trigger:
+  - platform: zone
+    entity_id:
+    - device_tracker.pete_s20
+    - device_tracker.julie_s20
+    zone: zone.home
+    event: enter
+    id: zone
   - platform: state
-    entity_id: media_player.playstation_4_living
-    attribute: source
-    to: Plex
-  condition: []
-  action:
-  - service: light.turn_on
-    target:
-      entity_id:
-      - light.living_room_rgb
-      - light.living_room_lamp_1_v2
-      - light.living_room_lamp_2_v2
-    data:
-      color_name: yellowgreen
-      brightness: 131
-  mode: single
-- id: '1627683631210'
-  alias: Test - Playstation Playing Netflix
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: media_player.playstation_4_living
-    attribute: source
-    to: Netflix
-    id: netflix
+    entity_id: sensor.pete_s20_wifi_connection
+    id: wifi
+    to: Legendary
   condition:
-  - condition: time
-    after: '18:45:00'
+  - condition: state
+    entity_id: input_boolean.home_occupied
+    state: 'off'
+    for: 00:10:00
   action:
-  - service: light.turn_on
+  - service: switch.turn_on
     target:
-      entity_id:
-      - light.living_room_rgb
-      - light.living_room_lamp_1
-      - light.living_room_lamp_2
-    data:
-      color_name: red
-      brightness: 255
-      brightness_pct: 100
+      entity_id: switch.infra_test
   mode: single
