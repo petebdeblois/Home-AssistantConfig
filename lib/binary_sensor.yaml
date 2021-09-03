@@ -65,3 +65,51 @@
           {% if is_state('binary_sensor.rain_alert','on') %} mdi:weather-pouring
           {% else %} mdi:weather-sunny
           {% endif %}
+
+# https://www.reddit.com/r/homeassistant/comments/pftf59/ha_is_a_hammer_and_now_im_looking_for_things_to/
+# Let's say you want some light on at 50%, but only when that room is occupied, and only on weekdays, and only when your partner is away. Then let's say you want it on for 
+# your partner when you're away, at 100%, and on when you're both home at 75%.
+# So we can break this down into 4 binaries: light_should_be_on_50, light_should_be_on_75, 
+# light_should_be_on_100, and light_should_be_off.
+# Let's start with the last one, should be off. This is simple, 
+# the conditions for off are "is it not a weekday" and "is the room unoccupied", 
+# so let's make a sensor for that:
+
+- platform: template
+  sensors:
+    outside_light_should_be_off:
+      friendly_name: Outside Light Should Be Off
+      value_template: >-
+          {% set not_weekday = is_state('binary_sensor.workday','off') %}
+          {% set sun_out = is_state('sun','above_horizon') %}
+          {{ not_weekday and sun_out }}
+          
+- platform: template
+  sensors:
+    outside_light_should_be_50:
+      friendly_name: Light Should Be 50
+      value_template: >-
+        {% set should_be_off = is_state('binary_sensor.outside_light_should_be_off','on') %}
+        {% set pete_home = is_state('device_tracker.pete_s20','home') %}
+        {% set julie_home = is_state('device_tracker.julie_s20','home') %}
+        {{ pete_home and not julie_home and not should_be_off }}
+
+- platform: template
+  sensors:
+    outside_light_should_be_75:
+      friendly_name: Light Should Be 75
+      value_template: >-
+        {% set should_be_off = is_state('binary_sensor.outside_light_should_be_off','on') %}
+        {% set pete_home = is_state('device_tracker.pete_s20','home') %}
+        {% set julie_home = is_state('device_tracker.julie_s20','home') %}
+        {{ julie_home and pete_home and not should_be_off }}
+
+- platform: template
+  sensors:
+    outside_light_should_be_100:
+      friendly_name: Light Should Be 100
+      value_template: >-
+          {% set should_be_off = is_state('binary_sensor.outside_light_should_be_off','on') %}
+          {% set pete_home = is_state('device_tracker.pete_s20','home') %}
+          {% set julie_home = is_state('device_tracker.julie_s20','home') %}
+          {{ julie_home and pete_home and not should_be_off }}

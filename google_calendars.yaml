@@ -11,21 +11,21 @@
   - device_id: meteo
     ignore_availability: true
     name: "M\xE9t\xE9o"
-    track: true
+    track: false
 
 - cal_id: f1vb77p2dlrj5i1d45esd6p0ak@group.calendar.google.com
   entities:
   - device_id: polar_training_targets
     ignore_availability: true
     name: Polar training targets
-    track: true
+    track: false
 
 - cal_id: r18vmad7k835nveo4e08rmhc9g@group.calendar.google.com
   entities:
   - device_id: polar_training_results
     ignore_availability: true
     name: Polar training results
-    track: true
+    track: false
 
 - cal_id: petebdeblois@gmail.com
   entities:
@@ -68,3 +68,11 @@
     ignore_availability: true
     name: Calendar
     track: true
+
+- cal_id: 5a71tch0uqtn8duitbidi3dnkg@group.calendar.google.com
+  entities:
+  - device_id: school
+    ignore_availability: true
+    name: School
+    track: true
+    search: "School"

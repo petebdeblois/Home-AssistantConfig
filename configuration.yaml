@@ -101,8 +101,11 @@ yahoofinance:
   scan_interval:
     hours: 24
 logger:
-    default: info
+    default: warning
     # Example configuration.yaml entry
+    logs:
+      homeassistant.components.pyscript: debug
+      custom_components.pyscript: info
 spotify:
   client_id: !secret spotify_id
   client_secret: !secret spotify_token

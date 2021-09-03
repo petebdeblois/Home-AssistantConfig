@@ -39,3 +39,4 @@ data
 image
 fitbit.conf
 pyscript/data.json
+/custom_components
