@@ -197,3 +197,9 @@ switch:
   - platform: wake_on_lan
     name: wake_machine
     mac: b4:2e:99:84:e9:1b
+
+utility_meter:
+  daily_energy_offpeak:
+    source: sensor.hydroquebec_yesterday_lower_price_consumption
+    name: Yesterday Energy Lower
+    cycle: daily

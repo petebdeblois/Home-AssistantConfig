@@ -1,0 +1,6 @@
+name: Hydro Access Fee
+initial: 0.4116
+min: 0
+max: 2
+step: 0.001
+unit_of_measurement: CAD/kWh

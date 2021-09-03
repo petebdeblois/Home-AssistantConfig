@@ -91,7 +91,7 @@ def output_json(customer, show_hourly=False):
             hourly_object.update(data)
             out["hourly_data"].append(hourly_object)
     #print(json.dumps(out))
-    #print("can you print this")
+    print("can you print this")
     with open('../data.json', 'w') as outfile:
         json.dump(out, outfile)
     with open('/usr/share/hassio/homeassistant/data/data.json', 'w') as outfile:

@@ -23,6 +23,7 @@ ip_bans.yaml
 secrets.yaml
 known_devices.yaml
 home-assistant.log
+home-assistant.log.1
 .ip_authenticated.yaml
 
 

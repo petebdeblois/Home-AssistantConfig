@@ -1125,3 +1125,11 @@
     target:
       entity_id: switch.infra_test
   mode: single
+- id: '1630599676119'
+  alias: Turn off charging after device is charged
+  description: ''
+  use_blueprint:
+    path: vorion/turn-off-phone-charging-after-the-phone-is-charged.yaml
+    input:
+      switch: switch.infra_extra1
+      phone_battery: sensor.pete_s20_battery_level
