@@ -2,3 +2,8 @@
   platform: file
   filename: /config/data/notify.log
   timestamp: true
+
+- name: filenotify
+  platform: file
+  filename: /config/data/avg_humidity.csv
+  timestamp: true

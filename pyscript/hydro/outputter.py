@@ -94,7 +94,7 @@ def output_json(customer, show_hourly=False):
     print("can you print this")
     with open('../data.json', 'w') as outfile:
         json.dump(out, outfile)
-    with open('/usr/share/hassio/homeassistant/data/data.json', 'w') as outfile:
+    with open('/usr/share/hassio/homeassistant/data/private/data.json', 'w') as outfile:
         json.dump(out, outfile)
 
 

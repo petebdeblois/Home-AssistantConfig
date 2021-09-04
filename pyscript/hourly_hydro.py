@@ -38,7 +38,7 @@ higher_price = 0.095
 
 @pyscript_compile
 def hydro_open():
-  with open('config/data/data.json') as f:
+  with open('config/data/private/data.json') as f:
     data = json.load(f)
   time.sleep(5)
   global yesterday_higher

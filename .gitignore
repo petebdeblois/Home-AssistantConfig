@@ -34,7 +34,7 @@ home-assistant.log.1
 /pyscript/hydro/__pycache__
 config
 home-assistant_v2.db
-data
+data/private
 .vscode
 image
 fitbit.conf

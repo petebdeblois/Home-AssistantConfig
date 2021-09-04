@@ -1133,3 +1133,17 @@
     input:
       switch: switch.infra_extra1
       phone_battery: sensor.pete_s20_battery_level
+- id: '1630702363232'
+  alias: Infra - Export Avg Climate
+  description: ''
+  trigger:
+  - platform: time
+    at: 03:00
+  - platform: time
+    at: '15:00'
+  condition: []
+  action:
+  - service: notify.filenotify
+    data_template:
+      message: ',{{states.sensor.avg_humidity.state}}'
+  mode: single
