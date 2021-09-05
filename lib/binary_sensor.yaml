@@ -87,7 +87,7 @@
 - platform: template
   sensors:
     outside_light_should_be_50:
-      friendly_name: Light Should Be 50
+      friendly_name: Outside Light Should Be 50
       value_template: >-
         {% set should_be_off = is_state('binary_sensor.outside_light_should_be_off','on') %}
         {% set pete_home = is_state('device_tracker.pete_s20','home') %}
@@ -97,7 +97,7 @@
 - platform: template
   sensors:
     outside_light_should_be_75:
-      friendly_name: Light Should Be 75
+      friendly_name: Outside Light Should Be 75
       value_template: >-
         {% set should_be_off = is_state('binary_sensor.outside_light_should_be_off','on') %}
         {% set pete_home = is_state('device_tracker.pete_s20','home') %}
@@ -107,12 +107,21 @@
 - platform: template
   sensors:
     outside_light_should_be_100:
-      friendly_name: Light Should Be 100
+      friendly_name: Outside Light Should Be 100
       value_template: >-
           {% set should_be_off = is_state('binary_sensor.outside_light_should_be_off','on') %}
           {% set pete_home = is_state('device_tracker.pete_s20','home') %}
           {% set julie_home = is_state('device_tracker.julie_s20','home') %}
           {{ julie_home and pete_home and not should_be_off }}
+
+- platform: template
+  sensors:
+    living_room_lights_should_be_off:
+      friendly_name: Living Room Lights Should Be On
+      value_template: >-
+          {% set home_presence = is_state('group.adults','home') %}
+          {% set evening = is_state('binary_sensor.evening','on') %}
+          {{ home_presence and evening }}
 
 # https://www.home-assistant.io/integrations/tod/
 - platform: tod
