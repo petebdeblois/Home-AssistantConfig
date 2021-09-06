@@ -674,17 +674,14 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:40:00
+    at: 06:40
   condition:
   - condition: state
     entity_id: input_boolean.kids_week
     state: 'on'
   - condition: state
-    entity_id: input_boolean.holiday_mode
-    state: 'off'
-  - condition: state
-    entity_id: input_boolean.school_summer_vacation
-    state: 'off'
+    entity_id: sensor.school_day
+    state: 'true'
   action:
   - service: tts.google_translate_say
     data:
@@ -1145,7 +1142,7 @@
   action:
   - service: notify.filenotify
     data_template:
-      message: ',{{states.sensor.avg_humidity.state}}'
+      message: ',{{states.sensor.avg_humidity.state}}, {{sensor.openweathermap_humidity}}'
   mode: single
 - id: '1630802392232'
   alias: Living Room Lamps
@@ -1168,4 +1165,17 @@
       entity_id: light.living_room_rgb
     data:
       brightness_pct: 100
+  mode: single
+- id: '1630872049065'
+  alias: Turn on charging after device is charged
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.pete_s20_battery_level
+    below: '85'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.infra_extra1
   mode: single

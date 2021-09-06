@@ -375,7 +375,27 @@
       friendly_name: Average Humidity
       value_template: "{{(states.sensor.bathroom_humidity.state|float + states.sensor.living_room_humidity.state|float + states.sensor.bedroom_humidity.state|float + states.sensor.living_room_humidity.state|float + states.sensor.office_humidity.state|float)/4}}"
 
+- platform: template
+  sensors:
+    average_humidity:
+    unit_of_measurement: "%"
+    friendly_name: Average Humidity
+    state: >
+          {% set bedroom = states('sensor.bathroom_humidity') | float %}
+          {% set kitchen = states('sensor.living_room_humidity') | float %}
+          {% set bedroom = states('sensor.bedroom_humidity') | float %}
+          {% set office = states('sensor.office_humidity') | float %}
+          {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
-
-
+- platform: template
+  sensors:
+    average_temperature:
+    unit_of_measurement: "°C"
+    friendly_name: Average Temperature
+    state: >
+          {% set bedroom = states('sensor.bathroom_temperature') | float %}
+          {% set kitchen = states('sensor.living_room_temperature') | float %}
+          {% set bedroom = states('sensor.bedroom_temperature') | float %}
+          {% set office = states('sensor.office_temperature') | float %}
+          {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 

@@ -117,11 +117,12 @@
 - platform: template
   sensors:
     living_room_lights_should_be_off:
-      friendly_name: Living Room Lights Should Be On
+      friendly_name: Living Room Lights Should Be Off
       value_template: >-
           {% set home_presence = is_state('group.adults','home') %}
           {% set evening = is_state('binary_sensor.evening','on') %}
           {{ home_presence and evening }}
+
 
 # https://www.home-assistant.io/integrations/tod/
 - platform: tod
