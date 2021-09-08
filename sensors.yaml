@@ -371,31 +371,70 @@
 
 - platform: template
   sensors:
-    avg_humidity:
-      friendly_name: Average Humidity
-      value_template: "{{(states.sensor.bathroom_humidity.state|float + states.sensor.living_room_humidity.state|float + states.sensor.bedroom_humidity.state|float + states.sensor.living_room_humidity.state|float + states.sensor.office_humidity.state|float)/4}}"
-
-- platform: template
-  sensors:
     average_humidity:
-    unit_of_measurement: "%"
-    friendly_name: Average Humidity
-    state: >
-          {% set bedroom = states('sensor.bathroom_humidity') | float %}
-          {% set kitchen = states('sensor.living_room_humidity') | float %}
-          {% set bedroom = states('sensor.bedroom_humidity') | float %}
-          {% set office = states('sensor.office_humidity') | float %}
-          {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
+      unit_of_measurement: "%"
+      friendly_name: Average Humidity
+      value_template: >-
+        {% set bedroom = states('sensor.bathroom_humidity') | float %}
+        {% set kitchen = states('sensor.living_room_humidity') | float %}
+        {% set bedroom = states('sensor.bedroom_humidity') | float %}
+        {% set office = states('sensor.office_humidity') | float %}
+        {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
 - platform: template
   sensors:
     average_temperature:
-    unit_of_measurement: "°C"
-    friendly_name: Average Temperature
-    state: >
-          {% set bedroom = states('sensor.bathroom_temperature') | float %}
-          {% set kitchen = states('sensor.living_room_temperature') | float %}
-          {% set bedroom = states('sensor.bedroom_temperature') | float %}
-          {% set office = states('sensor.office_temperature') | float %}
-          {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
+      unit_of_measurement: "°C"
+      friendly_name: Average Temperature
+      value_template: >-
+        {% set bedroom = states('sensor.bathroom_temperature') | float %}
+        {% set kitchen = states('sensor.living_room_temperature') | float %}
+        {% set bedroom = states('sensor.bedroom_temperature') | float %}
+        {% set office = states('sensor.office_temperature') | float %}
+        {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
+- platform: powercalc
+  entity_id: light.office_lamp
+  name: powercalc_office_lamp
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: light.office_ceiling_1
+  name: powercalc_office_ceiling_1
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: light.office_ceiling_2
+  name: powercalc_office_ceiling_2
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: light.living_room_rgb
+  name: powercalc_living_room_rgb
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: light.living_room_lamp_1
+  name: powercalc_living_room_rgb
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: light.living_room_lamp_2
+  name: powercalc_living_room_rgb
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: light.bedroom_rgb
+  name: powercalc_bedroom_rgb
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: light.kids_closet
+  name: powercalc_kids_closet
+  fixed:
+    power: 15
+- platform: powercalc
+  entity_id: switch.office_screens
+  name: powercalc_office_screens
+  fixed:
+    power: 270

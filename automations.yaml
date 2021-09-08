@@ -1045,7 +1045,7 @@
   trigger:
   - platform: state
     entity_id: group.adults
-    to: home
+    to: not_home
     for: '24:00:00'
   condition:
   - condition: state
@@ -1142,7 +1142,7 @@
   action:
   - service: notify.filenotify
     data_template:
-      message: ',{{states.sensor.avg_humidity.state}}, {{sensor.openweathermap_humidity}}'
+      message: ',{{states.sensor.average_humidity.state}},{{sensor.openweathermap_humidity}},{{states.sensor.average_temperature.state}},{{sensor.openweathermap_temperature}}'
   mode: single
 - id: '1630802392232'
   alias: Living Room Lamps
