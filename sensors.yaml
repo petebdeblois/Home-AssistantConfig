@@ -395,46 +395,55 @@
 
 - platform: powercalc
   entity_id: light.office_lamp
+  #friendly_name: Office Lamp
   name: powercalc_office_lamp
   fixed:
-    power: 15
+    power: 3
 - platform: powercalc
   entity_id: light.office_ceiling_1
+  #friendly_name: Office Ceiling 1
   name: powercalc_office_ceiling_1
   fixed:
-    power: 15
+    power: 3
 - platform: powercalc
   entity_id: light.office_ceiling_2
+  #friendly_name: Office Ceiling 2
   name: powercalc_office_ceiling_2
   fixed:
-    power: 15
+    power: 3
 - platform: powercalc
   entity_id: light.living_room_rgb
+  #friendly_name: Living Room RGB
   name: powercalc_living_room_rgb
   fixed:
-    power: 15
+    power: 4
 - platform: powercalc
   entity_id: light.living_room_lamp_1
-  name: powercalc_living_room_rgb
+  #friendly_name: Living Room Lamp 1
+  name: powercalc_living_room_lamp_1
   fixed:
-    power: 15
+    power: 3
 - platform: powercalc
   entity_id: light.living_room_lamp_2
-  name: powercalc_living_room_rgb
+  #friendly_name: Living Room Lamp 2
+  name: powercalc_living_room_lamp_2
   fixed:
-    power: 15
+    power: 3
 - platform: powercalc
   entity_id: light.bedroom_rgb
+  #friendly_name: Bedroom RGB
   name: powercalc_bedroom_rgb
   fixed:
-    power: 15
+    power: 4
 - platform: powercalc
   entity_id: light.kids_closet
+  #friendly_name: Kids Closed
   name: powercalc_kids_closet
   fixed:
-    power: 15
+    power: 3
 - platform: powercalc
   entity_id: switch.office_screens
+  #friendly_name: Office Screens
   name: powercalc_office_screens
   fixed:
-    power: 270
+    power: 272

@@ -1142,7 +1142,7 @@
   action:
   - service: notify.filenotify
     data_template:
-      message: ',{{states.sensor.average_humidity.state}},{{sensor.openweathermap_humidity}},{{states.sensor.average_temperature.state}},{{sensor.openweathermap_temperature}}'
+      message: ',{{states.sensor.average_humidity.state}},{{states.sensor.openweathermap_humidity.state}},{{states.sensor.average_temperature.state}},{{states.sensor.openweathermap_temperature.state}}'
   mode: single
 - id: '1630802392232'
   alias: Living Room Lamps
