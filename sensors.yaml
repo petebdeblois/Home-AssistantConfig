@@ -393,6 +393,8 @@
         {% set office = states('sensor.office_temperature') | float %}
         {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
+
+# https://github.com/bramstroker/homeassistant-powercalc
 - platform: powercalc
   entity_id: light.office_lamp
   #friendly_name: Office Lamp
