@@ -681,7 +681,7 @@
     state: 'on'
   - condition: state
     entity_id: sensor.school_day
-    state: 'true'
+    state: 'True'
   action:
   - service: tts.google_translate_say
     data:
