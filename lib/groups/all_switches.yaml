@@ -1,12 +1,14 @@
 name: All Switches
 entities:
-    - switch.office_fan
-    - switch.office_screens
-    - switch.office_secondary
+    - switch.bathroom_washing_machine
+    - switch.bedroom_entertainment
     - switch.dishwasher
     - switch.freezer
     - switch.fridge
-    - switch.infra_test
-    - switch.infra_extra
-    - switch.bathroom_washing_machine
+    - switch.julie_charger_phone
+    - switch.kitchen_dashboard
     - switch.living_room_entertainment
+    - switch.office_fan
+    - switch.office_pc
+    - switch.office_screens
+    - switch.pete_charger_phone

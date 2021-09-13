@@ -443,9 +443,4 @@
   name: powercalc_kids_closet
   fixed:
     power: 3
-- platform: powercalc
-  entity_id: switch.office_screens
-  #friendly_name: Office Screens
-  name: powercalc_office_screens
-  fixed:
-    power: 272
+
