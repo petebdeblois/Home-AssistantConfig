@@ -640,7 +640,7 @@
       entity_id: switch.office_fan
   mode: single
 - id: '1621213114790'
-  alias: People - Aurelie - Pils
+  alias: People - Aurelie - Pils - Week
   description: ''
   trigger:
   - platform: time
@@ -1223,4 +1223,26 @@
     data:
       entity_id: media_player.home
       message: Time for some medication
+  mode: single
+- id: '1633216656307'
+  alias: People - Aurelie - Pils - BJJ
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.kids_week
+    state: 'on'
+  - condition: zone
+    entity_id: person.julie
+    zone: zone.home
+  - condition: time
+    weekday:
+    - sat
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.home
+      message: Family, its time to focus.
   mode: single
