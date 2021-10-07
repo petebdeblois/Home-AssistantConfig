@@ -206,3 +206,20 @@ utility_meter:
     source: sensor.hydroquebec_yesterday_lower_price_consumption
     name: Yesterday Energy Lower
     cycle: daily
+
+prometheus:
+  namespace: hass
+  component_config_glob:
+    sensor.*_humidity:
+      override_metric: humidity_percent
+    sensor.*_temperature:
+      override_metric: temperature_c
+    sensor.temperature*:
+      override_metric: temperature_c
+    sensor.*_bat:
+      override_metric: battery_percent
+  filter:
+    include_domains:
+      - sensor
+    exclude_entity_globs:
+      - sensor.weather_*
