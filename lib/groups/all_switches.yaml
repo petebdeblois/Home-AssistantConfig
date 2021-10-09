@@ -12,3 +12,4 @@ entities:
     - switch.office_pc
     - switch.office_screens
     - switch.pete_charger_phone
+    - switch.decoration
