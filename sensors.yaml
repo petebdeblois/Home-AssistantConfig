@@ -394,53 +394,81 @@
         {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
 
-# https://github.com/bramstroker/homeassistant-powercalc
-- platform: powercalc
-  entity_id: light.office_lamp
-  #friendly_name: Office Lamp
-  name: powercalc_office_lamp
-  fixed:
-    power: 3
-- platform: powercalc
-  entity_id: light.office_ceiling_1
-  #friendly_name: Office Ceiling 1
-  name: powercalc_office_ceiling_1
-  fixed:
-    power: 3
-- platform: powercalc
-  entity_id: light.office_ceiling_2
-  #friendly_name: Office Ceiling 2
-  name: powercalc_office_ceiling_2
-  fixed:
-    power: 3
-- platform: powercalc
-  entity_id: light.living_room_rgb
-  #friendly_name: Living Room RGB
-  name: powercalc_living_room_rgb
-  fixed:
-    power: 4
-- platform: powercalc
-  entity_id: light.living_room_lamp_1
-  #friendly_name: Living Room Lamp 1
-  name: powercalc_living_room_lamp_1
-  fixed:
-    power: 3
-- platform: powercalc
-  entity_id: light.living_room_lamp_2
-  #friendly_name: Living Room Lamp 2
-  name: powercalc_living_room_lamp_2
-  fixed:
-    power: 3
-- platform: powercalc
-  entity_id: light.bedroom_rgb
-  #friendly_name: Bedroom RGB
-  name: powercalc_bedroom_rgb
-  fixed:
-    power: 4
-- platform: powercalc
-  entity_id: light.kids_closet
-  #friendly_name: Kids Closed
-  name: powercalc_kids_closet
-  fixed:
-    power: 3
+# https://community.home-assistant.io/t/speedtest-integration-no-longer-loading/297167/42
+- platform: mqtt
+  name: "Speedtest Result"
+  state_topic: "speedtestresult"
+  value_template: "{{ value_json.state }}"
+  json_attributes_topic: "speedtestresult"
+  json_attributes_template: "{{ value_json.attributes | tojson }}"
 
+- platform: average
+  name: "Speedtest Download Average"
+  entities:
+    - sensor.speedtest_download
+  start: '{{ 0 }}'
+  end: '{{ now() }}'
+
+- platform: average
+  name: "Speedtest Upload Average"
+  entities:
+    - sensor.speedtest_upload
+  start: '{{ 0 }}'
+  end: '{{ now() }}'
+
+# Speedtest and Up Time
+
+- platform: template
+  sensors:
+# Speedtest Results
+    speedtest_download:
+      value_template: '{{ states.sensor.speedtest_result.attributes["download"] }}'
+      unique_id: speeddown
+    speedtest_upload:
+      value_template: '{{ states.sensor.speedtest_result.attributes["upload"] }}'
+      unique_id: speedup
+    speedtest_ping:
+      value_template: '{{ states.sensor.speedtest_result.attributes["ping"] }}'
+      unique_id: speedping
+    speedtest_lastrun:
+      value_template: '{{ states.sensor.speedtest_result.attributes["time_run"] }}'
+      unique_id: speedtimerun
+
+- platform: mqtt
+  name: "Speedtest UAT Result"
+  state_topic: "speedtestresultuat"
+  value_template: "{{ value_json.state }}"
+  json_attributes_topic: "speedtestresultuat"
+  json_attributes_template: "{{ value_json.attributes | tojson }}"
+
+- platform: average
+  name: "Speedtest UAT Download Average"
+  entities:
+    - sensor.speedtest_uat_download
+  start: '{{ 0 }}'
+  end: '{{ now() }}'
+
+- platform: average
+  name: "Speedtest UAT Upload Average"
+  entities:
+    - sensor.speedtest_uat_upload
+  start: '{{ 0 }}'
+  end: '{{ now() }}'
+
+# Speedtest and Up Time
+
+- platform: template
+  sensors:
+# Speedtest Results
+      speedtest_uat_download:
+        value_template: '{{ states.sensor.speedtest_uat_result.attributes["download"] }}'
+        unique_id: speeddownuat
+      speedtest_uat_upload:
+        value_template: '{{ states.sensor.speedtest_uat_result.attributes["upload"] }}'
+        unique_id: speedupuat
+      speedtest_uat_ping:
+        value_template: '{{ states.sensor.speedtest_uat_result.attributes["ping"] }}'
+        unique_id: speedpinguat
+      speedtest_uat_lastrun:
+        value_template: '{{ states.sensor.speedtest_uat_result.attributes["time_run"] }}'
+        unique_id: speedtimerunuat

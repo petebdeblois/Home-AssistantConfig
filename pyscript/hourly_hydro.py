@@ -38,7 +38,7 @@ higher_price = 0.095
 
 @pyscript_compile
 def hydro_open():
-  with open('config/data/private/data.json') as f:
+  with open('/config/data/private/data.json') as f:
     data = json.load(f)
   time.sleep(5)
   global yesterday_higher
@@ -53,7 +53,7 @@ def hydro_open():
     list_consumption[i] = data['hourly_data'][i]['total_consumption']
     list_hour[i] = data['hourly_data'][i]['hour']
 
-@time_trigger("once(05:30:30)")
+@time_trigger("once(13:55:50)")
 def hydro_states():
     hydro_open()
     state.set("sensor.hydro_yesterday_cost", value=hydro_yesterday_cost)
