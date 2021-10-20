@@ -40,26 +40,26 @@ sensor.speedtest_uat_upload_average:
   icon: mdi:speedometer
   <<: *common
 sensor.speedtest_uat_download:
-  friendly_name: Speedtest Download
+  friendly_name: Speedtest UAT Download
   icon: mdi:speedometer
   unit_of_measurement: Mbit/s
   <<: *common
 sensor.speedtest_uat_upload:
-  friendly_name: Speedtest Upload
+  friendly_name: Speedtest UAT Upload
   icon: mdi:speedometer
   unit_of_measurement: Mbit/s
   <<: *common
 sensor.speedtest_uat_ping:
-  friendly_name: Speedtest Ping
+  friendly_name: Speedtest UAT Ping
   icon: mdi:speedometer
   unit_of_measurement: ms
   <<: *common
 sensor.speedtest_uat_result:
-  friendly_name: Speedtest Result
+  friendly_name: Speedtest UAT Result
   icon: mdi:speedometer
   <<: *common
 sensor.speedtest_uat_lastrun:
-  friendly_name: Speedtest Last Run
+  friendly_name: Speedtest UAT Last Run
   icon: mdi:clock
   device_class: timestamp
   <<: *common

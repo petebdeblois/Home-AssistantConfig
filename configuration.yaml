@@ -2,6 +2,10 @@
 default_config:
 homeassistant:
   customize: !include customize.yaml
+  auth_providers:
+    - type: homeassistant
+    - type: legacy_api_password
+      api_password: apipassword
 
 automation: !include automations.yaml
 binary_sensor: !include lib/binary_sensor.yaml

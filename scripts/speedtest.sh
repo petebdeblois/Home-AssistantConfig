@@ -11,7 +11,7 @@ mqttport=1883
 
 # DO NOT ALTER ANYTHING BELOW THIS LINE
 
-speedtest_result=$(sudo speedtest --format=json --accept-license)
+speedtest_result=$(speedtest --format=json --accept-license)
 echo "**********************************************************************************************"
 echo $speedtest_result
 

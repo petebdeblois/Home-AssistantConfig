@@ -472,3 +472,10 @@
       speedtest_uat_lastrun:
         value_template: '{{ states.sensor.speedtest_uat_result.attributes["time_run"] }}'
         unique_id: speedtimerunuat
+
+
+- platform: mqtt
+  name: “Civic Torque”
+  state_topic: “devices/civic/torque”
+  value_template: “{{ state_attr('sensor.civic_torque', 'GPS Time') }}”
+  json_attributes_topic: “devices/ciovic/torque”
