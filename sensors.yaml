@@ -475,7 +475,25 @@
 
 
 - platform: mqtt
-  name: “Civic Torque”
-  state_topic: “devices/civic/torque”
-  value_template: “{{ state_attr('sensor.civic_torque', 'GPS Time') }}”
-  json_attributes_topic: “devices/ciovic/torque”
+  name: "Civic Torque"
+  state_topic: "devices/civic/torque"
+  value_template: "{{ state_attr('sensor.civic_torque', 'GPS Time') }}"
+  json_attributes_topic: "devices/civic/torque"
+
+# https://www.home-assistant.io/integrations/history_stats/
+- platform: history_stats
+  name: Lamp ON today
+  entity_id: light.office_lamp
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  duration:
+    hours: 24
+- platform: history_stats
+  name: Switch ON today
+  entity_id: switch.office_screens
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  duration:
+    hours: 24
