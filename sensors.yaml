@@ -497,3 +497,21 @@
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   duration:
     hours: 24
+
+- platform: template
+  sensors:
+    civic_torque_litresper100:
+      value_template: '{{ states.sensor.civic_torque.attributes["Litres Per 100 Kilometer(Long Term Average)(l/100km)"] | round(2) }}'
+      unit_of_measurement : "l/100km"
+    civic_torque_fuelremaining_profile:
+      value_template: '{{ states.sensor.civic_torque.attributes["Fuel Remaining (Calculated from vehicle profile)(%)"] | round(2) }}'
+      unit_of_measurement : "%"
+    civic_torque_fuelremaining_ecu:
+      value_template: '{{ states.sensor.civic_torque.attributes["Fuel Level (From Engine ECU)(%)"] | round(2) }}'
+      unit_of_measurement : "%"
+    civic_torque_distance_empty:
+      value_template: '{{ states.sensor.civic_torque.attributes["Distance to empty (Estimated)(km)"] | round(2) }}'
+      unit_of_measurement : "km"
+    civic_torque_rpm:
+      value_template: '{{ states.sensor.civic_torque.attributes["Engine RPM(rpm)"] | round(2) }}'
+      unit_of_measurement : "rpm"
