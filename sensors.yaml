@@ -476,7 +476,8 @@
 
 - platform: mqtt
   name: "Civic Torque"
-  state_topic: "devices/civic/torque"
+  state_topic:
+   "devices/civic/torque"
   value_template: "{{ state_attr('sensor.civic_torque', 'GPS Time') }}"
   json_attributes_topic: "devices/civic/torque"
 
