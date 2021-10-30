@@ -466,7 +466,7 @@
     to: standby
   condition:
   - condition: time
-    after: '18:00:00'
+    after: '18:00'
   action:
   - service: light.turn_on
     data:
@@ -1065,7 +1065,7 @@
   description: ''
   trigger:
   - platform: time
-    at: '21:00:00'
+    at: '20:00'
   condition:
   - condition: state
     entity_id: input_boolean.holiday_mode
@@ -1133,7 +1133,7 @@
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 5
+      brightness_pct: 10
     target:
       entity_id:
       - light.living_room_lamp_1
