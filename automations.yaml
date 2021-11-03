@@ -16,7 +16,7 @@
     target:
       entity_id:
       - switch.office_screens
-      - switch.infra_test
+      - switch.kitchen_dashboard
   initial_state: true
   mode: single
 - id: homeoccupied
@@ -399,7 +399,7 @@
   description: Turn On Office Light 7AM
   trigger:
   - platform: time
-    at: 06:55:00
+    at: 06:55
   condition:
   - condition: time
     weekday:
@@ -425,9 +425,7 @@
     target:
       entity_id:
       - switch.office_screens
-      - switch.wake_machine
-      - switch.infra_test
-      - switch.infra_extra
+      - switch.kitchen_dashboard
   mode: single
 - id: '1620513319973'
   alias: Lights - Office Light 10PM Turn Off (Duplicate)
@@ -1098,7 +1096,7 @@
   action:
   - service: switch.turn_on
     target:
-      entity_id: switch.infra_test
+      entity_id: switch.kitchen_dashboard
   mode: single
 - id: '1630599676119'
   alias: Turn off charging after device is charged
