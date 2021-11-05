@@ -80,7 +80,7 @@
     outside_light_should_be_off:
       friendly_name: Outside Light Should Be Off
       value_template: >-
-          {% set not_weekday = is_state('binary_sensor.workday','off') %}
+          {% set not_weekday = is_state('binary_sensor.workday_sensor','off') %}
           {% set sun_out = is_state('binary_sensor.evening','off') %}
           {{ not_weekday and sun_out }}
 
@@ -116,8 +116,8 @@
 
 - platform: template
   sensors:
-    living_room_lights_should_be_off:
-      friendly_name: Living Room Lights Should Be Off
+    living_room_lights_should_be_on:
+      friendly_name: Living Room Lights Should Be On
       value_template: >-
           {% set home_presence = is_state('group.adults','home') %}
           {% set evening = is_state('binary_sensor.evening','on') %}
