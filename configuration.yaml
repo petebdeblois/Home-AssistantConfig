@@ -22,6 +22,7 @@ scene: !include lib/scenes.yaml
 script: !include lib/scripts.yaml
 sensor: !include sensors.yaml
 shell_command: !include shell_command.yaml
+counter: !include_dir_named lib/counter/
 #switch: !include lib/switch.yaml
 
 #device_tracker: !include device_tracker.yaml
