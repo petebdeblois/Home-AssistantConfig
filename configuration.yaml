@@ -19,7 +19,7 @@ light: !include lib/light.yaml
 nintendo_wishlist: !include lib/nintendo_wishlist.yaml
 notify: !include lib/notify.yaml
 scene: !include lib/scenes.yaml
-script: !include lib/scripts.yaml
+script: !include scripts.yaml
 sensor: !include sensors.yaml
 shell_command: !include shell_command.yaml
 counter: !include_dir_named lib/counter/

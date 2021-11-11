@@ -1,0 +1,4 @@
+name: Reset Chores Time
+icon: mdi:clock-end
+has_date: false
+has_time: true

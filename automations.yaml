@@ -929,7 +929,7 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: sensor.infra_freezer_power
+    entity_id: sensor.freezer_power
     above: '110'
     for: 0:10:00
   condition: []
@@ -1274,3 +1274,171 @@
     target:
       entity_id: switch.aircirculator
   mode: single
+- id: '1636560979696'
+  alias: Chores  - Aurelie - If Daily Task Complete Then Add 1 Point
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_1
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_2
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_3
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_4
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_5
+    to: 'on'
+  condition: []
+  action:
+  - service: script.add_1_aurelie
+  mode: single
+  max: 10
+- id: '1636561072403'
+  alias: Chores  - Chloe - If Daily Task Complete Then Add 1 Point
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.chloe_chore_1
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_2
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_3
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_4
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_5
+    to: 'on'
+  condition: []
+  action:
+  - service: script.add_1_chloe
+  mode: single
+  max: 10
+- id: '1636561769145'
+  alias: Chores - Reset Daily Chores
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.reset_chore
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_1
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_2
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_3
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_4
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_5
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_1
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_2
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_3
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_4
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_5
+  mode: single
+- id: '1636561818733'
+  alias: Chores - Reset Weekly Chores
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.reset_chore
+  condition:
+  - condition: time
+    weekday:
+    - fri
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_w_1
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_w_1
+  mode: single
+- id: '1636562137442'
+  alias: Chores - Notification Score Reached!
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: counter.chores_aurelie
+    above: '29'
+  - platform: numeric_state
+    entity_id: counter.chores_chloe
+    above: '29'
+  condition: []
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.home
+      message: Score Reached! Please celebrate
+  - service: media_player.play_media
+    data:
+      media_content_id: http://192.168.2.65:8123/local/champagne.mp3
+      media_content_type: music
+    target:
+      entity_id: media_player.home
+  mode: single
+- id: '1636564907777'
+  alias: Chores  - Aurelie - If Weekly Task Complete Then Add 5 Points
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_w_1
+    to: 'on'
+  condition: []
+  action:
+  - service: script.add_1_aurelie
+  - service: script.add_1_aurelie
+  - service: script.add_1_aurelie
+  - service: script.add_1_aurelie
+  - service: script.add_1_aurelie
+  mode: single
+  max: 10
+- id: '1636564997430'
+  alias: Chores  - Chloe - If Weekly Task Complete Then Add 5 Points
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.chloe_chore_w_1
+    to: 'on'
+  condition: []
+  action:
+  - service: script.add_1_chloe
+  - service: script.add_1_chloe
+  - service: script.add_1_chloe
+  - service: script.add_1_chloe
+  mode: single
+  max: 10

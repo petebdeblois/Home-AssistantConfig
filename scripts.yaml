@@ -1,6 +1,46 @@
-add_1:
-  alias: Add 1
+add_1_aurelie:
+  alias: Add 1 Aurelie
   sequence:
   - service: counter.increment
+    target:
+      entity_id: counter.chores_aurelie
   mode: single
   icon: mdi:plus-thick
+add_1_chloe:
+  alias: Add 1 Chloe
+  sequence:
+  - service: counter.increment
+    target:
+      entity_id: counter.chores_chloe
+  mode: single
+  icon: mdi:plus-thick
+remove_1_aurelie:
+  alias: Remove 1 Aurelie
+  sequence:
+  - service: counter.decrement
+    target:
+      entity_id: counter.chores_aurelie
+  mode: single
+  icon: mdi:minus-thick
+remove_1_chloe:
+  alias: Remove 1 Chloe
+  sequence:
+  - service: counter.decrement
+    target:
+      entity_id: counter.chores_chloe
+  mode: single
+  icon: mdi:minus-thick
+reset_aurelie:
+  alias: Reset Aurelie
+  sequence:
+  - service: counter.reset
+    target:
+      entity_id: counter.chores_aurelie
+  mode: single
+reset_chloe:
+  alias: Reset Chloe
+  sequence:
+  - service: counter.reset
+    target:
+      entity_id: counter.chores_chloe
+  mode: single
