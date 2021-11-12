@@ -6,7 +6,7 @@
 !.gitignore
 !*.md
 /appdaemon
-/blueprints
+
 
 /themes
 /tts

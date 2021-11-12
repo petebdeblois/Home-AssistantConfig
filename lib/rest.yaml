@@ -1,0 +1,82 @@
+# https://smarthomepursuits.com/how-to-track-crypto-prices-in-home-assistant/
+- resource: https://api.nomics.com/v1/currencies/ticker?key=c62067db3c1de3ab6053c4ea3cabc54037bfde7c&ids=BTC,ETH,LTC&interval=1h,1d,7d,30d&per-page=100&page=1&sort=first_priced_at
+  scan_interval: 10
+  sensor:
+ ### BTC
+    - name: "Crypto - BTC"
+      json_attributes_path: "$.[0]"
+      value_template: '{{ value_json[0].price | round(4) }}'
+      unit_of_measurement: "USD"
+      json_attributes:
+        - name
+        - symbol
+        - price
+        - logo_url
+        - rank
+        - high
+        - high_timestamp
+        - market_cap
+        - first_trade
+    - name: "Crypto - BTC - 1 Hr"
+      json_attributes_path: "$.[0].1h"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[0]["1h"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct
+    - name: "Crypto - BTC - 1 D"
+      json_attributes_path: "$.[0].1d"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[0]["1d"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct
+    - name: "Crypto - BTC - 7 D"
+      json_attributes_path: "$.[0].7d"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[0]["7d"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct
+    - name: "Crypto - BTC - 30 D"
+      json_attributes_path: "$.[0].30d"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[0]["30d"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct
+     ### ETH
+    - name: "Crypto - ETH"
+      json_attributes_path: "$.[1]"
+      value_template: '{{ value_json[1].price | round(4) }}'
+      unit_of_measurement: "USD"
+      json_attributes:
+        - name
+        - symbol
+        - price
+        - logo_url
+        - rank
+        - high
+        - high_timestamp
+        - market_cap
+        - first_trade
+    - name: "Crypto - ETH - 1 Hr"
+      json_attributes_path: "$.[1].1h"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[1]["1h"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct
+    - name: "Crypto - ETH - 1 D"
+      json_attributes_path: "$.[1].1d"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[1]["1d"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct
+    - name: "Crypto - ETH - 7 D"
+      json_attributes_path: "$.[1].7d"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[1]["7d"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct
+    - name: "Crypto - ETH - 30 D"
+      json_attributes_path: "$.[1].30d"
+      unit_of_measurement: "USD"
+      value_template: '{{ value_json[1]["30d"]["price_change"] | round(4) }}'
+      json_attributes:
+        - price_change_pct

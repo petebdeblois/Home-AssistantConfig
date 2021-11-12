@@ -154,11 +154,6 @@
     - path: 'petebdeblois/SQL_inventory_backend'
       name: github.SQL_backend
 
-- platform: google_fit
-  name: Google Fit
-  client_id: !secret googlecalendar_client_id
-  client_secret: !secret googlecalendar_client_secret
-
 - platform: travisci
   api_key: !secret github_access_token
   monitored_conditions:
@@ -167,89 +162,6 @@
   - last_build_finished_at
   - last_build_started_at
   - last_build_duration
-
-# https://github.com/grinstantin/todoist-card
-- platform: rest
-  name: To-do Finance
-  method: GET
-  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
-  params:
-    token: !secret todoist_api
-    project_id: 1767426044
-  value_template: '{{value_json[''project''][''id'']}}'
-  json_attributes:
-    - items
-  scan_interval: 60
-- platform: rest
-  name: To-do Errands
-  method: GET
-  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
-  params:
-    token: !secret todoist_api
-    project_id: 1767426042
-  value_template: '{{value_json[''project''][''id'']}}'
-  json_attributes:
-    - items
-  scan_interval: 60
-- platform: rest
-  name: To-do Home
-  method: GET
-  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
-  params:
-    token: !secret todoist_api
-    project_id: 1767426041
-  value_template: '{{value_json[''project''][''id'']}}'
-  json_attributes:
-    - items
-  scan_interval: 60
-- platform: rest
-  name: To-do Dev
-  method: GET
-  resource: 'https://api.todoist.com/sync/v8/projects/get_data'
-  params:
-    token: !secret todoist_api
-    project_id: 2265408384
-  value_template: '{{value_json[''project''][''id'']}}'
-  json_attributes:
-    - items
-  scan_interval: 60
-
-
-# https://github.com/custom-components/feedparser
-- platform: feedparser
-  name: News Rad Can Grands Titres
-  feed_url: 'https://ici.radio-canada.ca/rss/4159'
-  date_format: '%a, %b %d %I:%M %p'
-  inclusions:
-    - title
-    - link
-    - description
-    - pubDate
-  exclusions:
-    - language
-
-- platform: feedparser
-  name: News F1.com
-  feed_url: 'https://www.formula1.com/content/fom-website/en/latest/all.xml'
-  date_format: '%a, %b %d %I:%M %p'
-  inclusions:
-    - title
-    - link
-    - description
-  exclusions:
-    - guid
-- platform: feedparser
-  name: News MMA Fighting
-  feed_url: 'https://www.mmafighting.com/rss/current'
-  date_format: '%a, %b %d %I:%M %p'
-  inclusions:
-    - title
-    - link
-    - description
-    - published
-    - link
-  exclusions:
-    - updated
 
 - platform: fitbit
   clock_format: 24H
@@ -313,7 +225,7 @@
     washing_maching_is_running:
       friendly_name: Washing Machine Is Running
       value_template: >-
-        {% if states('sensor.bathroom_washing_machine_power')|float > 6 %}
+        {% if states('sensor.washing_machine_power')|float > 6 %}
           True
         {% else %}
           False
@@ -516,3 +428,45 @@
     civic_torque_rpm:
       value_template: '{{ states.sensor.civic_torque.attributes["Engine RPM(rpm)"] | round(2) }}'
       unit_of_measurement : "rpm"
+
+# https://smarthomepursuits.com/display-offline-unavailable-or-missing-sensors-in-home-assistant/
+- platform: template
+  sensors:
+    unavailable_entities:
+      friendly_name: Unavailable Entities
+      unit_of_measurement: entities
+      icon_template: "{{ 'mdi:check-circle' if is_state('sensor.unavailable_entities','0') else 'mdi:alert-circle' }}"
+      value_template: >
+        {{ states|selectattr('state','in',['unavailable','unknown','none'])|rejectattr('domain','eq','group')
+          |rejectattr('entity_id','in',state_attr('group.ignored_entities','entity_id'))|list|count }}
+      attribute_templates:
+        entities: >
+          {{ states|selectattr('state','in',['unavailable','unknown','none'])|rejectattr('domain','eq','group')
+              |rejectattr('entity_id','in',state_attr('group.ignored_entities','entity_id'))|map(attribute='entity_id')|list }}
+
+- platform: template
+  sensors:
+    yahoofinance_ac_to_avgdailyvolume10:
+      value_template: '{{ states.sensor.yahoofinance_ac_to.attributes["averageDailyVolume10Day"]}}'
+      unit_of_measurement : "Trades per day"
+      friendly_name: AC.TO Avg Volume 10 days
+    yahoofinance_ac_to_avgdailyvolume90:
+      value_template: '{{ states.sensor.yahoofinance_ac_to.attributes["averageDailyVolume3Month"]}}'
+      unit_of_measurement : "Trades per day"
+      friendly_name: AC.TO Avg Volume 90 days
+    yahoofinance_ac_to_dailyvolume:
+      value_template: '{{ states.sensor.yahoofinance_ac_to.attributes["regularMarketVolume"]}}'
+      unit_of_measurement : "Trades per day"
+      friendly_name: AC.TO Market Volume
+    yahoofinance_ac_to_marketprice:
+      value_template: '{{ states.sensor.yahoofinance_ac_to.attributes["regularMarketPrice"]}}'
+      unit_of_measurement : "$"
+      friendly_name: AC.TO Market Price
+    yahoofinance_ac_to_avgmarketprice50:
+      value_template: '{{ states.sensor.yahoofinance_ac_to.attributes["fiftyDayAverage"]}}'
+      unit_of_measurement : "$"
+      friendly_name: AC.TO Avg Market Price 50 days
+    yahoofinance_ac_to_avgmarketprice200:
+      value_template: '{{ states.sensor.yahoofinance_ac_to.attributes["twoHundredDayAverage"]}}'
+      unit_of_measurement : "$"
+      friendly_name: AC.TO Avg Market Price 200 days
