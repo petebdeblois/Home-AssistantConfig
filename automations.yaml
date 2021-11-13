@@ -1259,7 +1259,7 @@
   action:
   - service: switch.turn_on
     target:
-      entity_id: switch.aircirculator
+      entity_id: switch.infra_aircirculator
   mode: single
 - id: '1636070024074'
   alias: Infra - Air Circulator Turn Off
@@ -1272,7 +1272,7 @@
   action:
   - service: switch.turn_off
     target:
-      entity_id: switch.aircirculator
+      entity_id: switch.infra_aircirculator
   mode: single
 - id: '1636560979696'
   alias: Chores  - Aurelie - If Daily Task Complete Then Add 1 Point
