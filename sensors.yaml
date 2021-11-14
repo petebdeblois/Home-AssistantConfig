@@ -444,55 +444,47 @@
           {{ states|selectattr('state','in',['unavailable','unknown','none'])|rejectattr('domain','eq','group')
               |rejectattr('entity_id','in',state_attr('group.ignored_entities','entity_id'))|map(attribute='entity_id')|list }}
 
+
+#######################
+###   FINANCE       ###
+#######################
+
 - platform: template
   sensors:
-    yahoofinance_dm_v_avgdailyvolume10:
-      value_template: '{{ states.sensor.yahoofinance_dm_v.attributes["averageDailyVolume10Day"]}}'
-      unit_of_measurement : "Trades per day"
-      friendly_name: DM.V Avg Volume 10 days
-    yahoofinance_dm_v_avgdailyvolume90:
-      value_template: '{{ states.sensor.yahoofinance_dm_v.attributes["averageDailyVolume3Month"]}}'
-      unit_of_measurement : "Trades per day"
-      friendly_name: DM.V Avg Volume 90 days
-    yahoofinance_dm_v_dailyvolume:
-      value_template: '{{ states.sensor.yahoofinance_dm_v.attributes["regularMarketVolume"]}}'
-      unit_of_measurement : "Trades per day"
-      friendly_name: DM.V Market Volume
-    yahoofinance_dm_v_marketprice:
-      value_template: '{{ states.sensor.yahoofinance_dm_v.attributes["regularMarketPrice"]}}'
-      unit_of_measurement : "$"
-      friendly_name: DM.V Market Price
-    yahoofinance_dm_v_avgmarketprice50:
-      value_template: '{{ states.sensor.yahoofinance_dm_v.attributes["fiftyDayAverage"]}}'
-      unit_of_measurement : "$"
-      friendly_name: DM.V Avg Market Price 50 days
-    yahoofinance_dm_v_avgmarketprice200:
-      value_template: '{{ states.sensor.yahoofinance_dm_v.attributes["twoHundredDayAverage"]}}'
-      unit_of_measurement : "$"
-      friendly_name: DM.V Avg Market Price 200 days
 
     #### FOOD.TO########
-    yahoofinance_food_to_avgdailyvolume10:
-      value_template: '{{ states.sensor.yahoofinance_food_to.attributes["averageDailyVolume10Day"]}}'
-      unit_of_measurement : "Trades per day"
-      friendly_name: FOOD.TO Avg Volume 10 days
-    yahoofinance_food_to_avgdailyvolume90:
-      value_template: '{{ states.sensor.yahoofinance_food_to.attributes["averageDailyVolume3Month"]}}'
-      unit_of_measurement : "Trades per day"
-      friendly_name: FOOD.TO Avg Volume 90 days
-    yahoofinance_food_to_dailyvolume:
-      value_template: '{{ states.sensor.yahoofinance_food_to.attributes["regularMarketVolume"]}}'
-      unit_of_measurement : "Trades per day"
-      friendly_name: FOOD.TO Market Volume
-    yahoofinance_food_to_marketprice:
-      value_template: '{{ states.sensor.yahoofinance_food_to.attributes["regularMarketPrice"]}}'
-      unit_of_measurement : "$"
-      friendly_name: FOOD.TO Market Price
-    yahoofinance_food_to_avgmarketprice50:
-      value_template: '{{ states.sensor.yahoofinance_food_to.attributes["fiftyDayAverage"]}}'
-      unit_of_measurement : "$"
-      friendly_name: FOOD.TO Avg Market Price 50 days
-    yahoofinance_food_to_avgmarketprice200:
-      value_template: '{{ states.sensor.yahoofinance_food_to.attributes["twoHundredDayAverage"]}}'
-      unit_of_measurement : "$"
-      friendly_name: FOOD.TO Avg Market Price 200 days
+
+
+    yahoofinance_dm_v_position:
+      unit_of_measurement: "$"
+      friendly_name: DM.V Position
+      value_template: >-
+        {% set price_paid = states('sensor.stocks_dm_v') | float %}
+        {% set current_price = states.sensor.yahoofinance_dm_v.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+    yahoofinance_dm_v_profit:
+      unit_of_measurement: "$"
+      friendly_name: DM.V Profit
+      value_template: >-
+        {% set stocks = states('sensor.stocks_dm_v') | float %}
+        {% set paid = states.sensor.stocks_dm_v.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_dm_v.attributes["regularMarketPrice"] | float %}
+        {% set current = stocks * current_price %}
+        {{paid * stocks - current}}
+
+    yahoofinance_food_to_position:
+      unit_of_measurement: "$"
+      friendly_name: DM.V Position
+      value_template: >-
+        {% set price_paid = states('sensor.stocks_food_to') | float %}
+        {% set current_price = states.sensor.yahoofinance_food_to.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+    yahoofinance_food_to_profit:
+      unit_of_measurement: "$"
+      friendly_name: DM.V Profit
+      value_template: >-
+        {% set stocks = states('sensor.stocks_food_to') | float %}
+        {% set paid = states.sensor.stocks_food_to.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_food_to.attributes["regularMarketPrice"] | float %}
+        {% set current = stocks * current_price %}
+        {{paid * stocks - current}}
