@@ -459,32 +459,32 @@
       unit_of_measurement: "$"
       friendly_name: DM.V Position
       value_template: >-
-        {% set price_paid = states('sensor.stocks_dm_v') | float %}
+        {% set price_paid = states('sensor.finance_stocks_dm_v') | float %}
         {% set current_price = states.sensor.yahoofinance_dm_v.attributes["regularMarketPrice"] | float %}
         {{price_paid * current_price}}
     yahoofinance_dm_v_profit:
       unit_of_measurement: "$"
       friendly_name: DM.V Profit
       value_template: >-
-        {% set stocks = states('sensor.stocks_dm_v') | float %}
-        {% set paid = states.sensor.stocks_dm_v.attributes["price_paid"] | float %}
+        {% set finance_stocks = states('sensor.finance_stocks_dm_v') | float %}
+        {% set paid = states.sensor.finance_stocks_dm_v.attributes["price_paid"] | float %}
         {% set current_price = states.sensor.yahoofinance_dm_v.attributes["regularMarketPrice"] | float %}
-        {% set current = stocks * current_price %}
-        {{paid * stocks - current}}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks)| round(2)}}
 
     yahoofinance_food_to_position:
       unit_of_measurement: "$"
-      friendly_name: DM.V Position
+      friendly_name: Food.TO Position
       value_template: >-
-        {% set price_paid = states('sensor.stocks_food_to') | float %}
+        {% set price_paid = states('sensor.finance_stocks_food_to') | float %}
         {% set current_price = states.sensor.yahoofinance_food_to.attributes["regularMarketPrice"] | float %}
         {{price_paid * current_price}}
     yahoofinance_food_to_profit:
       unit_of_measurement: "$"
-      friendly_name: DM.V Profit
+      friendly_name: Food.TO Profit
       value_template: >-
-        {% set stocks = states('sensor.stocks_food_to') | float %}
-        {% set paid = states.sensor.stocks_food_to.attributes["price_paid"] | float %}
+        {% set finance_stocks = states('sensor.finance_stocks_food_to') | float %}
+        {% set paid = states.sensor.finance_stocks_food_to.attributes["price_paid"] | float %}
         {% set current_price = states.sensor.yahoofinance_food_to.attributes["regularMarketPrice"] | float %}
-        {% set current = stocks * current_price %}
-        {{paid * stocks - current}}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
