@@ -488,3 +488,19 @@
         {% set current_price = states.sensor.yahoofinance_food_to.attributes["regularMarketPrice"] | float %}
         {% set current = finance_stocks * current_price %}
         {{(current - paid * finance_stocks) | round(2)}}
+    yahoofinance_rblx_position:
+      unit_of_measurement: "$"
+      friendly_name: rblx Position
+      value_template: >-
+        {% set price_paid = states('sensor.finance_stocks_rblx') | float %}
+        {% set current_price = states.sensor.yahoofinance_rblx.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+    yahoofinance_rblx_profit:
+      unit_of_measurement: "$"
+      friendly_name: rblx Profit
+      value_template: >-
+        {% set finance_stocks = states('sensor.finance_stocks_rblx') | float %}
+        {% set paid = states.sensor.finance_stocks_rblx.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_rblx.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}

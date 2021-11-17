@@ -258,7 +258,7 @@
   alias: HA - Restart
   description: ''
   trigger:
-  - at: 02:00:00
+  - at: 02:00
     platform: time
   condition:
   - condition: time
@@ -268,6 +268,9 @@
   - service: tts.clear_cache
   - data: {}
     service: homeassistant.restart
+  - service: hassio.addon_restart
+    data:
+      addon: a0d7b954_glances
   mode: single
 - id: start
   alias: HA - Started
@@ -495,6 +498,8 @@
       - switch.office_screens
       - switch.kitchen_dashboard
       - switch.decoration
+      - switch.decorations_2
+      - switch.decorations_1
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on
@@ -1446,3 +1451,22 @@
   - service: script.add_1_chloe
   mode: single
   max: 10
+- id: '1637112460986'
+  alias: Holiday - Decorations - Turn On
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '1'
+  condition:
+  - condition: state
+    entity_id: group.adults
+    state: home
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id:
+      - switch.decorations_1
+      - switch.decorations_2
+      - switch.decorations_3
+  mode: single

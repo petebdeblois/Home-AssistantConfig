@@ -53,7 +53,7 @@ def hydro_open():
     list_consumption[i] = data['hourly_data'][i]['total_consumption']
     list_hour[i] = data['hourly_data'][i]['hour']
 
-@time_trigger("once(05:30:50)")
+@time_trigger("once(05:38:50)")
 def hydro_states():
     hydro_open()
     state.set("sensor.hydro_yesterday_cost", value=hydro_yesterday_cost)

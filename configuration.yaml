@@ -101,14 +101,13 @@ yahoofinance:
     - TSLA
     - GOOG
     - BTC-USD
-    - MSFT
     - AMZN
-    - AC.TO
     - FOOD.TO
     - DM.V
+    - RBLX
   show_trending_icon: true
   scan_interval:
-    hours: 1
+    minutes: 30
 logger:
     default: warning
     # Example configuration.yaml entry

@@ -35,7 +35,7 @@ mmf = [
     {
         'ticker': 'CCM3503',
         'url': 'https://ycharts.com/mutual_funds/M:CCM3503.TO',
-        'holding_celi': 236.3880,
+        'holding_celi': 247.285,
         'holding_reer': 0.0,
         'holding_cri': 2787.6480
     }
@@ -50,6 +50,11 @@ stocks = [{
     "ticker": "dm_v",
     "holding": 75,
     "price_paid": 0.19
+},
+{
+    "ticker": "rblx",
+    "holding": 0.1792,
+    "price_paid": 117.19
 }
 ]
 crypto = {

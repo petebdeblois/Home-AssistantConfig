@@ -2,6 +2,9 @@ name: All Switches
 entities:
     - switch.bathroom_washing_machine
     - switch.bedroom_entertainment
+    - switch.decoration_1
+    - switch.decoration_2
+    - switch.decoration_3
     - switch.dishwasher
     - switch.freezer
     - switch.fridge
@@ -12,4 +15,3 @@ entities:
     - switch.office_pc
     - switch.office_screens
     - switch.pete_charger_phone
-    - switch.decoration

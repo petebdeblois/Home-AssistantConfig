@@ -19,8 +19,8 @@ def read():
   time.sleep(5)
 
 
-#@time_trigger("once(12:49:30)")
-@time_trigger("cron(45 */6 * * *)")
+#@time_trigger("once(15:39:30)")
+@time_trigger("cron(15 */1 * * *)")
 def write():
   read()
 
