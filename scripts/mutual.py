@@ -41,11 +41,7 @@ mmf = [
     }
 ]
 
-stocks = [{
-    "ticker": "food_to",
-    "holding": 5,
-    "price_paid": 6.93
-},
+stocks = [
 {
     "ticker": "dm_v",
     "holding": 75,
@@ -53,8 +49,8 @@ stocks = [{
 },
 {
     "ticker": "rblx",
-    "holding": 0.1792,
-    "price_paid": 117.19
+    "holding": 0.3367,
+    "price_paid": 119.89
 }
 ]
 crypto = {
