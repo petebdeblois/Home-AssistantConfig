@@ -488,3 +488,35 @@
         {% set current_price = states.sensor.yahoofinance_rblx.attributes["regularMarketPrice"] | float %}
         {% set current = finance_stocks * current_price %}
         {{(current - paid * finance_stocks) | round(2)}}
+    yahoofinance_cvo_to_position:
+      unit_of_measurement: "$"
+      friendly_name: cvo_to Position
+      value_template: >-
+        {% set price_paid = states('sensor.finance_stocks_cvo_to') | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+    yahoofinance_cvo_to_profit:
+      unit_of_measurement: "$"
+      friendly_name: cvo_to Profit
+      value_template: >-
+        {% set finance_stocks = states('sensor.finance_stocks_cvo_to') | float %}
+        {% set paid = states.sensor.finance_stocks_cvo_to.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
+    yahoofinance_cvo_to_vested_position:
+      unit_of_measurement: "$"
+      friendly_name: cvo_to_vested Position
+      value_template: >-
+        {% set price_paid = states('sensor.finance_stocks_cvo_to_vested') | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+    yahoofinance_cvo_to_vested_profit:
+      unit_of_measurement: "$"
+      friendly_name: cvo_to_vested Profit
+      value_template: >-
+        {% set finance_stocks = states('sensor.finance_stocks_cvo_to_vested') | float %}
+        {% set paid = states.sensor.finance_stocks_cvo_to_vested.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}

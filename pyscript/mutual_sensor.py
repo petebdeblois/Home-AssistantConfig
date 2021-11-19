@@ -6,10 +6,25 @@ list_ticker = ['CIG117', 'FID1284', 'MMF4606', 'TML225', 'CCM3503']
 for ticker in range(len(list_ticker)):
   state.persist("pyscript.mmf_"+ list_ticker[ticker])
 
-state.persist("pyscript.mmf_holding_celi")
-state.persist("pyscript.mmf_holding_reer")
-state.persist("pyscript.mmf_holding_cri")
-state.persist("pyscript.mmf_holding_total")
+state.persist("pyscript.finance_mmf_holding_celi")
+state.persist("pyscript.finance_mmf_holding_reer")
+state.persist("pyscript.finance_mmf_holding_cri")
+state.persist("pyscript.finance_mmf_holding_total")
+state.persist("pyscript.finance_mmf_holding_ccm3503")
+state.persist("pyscript.finance_mmf_holding_cig117")
+state.persist("pyscript.finance_mmf_holding_fid1284")
+state.persist("pyscript.finance_mmf_holding_mmf4606")
+state.persist("pyscript.finance_mmf_holding_tml225")
+state.persist("pyscript.finance_stocks_cvo_to")
+state.persist("pyscript.finance_stocks_cvo_to_vested")
+state.persist("pyscript.finance_stocks_dm_v")
+state.persist("pyscript.finance_stocks_rblx")
+state.persist("pyscript.finance_crypto_iq")
+state.persist("pyscript.finance_crypto_xmr")
+state.persist("pyscript.finance_crypto_btc")
+
+
+
 
 @pyscript_compile
 def read():
@@ -19,8 +34,8 @@ def read():
   time.sleep(5)
 
 
-#@time_trigger("once(15:39:30)")
-@time_trigger("cron(15 */1 * * *)")
+#@time_trigger("once(16:48:30)")
+@time_trigger("cron(19 */1 * * *)")
 def write():
   read()
 
@@ -45,3 +60,8 @@ def write():
     state.set("sensor.finance_stocks_" + data['holding_stocks'][i]['ticker'], value=data['holding_stocks'][i]['holding'])
     state.setattr("sensor.finance_stocks_" + data['holding_stocks'][i]['ticker']+ ".unit_of_measurement", "shares")
     state.setattr("sensor.finance_stocks_" + data['holding_stocks'][i]['ticker']+ ".price_paid", value=data['holding_stocks'][i]['price_paid'])
+  log.warning("Script Mutual has runned")
+  for i in range(len(data['holding_crypto'])):
+    state.set("sensor.finance_crypto_" + data['holding_crypto'][i]['ticker'], value=data['holding_crypto'][i]['holding'])
+    state.setattr("sensor.finance_crypto_" + data['holding_crypto'][i]['ticker']+ ".unit_of_measurement", "coin")
+  log.warning("Script Mutual has runned")

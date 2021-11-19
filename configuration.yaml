@@ -102,9 +102,9 @@ yahoofinance:
     - GOOG
     - BTC-USD
     - AMZN
-    - FOOD.TO
     - DM.V
     - RBLX
+    - CVO.TO
   show_trending_icon: true
   scan_interval:
     minutes: 30
