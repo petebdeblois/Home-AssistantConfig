@@ -500,6 +500,7 @@
       - switch.decoration
       - switch.decorations_2
       - switch.decorations_1
+      - switch.decorations_3
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on

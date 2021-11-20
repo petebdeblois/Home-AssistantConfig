@@ -1,7 +1,4 @@
 import requests
-
-
-import requests
 from bs4 import BeautifulSoup
 import json
 import datetime
@@ -58,7 +55,7 @@ stocks = [
     },
     {
         "ticker": "cvo_to",
-        "holding": 3000,
+        "holding": 3180,
         "price_paid": 7.33
     },
     {
@@ -100,9 +97,9 @@ for i in range(len(mmf)):
                         'price': price,
                         'holding': holding})
 for i in range(len(stocks)):
-  data['holding_stocks'].append({"ticker": stocks[i]['ticker'],
-                                "holding": stocks[i]['holding'],
-                                 'price_paid': stocks[i]['price_paid']})
+    data['holding_stocks'].append({"ticker": stocks[i]['ticker'],
+                                  "holding": stocks[i]['holding'],
+                                   'price_paid': stocks[i]['price_paid']})
 total = round(celi + reer + cri)
 data['holding_mmf'].append({"holding_celi": celi,
                             "holding_reer": reer,
@@ -114,20 +111,28 @@ data['date'].append({'date': str(current_time)})
 
 response = requests.request("GET", url_xmr, headers=headers, data=payload)
 json_data = response.json()
-amount_paid = json_data['amtPaid'] * .0000000001
+amount_paid = round(json_data['amtPaid'] * .000000000001, 6)
+amount_due = round(json_data['amtDue'] * .000000000001, 6)
 crypto = [
     {
-        "btc": 0,
-        "iq": 999,
-        'xmr': amount_paid
+        "ticker": "btc",
+        "holding": 0
+    },
+    {
+        "ticker": "iq",
+        "holding": 999
+    },
+    {
+        "ticker": "xmr",
+        #"holding": amount_paid
+        "holding": amount_due
     }
 ]
 
-#print(crypto)
-data['holding_crypto'].append(crypto)
+for i in range(len(crypto)):
+    data['holding_crypto'].append({"ticker": crypto[i]['ticker'],
+                                  "holding": crypto[i]['holding']})
 
 with open("/usr/share/hassio/homeassistant/data/mutual.json", "w") as writeJSON:
 #with open("mutual.json", "w") as writeJSON:
     json.dump(data, writeJSON, ensure_ascii=False)
-
-

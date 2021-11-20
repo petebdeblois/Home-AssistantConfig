@@ -1,6 +1,6 @@
 # https://smarthomepursuits.com/how-to-track-crypto-prices-in-home-assistant/
-- resource: https://api.nomics.com/v1/currencies/ticker?key=c62067db3c1de3ab6053c4ea3cabc54037bfde7c&ids=BTC,ETH,IQ,XMR&interval=1h,1d,7d,30d&per-page=100&page=1&sort=first_priced_at
-  scan_interval: 10
+- resource: https://api.nomics.com/v1/currencies/ticker?key=c62067db3c1de3ab6053c4ea3cabc54037bfde7c&ids=BTC,ETH&per-page=100&page=1&sort=first_priced_at
+  scan_interval: 55
   sensor:
  ### BTC
     - name: "Crypto - BTC"
@@ -26,9 +26,15 @@
         - rank
         - high
         - high_timestamp
-    - name: "Crypto - IQ"
-      json_attributes_path: "$.[2]"
-      value_template: '{{ value_json[2].price | round(4) }}'
+
+
+# https://smarthomepursuits.com/how-to-track-crypto-prices-in-home-assistant/
+- resource: https://api.nomics.com/v1/currencies/ticker?key=c62067db3c1de3ab6053c4ea3cabc54037bfde7c&ids=XMR&per-page=100&page=1&sort=first_priced_at
+  scan_interval: 45
+  sensor:
+    - name: "Crypto - XMR"
+      json_attributes_path: "$.[0]"
+      value_template: '{{ value_json[0].price | round(4) }}'
       unit_of_measurement: "USD"
       json_attributes:
         - name
@@ -37,9 +43,13 @@
         - rank
         - high
         - high_timestamp
-    - name: "Crypto - XMR"
-      json_attributes_path: "$.[3]"
-      value_template: '{{ value_json[3].price | round(4) }}'
+# https://smarthomepursuits.com/how-to-track-crypto-prices-in-home-assistant/
+- resource: https://api.nomics.com/v1/currencies/ticker?key=c62067db3c1de3ab6053c4ea3cabc54037bfde7c&ids=IQ&per-page=100&page=1&sort=first_priced_at
+  scan_interval: 60
+  sensor:
+    - name: "Crypto - IQ"
+      json_attributes_path: "$.[0]"
+      value_template: '{{ value_json[0].price | round(4) }}'
       unit_of_measurement: "USD"
       json_attributes:
         - name

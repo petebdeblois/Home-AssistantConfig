@@ -193,9 +193,6 @@ rest_command:
     payload: !secret todoist_api_payload
     content_type: 'application/x-www-form-urlencoded'
 
-ourgroceries:
-  username: !secret email
-  password: !secret password
 
 # home-assistant.io/integrations/wake_on_lan/
 wake_on_lan:

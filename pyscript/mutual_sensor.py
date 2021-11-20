@@ -34,7 +34,7 @@ def read():
   time.sleep(5)
 
 
-#@time_trigger("once(16:48:30)")
+#@time_trigger("once(17:52:30)")
 @time_trigger("cron(19 */1 * * *)")
 def write():
   read()
@@ -60,7 +60,6 @@ def write():
     state.set("sensor.finance_stocks_" + data['holding_stocks'][i]['ticker'], value=data['holding_stocks'][i]['holding'])
     state.setattr("sensor.finance_stocks_" + data['holding_stocks'][i]['ticker']+ ".unit_of_measurement", "shares")
     state.setattr("sensor.finance_stocks_" + data['holding_stocks'][i]['ticker']+ ".price_paid", value=data['holding_stocks'][i]['price_paid'])
-  log.warning("Script Mutual has runned")
   for i in range(len(data['holding_crypto'])):
     state.set("sensor.finance_crypto_" + data['holding_crypto'][i]['ticker'], value=data['holding_crypto'][i]['holding'])
     state.setattr("sensor.finance_crypto_" + data['holding_crypto'][i]['ticker']+ ".unit_of_measurement", "coin")

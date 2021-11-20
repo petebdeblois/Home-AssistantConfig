@@ -1,17 +1,17 @@
 name: All Switches
 entities:
-    - switch.bathroom_washing_machine
+    - switch.washing_machine
     - switch.bedroom_entertainment
-    - switch.decoration_1
-    - switch.decoration_2
-    - switch.decoration_3
-    - switch.dishwasher
+    - switch.decorations_1
+    - switch.decorations_2
+    - switch.decorations_3
     - switch.freezer
     - switch.fridge
-    - switch.julie_charger_phone
+    - switch.julie_phone_charger
     - switch.kitchen_dashboard
     - switch.living_room_entertainment
     - switch.office_fan
-    - switch.office_pc
     - switch.office_screens
-    - switch.pete_charger_phone
+    - switch.office_desktop
+    - switch.pete_phone_charger
+    - switch.infra_aircirculator
