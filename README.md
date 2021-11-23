@@ -37,8 +37,10 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| [Globe Electrics Wifi Switch](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
-| [Avatar Controls Smart Plug WiFi Outlets Oval Socket Energy Monitoring](https://www.newegg.ca/p/35B-0048-00022?Item=9SIAPAHBGB5816) | 4 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/) /  |To get Consumption, I am using [Tuya v2](https://github.com/tuya/tuya-home-assistantwhich) is still in beta |
+| [Globe Electrics Wifi Switch 50329](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 3 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
+| [Globe Electrics Wifi Switch 50020](https://www.canac.ca/fr/prise-intelligente-wifi-4201070) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
+| [Merkury Smart Wi-Fi Plug](https://www.walmart.ca/en/ip/merkury-smart-wi-fi-plug-white/6000198280648) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
+| [Avatar Controls Smart Plug WiFi Outlets Oval Socket Energy Monitoring](https://www.newegg.ca/p/35B-0048-00022?Item=9SIAPAHBGB5816) | 6 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/) /  |To get Consumption, I am using [Tuya v2](https://github.com/tuya/tuya-home-assistantwhich) is still in beta |
 
 ## <a name="media">Media</a>
 

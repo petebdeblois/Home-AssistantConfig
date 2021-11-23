@@ -1,0 +1,69 @@
+esphome:
+  name: temp-plante-living-room
+  platform: ESP8266
+  board: d1_mini_pro
+
+wifi:
+  ssid: !secret ssid
+  password: !secret wifi_password
+    # Optional manual IP
+  manual_ip:
+    static_ip: 192.168.2.230
+    gateway: 192.168.2.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "LivingRoom Temp Fallback Hotspot"
+    password: "RxcmiuCeoF74"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: password
+
+ota:
+  password: password
+
+i2c: 
+  sda: D2 
+  scl: D1
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "Test Temperature"
+      oversampling: 16x
+    pressure:
+      name: "Test Pressure"
+    humidity:
+      name: "Test Office Humidity"
+    address: 0x76
+    #then:
+      #- deep_sleep.enter: deep_sleep_1
+    #update_interval: 30s
+  
+  - platform: adc
+    pin: A0
+    filters:
+      - lambda: |-
+          if (x > 0.63) {
+            return 0;
+          } else if (x < 0.31) {
+            return 100;
+          } else {
+            return (0.63-x) / (0.63-0.31) * 100.0;
+          }
+    name: "Plante Salon Moisture Level"
+    #update_interval: 
+      #minutes: 30
+
+
+    
+deep_sleep:
+  run_duration: 1min
+  sleep_duration: 30min
