@@ -26,9 +26,9 @@ home-assistant.log
 home-assistant.log.1
 .ip_authenticated.yaml
 pyhq-config.yaml
-
+mutual.py
 /www/upcoming-media-card-images
-
+data/mutual.json
 /scripts/hydro_json_hourly.sh
 .ps4-games.F8461CD0BBE3_cdb2.json
 /pyscript/hydro/__pycache__
