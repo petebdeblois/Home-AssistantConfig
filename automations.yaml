@@ -521,7 +521,7 @@
     state: 'off'
     for: 00:10:00
   - condition: time
-    after: '17:00:00'
+    after: '17:00'
   action:
   - service: light.turn_on
     data:
@@ -532,6 +532,9 @@
       entity_id:
       - light.living_room_lamp
       - light.living_room_rgb
+  - service: switch.turn_on
+    target:
+      entity_id: switch.decorations_1
   mode: single
 - id: '1620924425457'
   alias: TEST - Home - Nearly Home -> Ligths on
@@ -776,11 +779,11 @@
   - platform: homeassistant
     event: start
   - platform: time
-    at: 02:00:00
+    at: 02:00
   condition:
   - condition: template
     value_template: '{{ ( now().month == 1 and now().day < 7 ) or ( now().month ==
-      12 and now().day >= 12 ) }}'
+      11 and now().day >= 25 ) }}'
   - condition: not
     conditions:
     - condition: state
@@ -794,6 +797,10 @@
     data:
       entity_id: input_select.festivities
       option: Christmas
+  - service: notify.mobile_app_pete_s20
+    data:
+      message: CHristmas is on
+      title: WARNING
   initial_state: true
   mode: single
 - id: '1623947812057'
@@ -1068,8 +1075,9 @@
   alias: Home - Bedroom Turn On Lights 9 PM
   description: ''
   trigger:
-  - platform: time
-    at: '20:00'
+  - platform: sun
+    event: sunset
+    offset: '30'
   condition:
   - condition: state
     entity_id: input_boolean.holiday_mode
@@ -1151,9 +1159,6 @@
     data:
       brightness_pct: 100
       color_name: green
-  - service: switch.turn_on
-    target:
-      entity_id: switch.decoration
   mode: single
 - id: '1630872049065'
   alias: Turn on charging after device is charged
@@ -1465,6 +1470,45 @@
     state: home
   action:
   - service: switch.turn_on
+    target:
+      entity_id:
+      - switch.decorations_1
+      - switch.decorations_2
+      - switch.decorations_3
+  mode: single
+- id: '1637782107648'
+  alias: Decorations On
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '1'
+  - platform: time
+    at: 05:45
+  condition:
+  - condition: state
+    entity_id: device_tracker.julie_s20
+    state: home
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id:
+      - switch.decorations_1
+      - switch.decorations_2
+      - switch.decorations_3
+  mode: single
+- id: '1637782431738'
+  alias: Decorations OFF
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.julie_s20
+    from: home
+  - platform: state
+    entity_id: input_boolean.bedtime
+  condition: []
+  action:
+  - service: switch.turn_off
     target:
       entity_id:
       - switch.decorations_1
