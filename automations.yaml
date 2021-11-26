@@ -1487,8 +1487,8 @@
     at: 05:45
   condition:
   - condition: state
-    entity_id: device_tracker.julie_s20
-    state: home
+    entity_id: input_select.festivities
+    state: Christmas
   action:
   - service: switch.turn_on
     target:
@@ -1496,6 +1496,7 @@
       - switch.decorations_1
       - switch.decorations_2
       - switch.decorations_3
+  - service: light.turn_on
   mode: single
 - id: '1637782431738'
   alias: Decorations OFF
