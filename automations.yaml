@@ -831,14 +831,14 @@
   - platform: homeassistant
     event: start
   - platform: time
-    at: 02:00:00
+    at: 02:00
   condition:
   - condition: template
     value_template: '{{ ( now().month == 1 and now().day > 7 ) or ( now().month ==
       2 ) or ( now().month == 3 ) or ( now().month == 4 ) or ( now().month == 5 )
       or ( now().month == 6 ) or ( now().month == 7 ) or ( now().month == 8 ) or (
       now().month == 9 ) or ( now().month == 10 and now().day < 15 ) or ( now().month
-      == 11 )   }}'
+      == 11 and now().day > 15 )   }}'
   - condition: not
     conditions:
     - condition: state
