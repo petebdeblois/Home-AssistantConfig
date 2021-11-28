@@ -838,7 +838,7 @@
       2 ) or ( now().month == 3 ) or ( now().month == 4 ) or ( now().month == 5 )
       or ( now().month == 6 ) or ( now().month == 7 ) or ( now().month == 8 ) or (
       now().month == 9 ) or ( now().month == 10 and now().day < 15 ) or ( now().month
-      == 11 and now().day > 15 )   }}'
+      == 11 and now().day < 15 )   }}'
   - condition: not
     conditions:
     - condition: state
