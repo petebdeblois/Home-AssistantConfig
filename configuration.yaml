@@ -223,3 +223,7 @@ prometheus:
       - sensor
     exclude_entity_globs:
       - sensor.weather_*
+
+ourgroceries:
+  username: !secret email
+  password: !secret password
