@@ -9,6 +9,7 @@ entities:
     - switch.fridge
     - switch.julie_phone_charger
     - switch.kitchen_dashboard
+    - switch.lava_lamp
     - switch.living_room_entertainment
     - switch.office_fan
     - switch.office_screens

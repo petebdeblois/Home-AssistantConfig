@@ -16,7 +16,8 @@
     target:
       entity_id:
       - switch.office_screens
-      - switch.kitchen_dashboard
+      - switch.cat_hot_seat
+      - switch.dasboard
   initial_state: true
   mode: single
 - id: homeoccupied
@@ -91,23 +92,6 @@
   - service: light.turn_off
     target:
       entity_id: light.office_lamp
-  - service: light.turn_on
-    data:
-      brightness_pct: 97
-      effect: colorloop
-      flash: short
-      color_name: red
-      hs_color:
-      - 360
-      - 100
-      rgb_color:
-      - 255
-      - 0
-      - 0
-      xy_color:
-      - 0.701.0.299
-    target:
-      entity_id: light.office_lamp
   mode: single
 - id: nintendowishlist
   alias: Device - Nintendo Wishlist
@@ -129,8 +113,8 @@
     minutes: /5
   condition:
   - condition: time
-    after: 07:59:00
-    before: '20:01'
+    after: 07:59
+    before: '16:01'
     weekday:
     - mon
     - tue
@@ -531,28 +515,15 @@
     target:
       entity_id:
       - light.living_room_lamp
-      - light.living_room_rgb
   - service: switch.turn_on
     target:
       entity_id: switch.decorations_1
-  mode: single
-- id: '1620924425457'
-  alias: TEST - Home - Nearly Home -> Ligths on
-  description: ''
-  trigger:
-  - platform: zone
-    entity_id: device_tracker.julie_s20
-    zone: zone.home
-    event: enter
-  condition: []
-  action:
   - service: light.turn_on
-    data:
-      color_name: darkmagenta
     target:
-      entity_id:
-      - light.office_ceiling_1
-      - light.office_ceiling_2
+      entity_id: light.living_room_rgb
+    data:
+      color_name: green
+      brightness_pct: 100
   mode: single
 - id: '1620948261153'
   alias: Media - 18h45 Started -> Lights Tame
@@ -691,20 +662,6 @@
       duration: 00:{{ '{:02}'.format(range(5,30) | random | int) }}:00
   mode: parallel
   max: 5
-- id: '1622042235333'
-  alias: Home - Water the Plant - Turn Off Red
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.plante_max_moisture_level
-    above: '25'
-  condition: []
-  action:
-  - service: tts.google_translate_say
-    data:
-      message: Your plant doesn't need water anymore
-      entity_id: media_player.officemini
-  mode: single
 - id: '1622257539223'
   alias: Home - Holiday Mode Turn Off
   description: ''
@@ -900,6 +857,7 @@
       - light.living_room_rgb
     data:
       color_name: red
+      brightness_pct: 100
   - service: light.turn_on
     data:
       color_name: blue
@@ -1110,7 +1068,9 @@
   action:
   - service: switch.turn_on
     target:
-      entity_id: switch.kitchen_dashboard
+      entity_id:
+      - switch.cat_hot_seat
+      - switch.dasboard
   mode: single
 - id: '1630599676119'
   alias: Turn off charging after device is charged
@@ -1158,7 +1118,7 @@
       entity_id: light.living_room_rgb
     data:
       brightness_pct: 100
-      color_name: green
+      color_name: red
   mode: single
 - id: '1630872049065'
   alias: Turn on charging after device is charged
@@ -1515,4 +1475,164 @@
       - switch.decorations_1
       - switch.decorations_2
       - switch.decorations_3
+  mode: single
+- id: '1638197482011'
+  alias: Meeting - On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.machine_microphone
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - platform: state
+    entity_id: binary_sensor.machine_webcam
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.lava_lamp
+  mode: single
+- id: '1638197519781'
+  alias: Meeting - Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.machine_microphone
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - platform: state
+    entity_id: binary_sensor.machine_webcam
+    to: 'off'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.lava_lamp
+  mode: single
+- id: '1638234826081'
+  alias: Shares - CVO - UP
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.yahoofinance_cvo_to
+    attribute: trending
+    to: up
+  condition:
+  - condition: time
+    after: 09:30
+    before: '16:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  - condition: state
+    entity_id: binary_sensor.market_state
+    state: 'on'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.office_lamp
+    data:
+      color_name: green
+      flash: long
+      brightness_pct: 100
+  mode: single
+- id: '1638234842814'
+  alias: Shares - CVO - DOWN
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.yahoofinance_cvo_to
+    attribute: trending
+    to: up
+  condition:
+  - condition: time
+    after: 09:30
+    before: '16:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  - condition: state
+    entity_id: binary_sensor.market_state
+    state: 'on'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.office_lamp
+    data:
+      color_name: red
+      brightness_pct: 100
+  mode: single
+- id: '1638237477880'
+  alias: Shares - Close the market
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.market_state
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.office_lamp
+  mode: single
+- id: '1638240136915'
+  alias: Meeting
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.machine_microphone
+    id: mic_on
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.machine_microphone
+    to: 'off'
+    id: mic_off
+  - platform: state
+    entity_id: binary_sensor.machine_webcam
+    to: 'on'
+    id: webcam_on
+  - platform: state
+    entity_id: binary_sensor.machine_webcam
+    to: 'off'
+    id: webcam_off
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: mic_on
+      - condition: trigger
+        id: webcam_on
+      sequence:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.lava_lamp
+    - conditions:
+      - condition: trigger
+        id: mic_off
+      - condition: trigger
+        id: webcam_off
+      sequence:
+      - service: switch.turn_off
+        target:
+          entity_id: switch.lava_lamp
+    default:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.lava_lamp
   mode: single
