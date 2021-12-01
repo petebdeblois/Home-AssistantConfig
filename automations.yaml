@@ -403,11 +403,11 @@
     state: home
   action:
   - service: light.turn_on
-    target:
-      entity_id: light.office_lights
     data:
       brightness_pct: 65
       color_temp: 252
+    target:
+      entity_id: light.office_ceiling
   - service: switch.turn_on
     target:
       entity_id:
@@ -563,7 +563,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.office_temperature
-    above: '27'
+    above: '29'
   condition:
   - condition: state
     entity_id: input_boolean.holiday_mode
@@ -1476,48 +1476,6 @@
       - switch.decorations_2
       - switch.decorations_3
   mode: single
-- id: '1638197482011'
-  alias: Meeting - On
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.machine_microphone
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
-  - platform: state
-    entity_id: binary_sensor.machine_webcam
-    to: 'on'
-  condition: []
-  action:
-  - service: switch.turn_on
-    target:
-      entity_id: switch.lava_lamp
-  mode: single
-- id: '1638197519781'
-  alias: Meeting - Off
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.machine_microphone
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
-  - platform: state
-    entity_id: binary_sensor.machine_webcam
-    to: 'off'
-  condition: []
-  action:
-  - service: switch.turn_off
-    target:
-      entity_id: switch.lava_lamp
-  mode: single
 - id: '1638234826081'
   alias: Shares - CVO - UP
   description: ''
@@ -1555,7 +1513,7 @@
   - platform: state
     entity_id: sensor.yahoofinance_cvo_to
     attribute: trending
-    to: up
+    to: down
   condition:
   - condition: time
     after: 09:30
@@ -1595,44 +1553,104 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: binary_sensor.machine_microphone
-    id: mic_on
+    entity_id: binary_sensor.meeting
+    id: 'on'
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.machine_microphone
+    entity_id: binary_sensor.meeting
     to: 'off'
-    id: mic_off
-  - platform: state
-    entity_id: binary_sensor.machine_webcam
-    to: 'on'
-    id: webcam_on
-  - platform: state
-    entity_id: binary_sensor.machine_webcam
-    to: 'off'
-    id: webcam_off
+    id: 'off'
   condition: []
   action:
   - choose:
     - conditions:
       - condition: trigger
-        id: mic_on
-      - condition: trigger
-        id: webcam_on
+        id: 'on'
       sequence:
       - service: switch.turn_on
         target:
           entity_id: switch.lava_lamp
     - conditions:
       - condition: trigger
-        id: mic_off
-      - condition: trigger
-        id: webcam_off
+        id: 'off'
       sequence:
       - service: switch.turn_off
         target:
           entity_id: switch.lava_lamp
-    default:
-    - service: switch.turn_off
-      target:
-        entity_id: switch.lava_lamp
+    default: []
+  mode: single
+- id: '1638286765033'
+  alias: Shares - Set morning
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.market_state
+    to: 'on'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.yahoofinance_cvo_to
+        state: up
+        attribute: trending
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.office_lamp
+        data:
+          color_name: green
+          brightness_pct: 100
+    - conditions:
+      - condition: state
+        entity_id: sensor.yahoofinance_cvo_to
+        state: down
+        attribute: trending
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.office_lamp
+        data:
+          color_name: green
+          brightness_pct: 100
+    default: []
+  mode: single
+- id: '1638287832604'
+  alias: Shares - CVO
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.yahoofinance_cvo_to
+    attribute: trending
+    to: up
+    id: up
+  - platform: state
+    entity_id: sensor.yahoofinance_cvo_to
+    id: down
+    attribute: trending
+    to: down
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: up
+      sequence:
+      - service: light.toggle
+        target:
+          entity_id: light.office_lamp
+        data:
+          brightness_pct: 100
+          color_name: green
+    - conditions:
+      - condition: trigger
+        id: down
+      sequence:
+      - service: light.toggle
+        target:
+          entity_id: light.office_lamp
+        data:
+          color_name: red
+          brightness_pct: 100
+    default: []
   mode: single

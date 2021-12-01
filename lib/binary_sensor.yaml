@@ -146,3 +146,13 @@
   name: Day
   after: sunrise
   before: sunset
+
+# From https://github.com/sleevezipper/hass-workstation-service
+# Gets all webcam and mic status to say if Im in a meeting.
+- platform: group
+  name: meeting
+  entities:
+    - binary_sensor.wks_microphone
+    - binary_sensor.machine_microphone
+    - binary_sensor.wks_webcam
+    - binary_sensor.machine_webcam
