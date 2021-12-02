@@ -1611,7 +1611,7 @@
         target:
           entity_id: light.office_lamp
         data:
-          color_name: green
+          color_name: red
           brightness_pct: 100
     default: []
   mode: single
@@ -1636,19 +1636,15 @@
       - condition: trigger
         id: up
       sequence:
-      - service: light.toggle
-        target:
-          entity_id: light.office_lamp
+      - service: light.turn_on
         data:
-          brightness_pct: 100
           color_name: green
+          brightness_pct: 100
     - conditions:
       - condition: trigger
         id: down
       sequence:
-      - service: light.toggle
-        target:
-          entity_id: light.office_lamp
+      - service: light.turn_on
         data:
           color_name: red
           brightness_pct: 100
