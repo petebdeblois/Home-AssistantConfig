@@ -1580,7 +1580,7 @@
     default: []
   mode: single
 - id: '1638286765033'
-  alias: Shares - Set morning
+  alias: Shares - Open the market
   description: ''
   trigger:
   - platform: state
