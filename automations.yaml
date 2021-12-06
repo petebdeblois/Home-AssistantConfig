@@ -1223,31 +1223,36 @@
       entity_id: media_player.home
       message: Family, its time to focus.
   mode: single
-- id: '1636069996120'
-  alias: Infra - Air Circulator Turn On
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.night
-    to: 'on'
-  condition: []
-  action:
-  - service: switch.turn_on
-    target:
-      entity_id: switch.infra_aircirculator
-  mode: single
 - id: '1636070024074'
-  alias: Infra - Air Circulator Turn Off
+  alias: Infra - Air Circulator
   description: ''
   trigger:
-  - platform: state
-    entity_id: binary_sensor.night
-    to: 'off'
+  - platform: sun
+    event: sunrise
+    offset: '0'
+    id: sunrise
+  - platform: sun
+    event: sunset
+    offset: '0'
+    id: sunset
   condition: []
   action:
-  - service: switch.turn_off
-    target:
-      entity_id: switch.infra_aircirculator
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: sunrise
+      sequence:
+      - service: switch.turn_off
+        target:
+          entity_id: switch.infra_aircirculator
+    - conditions:
+      - condition: trigger
+        id: sunset
+      sequence:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.infra_aircirculator
+    default: []
   mode: single
 - id: '1636560979696'
   alias: Chores  - Aurelie - If Daily Task Complete Then Add 1 Point
