@@ -1472,6 +1472,7 @@
     from: home
   - platform: state
     entity_id: input_boolean.bedtime
+    to: 'on'
   condition: []
   action:
   - service: switch.turn_off
