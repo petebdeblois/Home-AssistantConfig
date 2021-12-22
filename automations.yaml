@@ -1672,3 +1672,15 @@
           brightness_pct: 100
     default: []
   mode: single
+- id: '1640096618104'
+  alias: Reload Tuya
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '1'
+  condition: []
+  action:
+  - service: homeassistant.reload_config_entry
+    data:
+      entry_id: 527af5cc144b453f97e572cfd06e90c8
+  mode: single
