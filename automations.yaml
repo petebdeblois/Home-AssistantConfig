@@ -1677,7 +1677,7 @@
   description: ''
   trigger:
   - platform: time_pattern
-    hours: '1'
+    hours: /1
   condition: []
   action:
   - service: homeassistant.reload_config_entry
