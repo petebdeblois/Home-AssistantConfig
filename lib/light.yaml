@@ -5,6 +5,7 @@
     - light.office_ceiling_1
     - light.office_ceiling_2
     - light.office_lamp
+    - light.office_rgb
 - platform: group
   name: Office Ceiling
   entities:
@@ -38,6 +39,12 @@
   entities:
     - light.bedroom_rgb 
 - platform: group
+  name: RGB
+  entities:
+    - light.living_room_rgb
+    - light.bedroom_rgb
+    - light.office_rgb
+- platform: group
   name: All Lights
   entities:
     - light.office_ceiling_1
@@ -48,3 +55,4 @@
     - light.living_room_rgb
     - light.office_lamp
     - light.bedroom_rgb
+    - light.office_rgb

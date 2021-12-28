@@ -223,6 +223,9 @@
       entity_id:
       - input_boolean.bedtime
       - input_boolean.pete_in_bed
+  - service: light.turn_on
+    target:
+      entity_id: light.office_rgb
   initial_state: true
   mode: single
 - id: hareloaded

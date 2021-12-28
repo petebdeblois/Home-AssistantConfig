@@ -2,7 +2,8 @@ country: CA
 wishlist:
   - Pokémon Sword
   - Pokémon Shield
-  - FINAL FANTASY VIII Remastered
+  - FINAL FANTASY VII
+  - FINAL FANTASY IX
 scan_interval:
   # at least one of the following must be specified:
   days: 0
