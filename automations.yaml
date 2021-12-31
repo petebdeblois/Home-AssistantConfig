@@ -420,6 +420,11 @@
       entity_id:
       - switch.office_screens
       - switch.kitchen_dashboard
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+    target:
+      device_id: c4b5e30c6493582eee4fb9cf5ca3bfc2
   mode: single
 - id: '1620513319973'
   alias: Lights - Office Light 10PM Turn Off (Duplicate)

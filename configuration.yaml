@@ -98,13 +98,11 @@ proximity:
 yahoofinance:
   symbols:
     - NOW
-    - TSLA
-    - GOOG
     - BTC-USD
-    - AMZN
     - DM.V
     - RBLX
     - CVO.TO
+    - VOO
   show_trending_icon: true
 
 logger:

@@ -11,9 +11,9 @@ import aiohttp
 from customer import Customer
 from error import PyHydroQuebecHTTPError, PyHydroQuebecError
 from consts import (REQUESTS_TIMEOUT, CONTRACT_URL_1, CONTRACT_URL_2,
-                                  CONTRACT_URL_3, CONTRACT_CURRENT_URL_1, LOGIN_URL_3,
-                                  LOGIN_URL_4, LOGIN_URL_5, LOGIN_URL_6, LOGIN_URL_7,
-                                  LOGGING_LEVELS)
+                    CONTRACT_URL_3, CONTRACT_CURRENT_URL_1, LOGIN_URL_3,
+                    LOGIN_URL_4, LOGIN_URL_5, LOGIN_URL_6, LOGIN_URL_7,
+                    LOGGING_LEVELS)
 
 
 def _get_logger(log_level):
@@ -25,7 +25,8 @@ def _get_logger(log_level):
     logger = logging.getLogger(name='pyhydroquebec')
     logger.setLevel(logging_level)
     console_handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
+    formatter = logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(name)s - %(message)s')
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
     return logger
@@ -101,9 +102,11 @@ class HydroQuebecClient():
         if force and "cl-ec-spring.hydroquebec.com" in self.cookies:
             del self.cookies["cl-ec-spring.hydroquebec.com"]
 
-        customers = [c for c in self._customers if c.customer_id == customer_id]
+        customers = [
+            c for c in self._customers if c.customer_id == customer_id]
         if not customers:
-            raise PyHydroQuebecError("Customer ID {} not found.".format(customer_id))
+            raise PyHydroQuebecError(
+                "Customer ID {} not found.".format(customer_id))
 
         headers = {
             "Content-Type": "application/json",
@@ -112,7 +115,7 @@ class HydroQuebecClient():
             "NO_PARTENAIRE_TITULAIRE": customer_id,
             "DATE_DERNIERE_VISITE": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000+0000"),
             "GUID_SESSION": self.guid
-            }
+        }
 
         await self.http_request(CONTRACT_URL_1, "get", headers=headers)
 
@@ -172,7 +175,8 @@ class HydroQuebecClient():
             try:
                 res = await self.http_request(LOGIN_URL_3, "post", data=data, headers=headers)
             except PyHydroQuebecHTTPError:
-                self.logger.critical('Unable to connect. Check your credentials')
+                self.logger.critical(
+                    'Unable to connect. Check your credentials')
                 return
             json_res = await res.json()
 
@@ -191,28 +195,30 @@ class HydroQuebecClient():
         redirect_uri = oauth2_config['redirectUri']
         scope = oauth2_config['scope']
         # Generate some random strings
-        state = "".join(random.choice(string.digits + string.ascii_letters) for i in range(40))
+        state = "".join(random.choice(string.digits + string.ascii_letters)
+                        for i in range(40))
         nonce = state
         # TODO find where this setting comes from
         response_type = "id_token token"
 
         # Get bearer token
         params = {
-                "response_type": response_type,
-                "client_id": client_id,
-                "state": state,
-                "redirect_uri": redirect_uri,
-                "scope": scope,
-                "nonce": nonce,
-                "locale": "en"
-                }
+            "response_type": response_type,
+            "client_id": client_id,
+            "state": state,
+            "redirect_uri": redirect_uri,
+            "scope": scope,
+            "nonce": nonce,
+            "locale": "en"
+        }
         res = await self.http_request(LOGIN_URL_5, "get", params=params, status=302)
 
         # Go to Callback URL
         callback_url = res.headers['Location']
         await self.http_request(callback_url, "get")
 
-        raw_callback_params = callback_url.split('/callback#', 1)[-1].split("&")
+        raw_callback_params = callback_url.split(
+            '/callback#', 1)[-1].split("&")
         callback_params = dict([p.split("=", 1) for p in raw_callback_params])
 
         # Check if we have the access token
@@ -238,7 +244,8 @@ class HydroQuebecClient():
             customer_id = account['noPartenaireTitulaire']
 
             customer_logger = self.logger.getChild('customer')
-            customer = Customer(self, account_id, customer_id, self._timeout, customer_logger)
+            customer = Customer(self, account_id, customer_id,
+                                self._timeout, customer_logger)
             self._customers.append(customer)
             await customer.fetch_summary()
             if customer.contract_id is None:

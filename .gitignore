@@ -24,6 +24,7 @@ secrets.yaml
 known_devices.yaml
 home-assistant.log
 home-assistant.log.1
+home-assistant.log.fault
 .ip_authenticated.yaml
 pyhq-config.yaml
 mutual.py

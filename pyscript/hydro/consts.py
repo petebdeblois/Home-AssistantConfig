@@ -17,15 +17,18 @@ HOST_SPRING = "https://cl-ec-spring.hydroquebec.com"
 
 LOGIN_URL_1 = "{}/hqam/XUI/".format(HOST_LOGIN)
 LOGIN_URL_2 = "{}/hqam/json/serverinfo/*".format(HOST_LOGIN)
-LOGIN_URL_3 = "{}/hqam/json/realms/root/realms/clients/authenticate".format(HOST_LOGIN)
+LOGIN_URL_3 = "{}/hqam/json/realms/root/realms/clients/authenticate".format(
+    HOST_LOGIN)
 LOGIN_URL_4 = "{}/config/security.json".format(HOST_SESSION)
 LOGIN_URL_5 = "{}/hqam/oauth2/authorize".format(HOST_LOGIN)
 LOGIN_URL_6 = "{}/cl/prive/api/v3_0/conversion/codeAcces".format(HOST_SERVICES)
 LOGIN_URL_7 = "{}/cl/prive/api/v1_0/relations".format(HOST_SERVICES)
 
-CONTRACT_URL_1 = "{}/cl/prive/api/v3_0/partenaires/infoBase".format(HOST_SERVICES)
+CONTRACT_URL_1 = "{}/cl/prive/api/v3_0/partenaires/infoBase".format(
+    HOST_SERVICES)
 CONTRACT_URL_2 = "{}/portail/prive/maj-session/".format(HOST_SPRING)
-CONTRACT_URL_3 = "{}/portail/fr/group/clientele/gerer-mon-compte/".format(HOST_SPRING)
+CONTRACT_URL_3 = "{}/portail/fr/group/clientele/gerer-mon-compte/".format(
+    HOST_SPRING)
 
 CONTRACT_CURRENT_URL_1 = ("{}/portail/fr/group/clientele/"
                           "portrait-de-consommation".format(HOST_SPRING))
@@ -63,6 +66,10 @@ CURRENT_MAP = {'period_total_bill': {'raw_name': 'montantFacturePeriode',
                                      'icon': 'mdi:calendar-range',
                                      'device_class': None},
                'period_mean_daily_bill': {'raw_name': 'moyenneDollarsJourPeriode',
+                                          'unit': '$',
+                                          'icon': 'mdi:currency-usd',
+                                          'device_class': None},
+               'period_kwh_cost': {'raw_name': 'coutCentkWh',
                                           'unit': '$',
                                           'icon': 'mdi:currency-usd',
                                           'device_class': None},
@@ -115,22 +122,22 @@ DAILY_MAP = {'total_consumption': {'raw_name': 'consoTotalQuot',
                                      'device_class': 'temperature'}
              }
 HOURLY_MAP = {'hourly_total_consumption': {'raw_name': 'consoTotal',
-                                   'unit': 'Kwh',
-                                   'icon': 'mdi:flash',
-                                   'device_class': None},
-             'hourly_lower_price_consumption': {'raw_name': 'consoReg',
-                                         'unit': 'Kwh',
-                                         'icon': 'mdi:flash',
-                                         'device_class': None},
-             'hourly_higher_price_consumption': {'raw_name': 'consoHautQuot',
-                                          'unit': 'Kwh',
-                                          'icon': 'mdi:flash',
-                                          'device_class': None},
-             'hourly_temperature': {'raw_name': 'hourlyTempMoyenneQuot',
+                                           'unit': 'Kwh',
+                                           'icon': 'mdi:flash',
+                                           'device_class': None},
+              'hourly_lower_price_consumption': {'raw_name': 'consoReg',
+                                                 'unit': 'Kwh',
+                                                 'icon': 'mdi:flash',
+                                                 'device_class': None},
+              'hourly_higher_price_consumption': {'raw_name': 'consoHautQuot',
+                                                  'unit': 'Kwh',
+                                                  'icon': 'mdi:flash',
+                                                  'device_class': None},
+              'hourly_temperature': {'raw_name': 'hourlyTempMoyenneQuot',
                                      'unit': '°C',
                                      'icon': None,
                                      'device_class': 'temperature'}
-             }
+              }
 ANNUAL_MAP = (('annual_mean_daily_consumption', 'moyenneKwhJourAnnee'),
               ('annual_total_consumption', 'consoTotalAnnee'),
               ('annual_total_bill', 'montantFactureAnnee'),

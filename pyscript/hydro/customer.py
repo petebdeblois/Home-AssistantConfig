@@ -6,12 +6,12 @@ from bs4 import BeautifulSoup
 import cachetools
 
 from consts import (ANNUAL_DATA_URL, CONTRACT_CURRENT_URL_1,
-                                  CONTRACT_CURRENT_URL_2, CONTRACT_URL_3,
-                                  DAILY_DATA_URL, HOURLY_DATA_URL_1,
-                                  HOURLY_DATA_URL_2, MONTHLY_DATA_URL,
-                                  REQUESTS_TTL, DAILY_MAP, MONTHLY_MAP,
-                                  ANNUAL_MAP, CURRENT_MAP,
-                                  )
+                    CONTRACT_CURRENT_URL_2, CONTRACT_URL_3,
+                    DAILY_DATA_URL, HOURLY_DATA_URL_1,
+                    HOURLY_DATA_URL_2, MONTHLY_DATA_URL,
+                    REQUESTS_TTL, DAILY_MAP, MONTHLY_MAP,
+                    ANNUAL_MAP, CURRENT_MAP,
+                    )
 
 
 class Customer():
@@ -179,7 +179,8 @@ class Customer():
         API URL: https://cl-ec-spring.hydroquebec.com/portail/fr/group/clientele/
         portrait-de-consommation/resourceObtenirDonneesQuotidiennesConsommation
         """
-        self._logger.info("Fetching daily data between %s and %s", start_date, end_date)
+        self._logger.info(
+            "Fetching daily data between %s and %s", start_date, end_date)
         await self._client.select_customer(self.account_id, self.customer_id)
         if start_date is None:
             # Get yesterday
@@ -273,11 +274,11 @@ class Customer():
         json_res = json.loads(await res.text())
 
         self._hourly_data[day_str] = {
-                'day_mean_temp': json_res['results'][0]['tempMoyJour'],
-                'day_min_temp': json_res['results'][0]['tempMinJour'],
-                'day_max_temp': json_res['results'][0]['tempMaxJour'],
-                'hours': {},
-                }
+            'day_mean_temp': json_res['results'][0]['tempMoyJour'],
+            'day_min_temp': json_res['results'][0]['tempMinJour'],
+            'day_max_temp': json_res['results'][0]['tempMaxJour'],
+            'hours': {},
+        }
         tmp_hour_dict = dict((h, {}) for h in range(24))
         for hour, temp in enumerate(json_res['results'][0]['listeTemperaturesHeure']):
             tmp_hour_dict[hour]['average_temperature'] = temp
@@ -286,12 +287,13 @@ class Customer():
         res = await self._client.http_request(HOURLY_DATA_URL_1, "get", params=params)
         # We can not use res.json() because the response header are not application/json
         json_res = json.loads(await res.text())
-        
+
         for hour, data in enumerate(json_res['results']['listeDonneesConsoEnergieHoraire']):
             tmp_hour_dict[hour]['lower_price_consumption'] = data['consoReg']
             tmp_hour_dict[hour]['higher_price_consumption'] = data['consoHaut']
             tmp_hour_dict[hour]['total_consumption'] = data['consoTotal']
         self._hourly_data[day_str]['hours'] = tmp_hour_dict.copy()
+
     @property
     def hourly_data(self):
         """Return collected hourly data."""

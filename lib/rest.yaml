@@ -58,4 +58,18 @@
         - rank
         - high
         - high_timestamp
+- resource: https://api.nomics.com/v1/currencies/ticker?key=c62067db3c1de3ab6053c4ea3cabc54037bfde7c&ids=SHIB&per-page=100&page=1&sort=first_priced_at
+  scan_interval: 60
+  sensor:
+    - name: "Crypto - SHIB"
+      json_attributes_path: "$.[0]"
+      value_template: '{{ value_json[0].price | round(4) }}'
+      unit_of_measurement: "USD"
+      json_attributes:
+        - name
+        - symbol
+        - price
+        - rank
+        - high
+        - high_timestamp
 
