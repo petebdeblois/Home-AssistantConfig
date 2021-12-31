@@ -5,6 +5,10 @@ state.persist('pyscript.hydro_yesterday_cost')
 state.persist('pyscript.hydro_yesterday_total')
 state.persist('pyscript.hydro_period_mean_daily_consumption')
 
+hydro_yesterday_cost = 0
+hydro_access_fee = 0.4116
+price = 0.0834
+
 @pyscript_compile
 def hydro_open():
     with open('/config/data/private/data.json') as f:
@@ -19,7 +23,7 @@ def hydro_open():
         hydro_access_fee + (float(yesterday_total) * price), 2)
 
 
-@time_trigger("once(06:02:00)")
+@time_trigger("once(06:15:00)")
 def hydro_states():
     hydro_open()
     
@@ -28,13 +32,15 @@ def hydro_states():
     state.setattr("sensor.hydro_yesterday_cost.friendly_name",
                   "Cost of yesterdays electrical Consumption")
     
-    state.set("sensor.hydro_yesterday_total", value=yesterday_total)
-    state.setattr("sensor.hydro_yesterday_total.unit_of_measurement", "kwh")
-    state.setattr("sensor.hydro_yesterday_total.friendly_name", "Yesterday kwh")
+    state.set("sensor.hydroquebec_yesterday_total_consumption", value=yesterday_total)
+    state.setattr(
+        "sensor.hydroquebec_yesterday_total_consumption.unit_of_measurement", "kwh")
+    state.setattr(
+        "sensor.hydroquebec_yesterday_total_consumption.friendly_name", "Yesterday kwh")
     
-    state.set("sensor.hydro_period_mean_daily_consumption",
+    state.set("sensor.hydroquebec_period_mean_daily_consumption",
               value=period_mean_daily_consumption)
     state.setattr(
-        "sensor.hydro_period_mean_daily_consumption.unit_of_measurement", "kwh")
+        "sensor.hydroquebec_period_mean_daily_consumption.unit_of_measurement", "kwh")
     state.setattr(
-        "sensor.hydro_period_mean_daily_consumption.friendly_name", "Period Mean kwh")
+        "sensor.hydroquebec_period_mean_daily_consumption.friendly_name", "Period Mean kwh")
