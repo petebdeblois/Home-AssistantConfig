@@ -1285,6 +1285,21 @@
   - platform: state
     entity_id: input_boolean.aurelie_chore_5
     to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_6
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_7
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_8
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_9
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_10
+    to: 'on'
   condition: []
   action:
   - service: script.add_1_aurelie
@@ -1308,6 +1323,21 @@
     to: 'on'
   - platform: state
     entity_id: input_boolean.chloe_chore_5
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_6
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_7
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_8
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_9
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_10
     to: 'on'
   condition: []
   action:
@@ -1348,6 +1378,21 @@
     entity_id: input_boolean.aurelie_chore_5
   - service: input_boolean.turn_off
     data: {}
+    entity_id: input_boolean.aurelie_chore_6
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_7
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_8
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_9
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_10
+  - service: input_boolean.turn_off
+    data: {}
     entity_id: input_boolean.chloe_chore_1
   - service: input_boolean.turn_off
     data: {}
@@ -1361,6 +1406,21 @@
   - service: input_boolean.turn_off
     data: {}
     entity_id: input_boolean.chloe_chore_5
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_6
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_7
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_8
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_9
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_10
   mode: single
 - id: '1636561818733'
   alias: Chores - Reset Weekly Chores
@@ -1378,7 +1438,19 @@
     entity_id: input_boolean.aurelie_chore_w_1
   - service: input_boolean.turn_off
     data: {}
+    entity_id: input_boolean.aurelie_chore_w_2
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.aurelie_chore_w_3
+  - service: input_boolean.turn_off
+    data: {}
     entity_id: input_boolean.chloe_chore_w_1
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_w_2
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.chloe_chore_w_3
   mode: single
 - id: '1636562137442'
   alias: Chores - Notification Score Reached!
@@ -1410,6 +1482,12 @@
   - platform: state
     entity_id: input_boolean.aurelie_chore_w_1
     to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_w_2
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.aurelie_chore_w_3
+    to: 'on'
   condition: []
   action:
   - service: script.add_1_aurelie
@@ -1426,6 +1504,12 @@
   - platform: state
     entity_id: input_boolean.chloe_chore_w_1
     to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_w_2
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.chloe_chore_w_3
+    to: 'on'
   condition: []
   action:
   - service: script.add_1_chloe
@@ -1434,66 +1518,6 @@
   - service: script.add_1_chloe
   mode: single
   max: 10
-- id: '1637112460986'
-  alias: Holiday - Decorations - Turn On
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: '1'
-  condition:
-  - condition: state
-    entity_id: group.adults
-    state: home
-  action:
-  - service: switch.turn_on
-    target:
-      entity_id:
-      - switch.decorations_1
-      - switch.decorations_2
-      - switch.decorations_3
-  mode: single
-- id: '1637782107648'
-  alias: Decorations On
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: '1'
-  - platform: time
-    at: 05:45
-  condition:
-  - condition: state
-    entity_id: input_select.festivities
-    state: Christmas
-  action:
-  - service: switch.turn_on
-    target:
-      entity_id:
-      - switch.decorations_1
-      - switch.decorations_2
-      - switch.decorations_3
-  - service: light.turn_on
-  mode: single
-- id: '1637782431738'
-  alias: Decorations OFF
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: device_tracker.julie_s20
-    from: home
-  - platform: state
-    entity_id: input_boolean.bedtime
-    to: 'on'
-  condition: []
-  action:
-  - service: switch.turn_off
-    target:
-      entity_id:
-      - switch.decorations_1
-      - switch.decorations_2
-      - switch.decorations_3
-  mode: single
 - id: '1638234826081'
   alias: Shares - CVO - UP
   description: ''

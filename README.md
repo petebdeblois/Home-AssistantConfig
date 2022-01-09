@@ -27,7 +27,7 @@ My personal [Home Assistant Container](https://home-assistant.io) configurations
 | ------------- | :---: | ------------- | ------------- | ------------- |
 | [Globe Electrics A19 LED Light Smart Bulb 10 W RGB](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-paquet-de-2-4201085) | 5 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
 | [Globe Electrics A19 LED Light Smart Bulb 10 W](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-4141360) | 1 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
-| [Globe Electrics Smart LED Tape Light 6.5 ft.](https://www.canac.ca/fr/ruban-lumineux-intelligent-del-6-5-pi-4201069) | 2 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
+| [Globe Electrics Smart LED Tape Light 6.5 ft.](https://www.canac.ca/fr/ruban-lumineux-intelligent-del-6-5-pi-4201069) | 3 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
 
 Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-AssistantConfig/blob/master/lib/light.yaml)
 
