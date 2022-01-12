@@ -419,7 +419,7 @@
     target:
       entity_id:
       - switch.office_screens
-      - switch.kitchen_dashboard
+      - switch.switch_office_screens_work
   - service: light.turn_on
     data:
       brightness_pct: 100
