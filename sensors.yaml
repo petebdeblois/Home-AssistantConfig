@@ -454,24 +454,6 @@
 
     #### FOOD.TO########
 
-
-    yahoofinance_dm_v_position:
-      unit_of_measurement: "$"
-      friendly_name: DM.V Position
-      value_template: >-
-        {% set price_paid = states('sensor.finance_stocks_dm_v') | float %}
-        {% set current_price = states.sensor.yahoofinance_dm_v.attributes["regularMarketPrice"] | float %}
-        {{price_paid * current_price}}
-    yahoofinance_dm_v_profit:
-      unit_of_measurement: "$"
-      friendly_name: DM.V Profit
-      value_template: >-
-        {% set finance_stocks = states('sensor.finance_stocks_dm_v') | float %}
-        {% set paid = states.sensor.finance_stocks_dm_v.attributes["price_paid"] | float %}
-        {% set current_price = states.sensor.yahoofinance_dm_v.attributes["regularMarketPrice"] | float %}
-        {% set current = finance_stocks * current_price %}
-        {{(current - paid * finance_stocks)| round(2)}}
-
     yahoofinance_rblx_position:
       unit_of_measurement: "$"
       friendly_name: rblx Position

@@ -97,9 +97,6 @@ proximity:
 
 yahoofinance:
   symbols:
-    - NOW
-    - BTC-USD
-    - DM.V
     - RBLX
     - CVO.TO
     - VOO

@@ -414,17 +414,18 @@
       brightness_pct: 65
       color_temp: 252
     target:
-      entity_id: light.office_ceiling
+      entity_id:
+      - light.office_ceiling
+      - light.office_rgb
+      - light.office_lamp
   - service: switch.turn_on
     target:
       entity_id:
       - switch.office_screens
-      - switch.switch_office_screens_work
+      - switch.office_screens_work
   - service: light.turn_on
     data:
       brightness_pct: 100
-    target:
-      device_id: c4b5e30c6493582eee4fb9cf5ca3bfc2
   mode: single
 - id: '1620513319973'
   alias: Lights - Office Light 10PM Turn Off (Duplicate)
@@ -492,11 +493,8 @@
       entity_id:
       - switch.office_fan
       - switch.office_screens
-      - switch.kitchen_dashboard
-      - switch.decoration
-      - switch.decorations_2
-      - switch.decorations_1
-      - switch.decorations_3
+      - switch.office_screens_work
+      - switch.switch_lava_lamp
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on
