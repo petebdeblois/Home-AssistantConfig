@@ -22,16 +22,26 @@ except ImportError:
 class InfluxDB:
     """
     Connection to InfluxDB to write to DB
-    """
 
     url = '192.168.2.65'
-    port = 8086
+    port = 8089
     token = None
     org = None
     bucket = None
     tags_file = None
-    username = "hydro"
-    password = "hydro"
+    #username = "hydro"
+    #password = "hydro"
+    client = None
+    """
+
+    url = None
+    port = 8089
+    token = None
+    org = None
+    bucket = None
+    tags_file = None
+    username = None
+    password = None
     client = None
 
     def __init__(self, params):

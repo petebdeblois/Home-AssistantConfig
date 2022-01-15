@@ -281,30 +281,46 @@
       friendly_name: Is it a school day?
       value_template: "{{ is_state('calendar.school', 'on') }}"
 
-- platform: template
-  sensors:
-    average_humidity:
-      unit_of_measurement: "%"
-      friendly_name: Average Humidity
-      value_template: >-
-        {% set bedroom = states('sensor.bathroom_humidity') | float(0) %}
-        {% set kitchen = states('sensor.living_room_humidity') | float(0) %}
-        {% set bedroom = states('sensor.bedroom_humidity') | float(0) %}
-        {% set office = states('sensor.office_humidity') | float(0) %}
-        {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
+# - platform: template
+#   sensors:
+#     average_humidity:
+#       unit_of_measurement: "%"
+#       friendly_name: Average Humidity
+#       value_template: >-
+#         {% set bedroom = states('sensor.bathroom_humidity') | float(0) %}
+#         {% set kitchen = states('sensor.living_room_humidity') | float(0) %}
+#         {% set bedroom = states('sensor.bedroom_humidity') | float(0) %}
+#         {% set office = states('sensor.office_humidity') | float(0) %}
+#         {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
-- platform: template
-  sensors:
-    average_temperature:
-      unit_of_measurement: "°C"
-      friendly_name: Average Temperature
-      value_template: >-
-        {% set bedroom = states('sensor.bathroom_temperature') | float(0) %}
-        {% set kitchen = states('sensor.living_room_temperature') | float(0) %}
-        {% set bedroom = states('sensor.bedroom_temperature') | float(0) %}
-        {% set office = states('sensor.office_temperature') | float(0) %}
-        {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
+# - platform: template
+#   sensors:
+#     average_temperature:
+#       unit_of_measurement: "°C"
+#       friendly_name: Average Temperature
+#       value_template: >-
+#         {% set bedroom = states('sensor.bathroom_temperature') | float(0) %}
+#         {% set kitchen = states('sensor.living_room_temperature') | float(0) %}
+#         {% set bedroom = states('sensor.bedroom_temperature') | float(0) %}
+#         {% set office = states('sensor.office_temperature') | float(0) %}
+#         {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
+# https://github.com/Limych/ha-average 
+- platform: average
+  name: 'Average Temperature'
+  entities:
+    - sensor.bathroom_temperature
+    - sensor.living_room_temperature
+    - sensor.bedroom_temperature
+    - sensor.office_temperature
+
+- platform: average
+  name: 'Average Humidity'
+  entities:
+  - sensor.bathroom_humidity
+  - sensor.living_room_humidity
+  - sensor.bedroom_humidity
+  - sensor.office_humidity
 
 # https://community.home-assistant.io/t/speedtest-integration-no-longer-loading/297167/42
 - platform: mqtt
@@ -386,30 +402,32 @@
         unique_id: speedtimerunuat
 
 
+
+# https://www.home-assistant.io/integrations/history_stats/
+
+# - platform: history_stats
+#   name: Lamp ON today
+#   entity_id: light.office_lamp
+#   state: "on"
+#   type: time
+#   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+#   duration:
+#     hours: 24
+# - platform: history_stats
+#   name: Switch ON today
+#   entity_id: switch.office_screens
+#   state: "on"
+#   type: time
+#   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+#   duration:
+#     hours: 24
+
 - platform: mqtt
   name: "Civic Torque"
   state_topic:
    "devices/civic/torque"
   value_template: "{{ state_attr('sensor.civic_torque', 'GPS Time') }}"
   json_attributes_topic: "devices/civic/torque"
-
-# https://www.home-assistant.io/integrations/history_stats/
-- platform: history_stats
-  name: Lamp ON today
-  entity_id: light.office_lamp
-  state: "on"
-  type: time
-  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
-  duration:
-    hours: 24
-- platform: history_stats
-  name: Switch ON today
-  entity_id: switch.office_screens
-  state: "on"
-  type: time
-  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
-  duration:
-    hours: 24
 
 - platform: template
   sensors:

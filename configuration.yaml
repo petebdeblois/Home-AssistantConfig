@@ -25,7 +25,7 @@ shell_command: !include shell_command.yaml
 counter: !include_dir_named lib/counter/
 rest: !include lib/rest.yaml
 number: !include lib/number.yaml
-#switch: !include lib/switch.yaml
+switch: !include lib/switch.yaml
 
 #device_tracker: !include device_tracker.yaml
 #customize: !include customize.yaml
@@ -35,15 +35,28 @@ frontend:
 tts:
   - platform: google_translate
 
-influxdb:
-  host: a0d7b954-influxdb
-  port: 8086
-  database: homeassistant
-  username: !secret username
-  password: !secret influxdb_password
-  max_retries: 3
-  default_measurement: state
+# influxdb:
+#   host: a0d7b954-influxdb
+#   port: 8086
+#   database: homeassistant
+#   username: !secret username
+#   password: !secret influxdb_password
+#   max_retries: 3
+#   default_measurement: state
 
+influxdb:
+  api_version: 2
+  ssl: false
+  host: 192.168.2.65
+  port: 8089
+  token: !secret influxdb_token
+  organization: 7d765f92e4040f78
+  bucket: homeassistant
+  tags:
+    source: HA
+  tags_attributes:
+    - friendly_name
+  default_measurement: units
 
 recorder:
   purge_keep_days: 31
@@ -100,6 +113,8 @@ yahoofinance:
     - RBLX
     - CVO.TO
     - VOO
+    - TSLA
+    - AMZN
   show_trending_icon: true
 
 logger:
@@ -190,10 +205,7 @@ rest_command:
 
 # home-assistant.io/integrations/wake_on_lan/
 wake_on_lan:
-switch:
-  - platform: wake_on_lan
-    name: wake_machine
-    mac: b4:2e:99:84:e9:1b
+
 
 utility_meter:
   daily_energy_offpeak:

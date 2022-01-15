@@ -6,4 +6,31 @@
 
 # Example configuration.yaml entry
 
-
+- platform: flux
+  lights:
+    - light.office_ceiling_1
+  name: Fluxer RGB
+  start_time: "07:00"
+  stop_time: "23:00"
+  start_colortemp: 4000
+  sunset_colortemp: 3000
+  stop_colortemp: 1900
+  brightness: 200
+  disable_brightness_adjust: true
+  mode: rgb
+  transition: 30
+  interval: 60
+- platform: flux
+  lights:
+    - light.office_ceiling_2
+  name: Fluxer Mired
+  start_time: "07:00"
+  stop_time: "23:00"
+  start_colortemp: 4000
+  sunset_colortemp: 3000
+  stop_colortemp: 1900
+  brightness: 200
+  disable_brightness_adjust: true
+  mode: mired
+  transition: 30
+  interval: 60

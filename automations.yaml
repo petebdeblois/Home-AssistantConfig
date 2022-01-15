@@ -1725,3 +1725,117 @@
     data:
       entry_id: 527af5cc144b453f97e572cfd06e90c8
   mode: single
+- id: '1642175701397'
+  alias: WakeUp Sunlight
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_rgb
+    data:
+      transition: 600
+      rgb_color:
+      - 15
+      - 15
+      - 6
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_rgb
+    data:
+      transition: 600
+      rgb_color:
+      - 65
+      - 65
+      - 40
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_rgb
+    data:
+      transition: 600
+      rgb_color:
+      - 120
+      - 120
+      - 60
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_rgb
+    data:
+      transition: 600
+      rgb_color:
+      - 145
+      - 145
+      - 75
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_rgb
+    data:
+      transition: 600
+      rgb_color:
+      - 165
+      - 165
+      - 85
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_rgb
+    data:
+      transition: 600
+      rgb_color:
+      - 200
+      - 200
+      - 95
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_on
+    target:
+      entity_id: light.bedroom_rgb
+    data:
+      transition: 600
+      rgb_color:
+      - 255
+      - 255
+      - 135
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  mode: single
