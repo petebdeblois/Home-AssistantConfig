@@ -39,6 +39,8 @@ sensor:
     temperature:
       name: "Bathroom Temperature"
       oversampling: 16x
+      filters:
+       - offset: -4.9
     pressure:
       name: "Bathroom Pressure"
     humidity:

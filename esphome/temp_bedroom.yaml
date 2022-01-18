@@ -38,6 +38,8 @@ sensor:
     temperature:
       name: "Bedroom Temperature"
       oversampling: 16x
+      filters:
+       - offset: -2.8
     pressure:
       name: "Bedroom Pressure"
     humidity:

@@ -196,12 +196,15 @@ calendar:
 # https://github.com/grinstantin/todoist-card
 ##########################################################
 rest_command:
-  todoist:
-    method: post
-    url: 'https://api.todoist.com/sync/v8/sync'
-    payload: !secret todoist_api_payload
-    content_type: 'application/x-www-form-urlencoded'
+#   todoist:
+#     method: post
+#     url: 'https://api.todoist.com/sync/v8/sync'
+#     payload: !secret todoist_api_payload
+#     content_type: 'application/x-www-form-urlencoded'
 
+  healthcheckio:
+    url: https://hc-ping.com/2a3de48a-bed5-482d-b337-1f11bf234bff
+    method: GET
 
 # home-assistant.io/integrations/wake_on_lan/
 wake_on_lan:

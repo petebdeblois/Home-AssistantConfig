@@ -39,6 +39,8 @@ sensor:
     temperature:
       name: "Living Room Temperature"
       oversampling: 16x
+      filters:
+       - offset: -2.8
     pressure:
       name: "Living Room Pressure"
     humidity:

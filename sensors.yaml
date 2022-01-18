@@ -520,6 +520,22 @@
         {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
         {% set current = finance_stocks * current_price %}
         {{(current - paid * finance_stocks) | round(2)}}
+    yahoofinance_cvo_to_nick_position:
+      unit_of_measurement: "$"
+      friendly_name: cvo_to_nick Position
+      value_template: >-
+        {% set price_paid = states('sensor.finance_stocks_cvo_to_nick') | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+    yahoofinance_cvo_to_nick_profit:
+      unit_of_measurement: "$"
+      friendly_name: cvo_to_nick Profit
+      value_template: >-
+        {% set finance_stocks = states('sensor.finance_stocks_cvo_to_nick') | float %}
+        {% set paid = states.sensor.finance_stocks_cvo_to_nick.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
     yahoofinance_voo_position:
       unit_of_measurement: "$"
       friendly_name: voo Position
@@ -534,5 +550,21 @@
         {% set finance_stocks = states('sensor.finance_stocks_voo') | float %}
         {% set paid = states.sensor.finance_stocks_voo.attributes["price_paid"] | float %}
         {% set current_price = states.sensor.yahoofinance_voo.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
+    yahoofinance_tsla_position:
+      unit_of_measurement: "$"
+      friendly_name: tsla Position
+      value_template: >-
+        {% set price_paid = states('sensor.finance_stocks_tsla') | float %}
+        {% set current_price = states.sensor.yahoofinance_tsla.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+    yahoofinance_tsla_profit:
+      unit_of_measurement: "$"
+      friendly_name: tsla Profit
+      value_template: >-
+        {% set finance_stocks = states('sensor.finance_stocks_tsla') | float %}
+        {% set paid = states.sensor.finance_stocks_tsla.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_tsla.attributes["regularMarketPrice"] | float %}
         {% set current = finance_stocks * current_price %}
         {{(current - paid * finance_stocks) | round(2)}}

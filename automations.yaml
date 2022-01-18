@@ -232,19 +232,6 @@
       brightness_pct: 100
   initial_state: true
   mode: single
-- id: hareloaded
-  alias: HA - Automations reloaded
-  trigger:
-  - platform: event
-    event_type: automation_reloaded
-  action:
-  - service: notify.mobile_app_pete_s20
-    data:
-      message: Automations on Server have been reloaded at {{ as_timestamp(now())|timestamp_local
-        }} local
-      title: HA automations reloaded
-  initial_state: true
-  mode: single
 - id: harestart
   alias: HA - Restart
   description: ''
@@ -1749,6 +1736,7 @@
       - 15
       - 15
       - 6
+      brightness_pct: 5
   - delay:
       hours: 0
       minutes: 20
@@ -1763,6 +1751,7 @@
       - 65
       - 65
       - 40
+      brightness_pct: 5
   - delay:
       hours: 0
       minutes: 20
@@ -1777,6 +1766,7 @@
       - 120
       - 120
       - 60
+      brightness_pct: 5
   - delay:
       hours: 0
       minutes: 20
@@ -1791,6 +1781,7 @@
       - 145
       - 145
       - 75
+      brightness_pct: 5
   - delay:
       hours: 0
       minutes: 20
@@ -1805,6 +1796,7 @@
       - 165
       - 165
       - 85
+      brightness_pct: 5
   - delay:
       hours: 0
       minutes: 20
@@ -1819,6 +1811,7 @@
       - 200
       - 200
       - 95
+      brightness_pct: 5
   - delay:
       hours: 0
       minutes: 20
@@ -1833,9 +1826,21 @@
       - 255
       - 255
       - 135
+      brightness_pct: 5
   - delay:
       hours: 0
       minutes: 20
       seconds: 0
       milliseconds: 0
+  mode: single
+- id: '1642428858357'
+  alias: Healthcheckio ping
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /6
+  condition: []
+  action:
+  - service: rest_command.healthcheckio
+    data: {}
   mode: single

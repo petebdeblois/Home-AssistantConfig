@@ -36,7 +36,7 @@ def read():
 
 #@time_trigger("once(17:52:30)")
 #@time_trigger("cron(*/15 9-17 * * 1-5)")
-@time_trigger("cron(37 * * * *)")
+@time_trigger("cron(18 * * * *)")
 def write():
   read()
 
