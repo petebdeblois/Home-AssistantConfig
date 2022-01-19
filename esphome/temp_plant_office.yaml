@@ -39,7 +39,7 @@ sensor:
       name: "Office Temperature"
       oversampling: 16x
       filters:
-       - offset: -2.8
+       - offset: -3.8
     pressure:
       name: "Office Pressure"
     humidity:

@@ -39,10 +39,12 @@ sensor:
       name: "Bedroom Temperature"
       oversampling: 16x
       filters:
-       - offset: -2.8
+       - offset: -0.8
     pressure:
       name: "Bedroom Pressure"
     humidity:
       name: "Bedroom Humidity"
+      filters:
+       - offset: -7
     address: 0x76
     update_interval: 30s
