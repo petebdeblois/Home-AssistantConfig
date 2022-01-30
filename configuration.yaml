@@ -115,6 +115,7 @@ yahoofinance:
     - VOO
     - TSLA
     - AMZN
+    - ARKK
   show_trending_icon: true
 
 logger:
@@ -159,19 +160,6 @@ mqtt:
   username: !secret mqtt_user
   password: !secret mqtt_pw
 
-# https://www.home-assistant.io/integrations/environment_canada/
-
-# https://www.home-assistant.io/integrations/plant/
-plant:
-  max_plant:
-    sensors:
-      moisture: sensor.plante_max_moisture_level
-      #battery: sensor.my_sensor_battery
-      temperature: sensor.office_temperature
-      #conductivity: sensor.my_sensor_conductivity
-      #brightness: sensor.my_sensor_brightness
-    #min_moisture: 25
-    
 
   
 ##########################################################
@@ -205,10 +193,6 @@ rest_command:
   healthcheckio:
     url: https://hc-ping.com/2a3de48a-bed5-482d-b337-1f11bf234bff
     method: GET
-
-# home-assistant.io/integrations/wake_on_lan/
-wake_on_lan:
-
 
 utility_meter:
   daily_energy_offpeak:

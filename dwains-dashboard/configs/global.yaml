@@ -9,10 +9,10 @@ global:
   #   - "unavailable" 
   # show_covers: closed
 
-  weather: weather.openweathermap # Configure a weather entity see HA docs for more info.
-  outside_temperature: sensor.openweathermap_temperature # Configure a sensor here!
-  outside_humidity: sensor.openweathermap_humidity # Configure a sensor here!
-  outside_pressure: sensor.openweathermap_pressure
+  weather: weather.quebec # Configure a weather entity see HA docs for more info.
+  outside_temperature: sensor.quebec_temperature # Configure a sensor here!
+  outside_humidity: sensor.quebec_humidity # Configure a sensor here!
+  outside_pressure: sensor.quebec_pressure
   # alarm: alarm_control_panel.alarm_system #Alarm panel entity.
   inside_temperature: sensor.living_room_temperature #Can be 'climate.' or an 'sensor.' entity.
 

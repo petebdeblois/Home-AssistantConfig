@@ -3,4 +3,3 @@ all: true
 entities:
     - switch.decorations_1
     - switch.decorations_2
-    - switch.decorations_3

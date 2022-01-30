@@ -22,18 +22,18 @@
   sensors:
     rain_alert:
       value_template: >-
-        {% set D0 = states.weather.openweathermap.attributes.forecast[0].precipitation_probability | int %}
-        {% set D1 = states.weather.openweathermap.attributes.forecast[1].precipitation_probability | int %}
-        {% set D2 = states.weather.openweathermap.attributes.forecast[2].precipitation_probability | int %}
-        {% set D3 = states.weather.openweathermap.attributes.forecast[3].precipitation_probability | int %}
-        {% set D4 = states.weather.openweathermap.attributes.forecast[4].precipitation_probability | int %}
-        {% set D5 = states.weather.openweathermap.attributes.forecast[5].precipitation_probability | int %}
-        {% set D6 = states.weather.openweathermap.attributes.forecast[6].precipitation_probability | int %}
-        {% set D7 = states.weather.openweathermap.attributes.forecast[7].precipitation_probability | int %}
-        {% set D8 = states.weather.openweathermap.attributes.forecast[8].precipitation_probability | int %}
-        {% set D9 = states.weather.openweathermap.attributes.forecast[9].precipitation_probability | int %}
-        {% set D10 = states.weather.openweathermap.attributes.forecast[10].precipitation_probability | int %}
-        {% set D11 = states.weather.openweathermap.attributes.forecast[11].precipitation_probability | int %}
+        {% set D0 = states.weather.quebec.attributes.forecast[0].precipitation_probability | int %}
+        {% set D1 = states.weather.quebec.attributes.forecast[1].precipitation_probability | int %}
+        {% set D2 = states.weather.quebec.attributes.forecast[2].precipitation_probability | int %}
+        {% set D3 = states.weather.quebec.attributes.forecast[3].precipitation_probability | int %}
+        {% set D4 = states.weather.quebec.attributes.forecast[4].precipitation_probability | int %}
+        {% set D5 = states.weather.quebec.attributes.forecast[5].precipitation_probability | int %}
+        {% set D6 = states.weather.quebec.attributes.forecast[6].precipitation_probability | int %}
+        {% set D7 = states.weather.quebec.attributes.forecast[7].precipitation_probability | int %}
+        {% set D8 = states.weather.quebec.attributes.forecast[8].precipitation_probability | int %}
+        {% set D9 = states.weather.quebec.attributes.forecast[9].precipitation_probability | int %}
+        {% set D10 = states.weather.quebec.attributes.forecast[10].precipitation_probability | int %}
+        {% set D11 = states.weather.quebec.attributes.forecast[11].precipitation_probability | int %}
         {% if D0 > 50 %} on
         {% elif D1 > 50 %} on
         {% elif D2 > 60 %} on

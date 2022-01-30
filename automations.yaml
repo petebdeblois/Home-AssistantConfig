@@ -16,8 +16,9 @@
     target:
       entity_id:
       - switch.office_screens
-      - switch.cat_hot_seat
-      - switch.dasboard
+      - switch.living_room_dashboard
+      - switch.office_screens_work
+    data: {}
   initial_state: true
   mode: single
 - id: homeoccupied
@@ -404,15 +405,13 @@
       entity_id:
       - light.office_ceiling
       - light.office_rgb
-      - light.office_lamp
   - service: switch.turn_on
     target:
       entity_id:
       - switch.office_screens
       - switch.office_screens_work
-  - service: light.turn_on
-    data:
-      brightness_pct: 100
+      - switch.living_room_dashboard
+    data: {}
   mode: single
 - id: '1620513319973'
   alias: Lights - Office Light 10PM Turn Off (Duplicate)
@@ -481,7 +480,9 @@
       - switch.office_fan
       - switch.office_screens
       - switch.office_screens_work
-      - switch.switch_lava_lamp
+      - switch.lava_lamp
+      - switch.living_room_dashboard
+    data: {}
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on
@@ -1089,7 +1090,7 @@
   action:
   - service: notify.filenotify
     data_template:
-      message: ',{{states.sensor.average_humidity.state}},{{states.sensor.openweathermap_humidity.state}},{{states.sensor.average_temperature.state}},{{states.sensor.openweathermap_temperature.state}}'
+      message: ',{{states.sensor.average_humidity.state}},{{states.sensor.quebec_humidity.state}},{{states.sensor.average_temperature.state}},{{states.sensor.quebec_temperature.state}}'
   mode: single
 - id: '1630802392232'
   alias: Living Room Lamps

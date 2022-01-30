@@ -1,7 +1,7 @@
 esphome:
   name: temp_living_room
   platform: ESP8266
-  board: d1_mini_pro
+  board: d1_mini_lite
 
 wifi:
   ssid: !secret ssid

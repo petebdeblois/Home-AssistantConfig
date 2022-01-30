@@ -1,5 +1,0 @@
-name: Office Switches
-entities:
-    - switch.office_fan
-    - switch.office_pc
-    - switch.office_screens
