@@ -2,11 +2,13 @@
   alias: Home - Not occupied
   trigger:
   - platform: state
-    entity_id: group.adults
-    from: home
+    entity_id: zone.home
+    to: '0'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
   action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.home_occupied
   - service: light.turn_off
     data:
       transition: 37
@@ -15,21 +17,11 @@
   - service: switch.turn_off
     target:
       entity_id:
-      - switch.office_screens
-      - switch.living_room_dashboard
-      - switch.office_screens_work
+      - switch.office_screens_socket
+      - switch.living_room_socket_2
+      - switch.office_screens_work_socket
+      - switch.office_fan_socket
     data: {}
-  initial_state: true
-  mode: single
-- id: homeoccupied
-  alias: Home - Occupied
-  trigger:
-  - platform: state
-    entity_id: device_tracker.julie_s20,device_tracker.pete_s20
-    to: home
-  action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.home_occupied
   initial_state: true
   mode: single
 - id: housebedtime
@@ -54,22 +46,6 @@
     data:
       message: Bedtime!
   initial_state: true
-  mode: single
-- id: tempofficebelowoutside
-  alias: Climate - Temp Office Below outside
-  description: ''
-  trigger:
-  - platform: template
-    value_template: "{{ states.sensor.environment_canada_temperature.state < \n  \
-      \   states.sensor.office_temperature.state }}"
-  condition:
-  - condition: sun
-    before: sunset
-  action:
-  - service: tts.google_translate_say
-    data:
-      entity_id: media_player.officemini
-      message: The temperature outside is below the temp inside
   mode: single
 - id: waterplants
   alias: Home - Water the Plant
@@ -408,9 +384,9 @@
   - service: switch.turn_on
     target:
       entity_id:
-      - switch.office_screens
-      - switch.office_screens_work
-      - switch.living_room_dashboard
+      - switch.office_screens_socket
+      - switch.office_screens_work_socket
+      - switch.living_room_socket_2
     data: {}
   mode: single
 - id: '1620513319973'
@@ -438,27 +414,57 @@
   alias: Media - Stopped -> Lights On
   trigger:
   - platform: state
-    entity_id: media_player.playstation_4_living
     to: idle
-    for: 0:00:05
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    entity_id: media_player.plex_ps4_livingroom
+    id: idle
   - platform: state
-    entity_id: media_player.playstation_4_living
     to: paused
-    for: 0:00:03
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    entity_id: media_player.plex_ps4_livingroom
+    id: paused
   - platform: state
-    entity_id: media_player.playstation_4_living
-    to: standby
+    entity_id: media_player.plex_ps4_livingroom
+    id: play
+    to: playing
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
   condition:
   - condition: time
-    after: '18:00'
+    after: '12:00'
   action:
-  - service: light.turn_on
-    data:
-      transition: 10
-      color_temp: 447
-      brightness_pct: 40
-    target:
-      entity_id: light.living_room_lamps
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: play
+      sequence:
+      - service: light.turn_on
+        data:
+          brightness_pct: 5
+          kelvin: 2500
+        target:
+          entity_id:
+          - light.living_room_lamp
+    - conditions:
+      - condition: trigger
+        id: paused
+      sequence:
+      - service: light.turn_on
+        data:
+          brightness_pct: 25
+          kelvin: 2500
+        target:
+          entity_id:
+          - light.living_room_lamp
+    default: []
   mode: single
 - id: '1620782893266'
   alias: Home - Bedtime -> Everything OFF
@@ -477,31 +483,24 @@
   - service: switch.turn_off
     target:
       entity_id:
-      - switch.office_fan
-      - switch.office_screens
-      - switch.office_screens_work
-      - switch.lava_lamp
-      - switch.living_room_dashboard
+      - switch.office_fan_socket
+      - switch.office_screens_socket
+      - switch.office_screens_work_socket
+      - switch.lava_lamp_socket
+      - switch.living_room_socket_2
     data: {}
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on
   trigger:
-  - platform: zone
-    entity_id:
-    - device_tracker.pete_s20
-    - device_tracker.julie_s20
-    zone: zone.home
-    event: enter
+  - platform: state
+    entity_id: zone.home
+    from: '0'
   - platform: state
     entity_id: sensor.pete_s20_wifi_connection
     id: wifi
     to: Legendary
   condition:
-  - condition: state
-    entity_id: input_boolean.home_occupied
-    state: 'off'
-    for: 00:10:00
   - condition: time
     after: '17:00'
   action:
@@ -513,47 +512,12 @@
     target:
       entity_id:
       - light.living_room_lamp
-  - service: switch.turn_on
-    target:
-      entity_id: switch.decorations_1
   - service: light.turn_on
     target:
       entity_id: light.living_room_rgb
     data:
       color_name: green
       brightness_pct: 100
-  mode: single
-- id: '1620948261153'
-  alias: Media - 18h45 Started -> Lights Tame
-  description: ''
-  trigger:
-  - platform: time
-    at: '18:45:00'
-  condition:
-  - condition: state
-    entity_id: media_player.playstation_4_living
-    state: playing
-  action:
-  - service: light.turn_on
-    data:
-      color_temp: 447
-      transition: 15
-      brightness_pct: 5
-    target:
-      entity_id:
-      - light.living_room_lamp_1
-      - light.living_room_lamp_2
-      - light.living_room_rgb
-  - service: light.turn_on
-    target:
-      entity_id: light.living_room_rgb
-    data:
-      color_name: aliceblue
-      brightness_pct: 97
-      transition: 61
-  - service: input_boolean.turn_on
-    target:
-      entity_id: input_boolean.watching_tv
   mode: single
 - id: '1621121277976'
   alias: Climate - Temp Above 27 - Turn on Office Fan
@@ -569,7 +533,9 @@
   action:
   - service: switch.turn_on
     target:
-      entity_id: switch.office_fan
+      entity_id:
+      - switch.office_fan_socket
+    data: {}
   mode: single
 - id: '1621121415545'
   alias: Climate - Temp Below 25 - Turn Off Office Fan
@@ -581,8 +547,9 @@
   condition: []
   action:
   - service: switch.turn_off
+    data: {}
     target:
-      entity_id: switch.office_fan
+      entity_id: switch.office_fan_socket
   mode: single
 - id: '1621121821192'
   alias: Climate - Fan - Aeration
@@ -591,7 +558,7 @@
   - platform: time
     at: 06:00:00
   - platform: time
-    at: '13:00:00'
+    at: '13:00'
   condition:
   - condition: time
     weekday:
@@ -605,16 +572,18 @@
     state: 'off'
   action:
   - service: switch.turn_on
+    data: {}
     target:
-      entity_id: switch.office_fan
+      entity_id: switch.office_fan_socket
   - delay:
       hours: 1
       minutes: 0
       seconds: 0
       milliseconds: 0
   - service: switch.turn_off
+    data: {}
     target:
-      entity_id: switch.office_fan
+      entity_id: switch.office_fan_socket
   mode: single
 - id: '1621213114790'
   alias: People - Aurelie - Pils - Week
@@ -878,21 +847,6 @@
       flash: long
       effect: colorloop
   mode: single
-- id: '1624882306131'
-  alias: Home - Machine at 23h59 Turn Off
-  description: ''
-  trigger:
-  - platform: time
-    at: '23:59'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.pete_s20_is_charging
-    state: 'on'
-  action:
-  - service: switch.turn_off
-    target:
-      entity_id: switch.machine_sleep
-  mode: single
 - id: '1625601426159'
   alias: Home - Freezer Door opened
   description: ''
@@ -1027,48 +981,25 @@
     target:
       entity_id: switch.presence_simulation
   mode: single
-- id: '1627349999689'
-  alias: Home - Bedroom Turn On Lights 9 PM
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: '30'
-  condition:
-  - condition: state
-    entity_id: input_boolean.holiday_mode
-    state: 'off'
-  action:
-  - service: light.turn_on
-    target:
-      entity_id: light.bedroom_lights
-  mode: single
 - id: '1629764365504'
   alias: 'Infra - Nearly Home -> on '
   description: ''
   trigger:
-  - platform: zone
-    entity_id:
-    - device_tracker.pete_s20
-    - device_tracker.julie_s20
-    zone: zone.home
-    event: enter
+  - platform: state
+    entity_id: zone.home
     id: zone
+    from: '0'
   - platform: state
     entity_id: sensor.pete_s20_wifi_connection
     id: wifi
     to: Legendary
-  condition:
-  - condition: state
-    entity_id: input_boolean.home_occupied
-    state: 'off'
-    for: 00:10:00
+  condition: []
   action:
   - service: switch.turn_on
     target:
       entity_id:
-      - switch.cat_hot_seat
-      - switch.dasboard
+      - switch.living_room_socket_2
+    data: {}
   mode: single
 - id: '1630599676119'
   alias: Turn off charging after device is charged
@@ -1076,7 +1007,7 @@
   use_blueprint:
     path: vorion/turn-off-phone-charging-after-the-phone-is-charged.yaml
     input:
-      switch: switch.pete_phone_charger
+      switch: switch.pete_phone_charger_socket
       phone_battery: sensor.pete_s20_battery_level
 - id: '1630702363232'
   alias: Infra - Export Avg Climate
@@ -1093,7 +1024,7 @@
       message: ',{{states.sensor.average_humidity.state}},{{states.sensor.quebec_humidity.state}},{{states.sensor.average_temperature.state}},{{states.sensor.quebec_temperature.state}}'
   mode: single
 - id: '1630802392232'
-  alias: Living Room Lamps
+  alias: Light Sunset
   description: ''
   trigger:
   - platform: state
@@ -1107,16 +1038,19 @@
   - service: light.turn_on
     data:
       brightness_pct: 10
+      kelvin: 2500
     target:
       entity_id:
       - light.living_room_lamp_1
       - light.living_room_lamp_2
   - service: light.turn_on
     target:
-      entity_id: light.living_room_rgb
+      entity_id:
+      - light.living_room_rgb
+      - light.bedroom_rgb
     data:
       brightness_pct: 100
-      color_name: red
+      color_name: purple
   mode: single
 - id: '1630872049065'
   alias: Turn on charging after device is charged
@@ -1130,7 +1064,7 @@
   - service: switch.turn_on
     target:
       entity_id:
-      - switch.pete_phone_charger
+      - switch.pete_phone_charger_socket
   mode: single
 - id: '1631219776318'
   alias: Turn off charging after device is charged (Julie)
@@ -1138,7 +1072,7 @@
   use_blueprint:
     path: vorion/turn-off-phone-charging-after-the-phone-is-charged.yaml
     input:
-      switch: switch.julie_phone_charger
+      switch: switch.julie_phone_charger_socket
       phone_battery: sensor.julie_s20_niveau_de_batterie
 - id: '1631219824381'
   alias: Turn on charging after device is charged (Julie)
@@ -1151,7 +1085,7 @@
   action:
   - service: switch.turn_on
     target:
-      entity_id: switch.julie_phone_charger
+      entity_id: switch.julie_phone_charger_socket
   mode: single
 - id: '1631480066778'
   alias: 'People - Julie - Pils '
@@ -1242,14 +1176,14 @@
       sequence:
       - service: switch.turn_off
         target:
-          entity_id: switch.infra_aircirculator
+          entity_id: switch.infra_aircirculator_socket
     - conditions:
       - condition: trigger
         id: sunset
       sequence:
       - service: switch.turn_on
         target:
-          entity_id: switch.infra_aircirculator
+          entity_id: switch.infra_aircirculator_socket
     default: []
   mode: single
 - id: '1636560979696'
@@ -1620,14 +1554,14 @@
       sequence:
       - service: switch.turn_on
         target:
-          entity_id: switch.lava_lamp
+          entity_id: switch.lava_lamp_socket
     - conditions:
       - condition: trigger
         id: 'off'
       sequence:
       - service: switch.turn_off
         target:
-          entity_id: switch.lava_lamp
+          entity_id: switch.lava_lamp_socket
     default: []
   mode: single
 - id: '1638286765033'
@@ -1691,6 +1625,10 @@
         data:
           color_name: green
           brightness_pct: 100
+        target:
+          entity_id:
+          - light.office_rgb
+          - light.office_lamp
     - conditions:
       - condition: trigger
         id: down
@@ -1699,19 +1637,11 @@
         data:
           color_name: red
           brightness_pct: 100
+        target:
+          entity_id:
+          - light.office_lamp
+          - light.office_rgb
     default: []
-  mode: single
-- id: '1640096618104'
-  alias: Reload Tuya
-  description: ''
-  trigger:
-  - platform: time_pattern
-    hours: /1
-  condition: []
-  action:
-  - service: homeassistant.reload_config_entry
-    data:
-      entry_id: 527af5cc144b453f97e572cfd06e90c8
   mode: single
 - id: '1642175701397'
   alias: WakeUp Sunlight
@@ -1844,4 +1774,24 @@
   action:
   - service: rest_command.healthcheckio
     data: {}
+  mode: single
+- id: '1643594053494'
+  alias: Sexy Time
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.sexy_time
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      color_name: red
+    target:
+      entity_id:
+      - light.bedroom_rgb
+  - service: spotcast.start
+    data:
+      entity_id: media_player.master_bedroom_speaker
+      uri: spotify:playlist:0JAnCE2vRNxufqz8VzIDNb
+      start_volume: 22
   mode: single

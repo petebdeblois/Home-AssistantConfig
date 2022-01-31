@@ -44,3 +44,13 @@ reset_chloe:
     target:
       entity_id: counter.chores_chloe
   mode: single
+sexy_playlist:
+  alias: sexy playlist
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.spotify_pierre_b_de_blois
+    data:
+      media_content_id: https://open.spotify.com/playlist/0JAnCE2vRNxufqz8VzIDNb
+      media_content_type: playlist
+  mode: single

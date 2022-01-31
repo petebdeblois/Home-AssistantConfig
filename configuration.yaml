@@ -12,6 +12,7 @@ binary_sensor: !include lib/binary_sensor.yaml
 group: !include_dir_named lib/groups/
 input_boolean: !include_dir_named lib/input_boolean/
 input_datetime: !include_dir_named lib/input_datetime/
+input_button: !include_dir_named lib/input_button/
 input_number: !include_dir_named lib/input_number/
 input_select: !include_dir_named lib/input_select/
 input_text: !include_dir_named lib/input_text/
@@ -127,6 +128,9 @@ logger:
 spotify:
   client_id: !secret spotify_id
   client_secret: !secret spotify_token
+spotcast:
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
 
 lovelace:
   # mode: yaml

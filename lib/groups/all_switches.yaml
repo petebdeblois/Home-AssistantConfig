@@ -1,18 +1,18 @@
 name: All Switches
 entities:
-    - switch.decorations_1
-    - switch.decorations_2
-    - switch.freezer
-    - switch.fridge
-    - switch.homelab
-    - switch.infra_aircirculator
+    - switch.decorations_socket_1
+    - switch.decorations_socket_2
+    - switch.freezer_socket
+    - switch.fridge_socket
+    - switch.homelab_socket
+    - switch.infra_aircirculator_socket
     - switch.julie_phone_charger
-    - switch.lava_lamp
-    - switch.living_room_dashboard
-    - switch.office_desktop
-    - switch.office_fan
-    - switch.office_screens
-    - switch.office_screens_work
-    - switch.living_room_entertainment
-    - switch.pete_phone_charger
-    - switch.washing_machine
+    - switch.lava_lamp_socket
+    - switch.living_room_socket_2
+    - switch.living_room_socket_1
+    - switch.office_desktop_socket
+    - switch.office_fan_socket
+    - switch.office_screens_socket
+    - switch.office_screens_work_socket
+    - switch.pete_phone_charger_socket
+    - switch.washing_machine_socket
