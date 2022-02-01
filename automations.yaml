@@ -1795,3 +1795,18 @@
       uri: spotify:playlist:0JAnCE2vRNxufqz8VzIDNb
       start_volume: 22
   mode: single
+- id: '1643679239072'
+  alias: Focus Time
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.focus_office
+  condition: []
+  action:
+  - service: spotcast.start
+    data:
+      uri: spotify:playlist:2xKFsatIKDXzsml2IthzMp
+      start_volume: 22
+      shuffle: true
+      entity_id: media_player.office
+  mode: single

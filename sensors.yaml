@@ -1,32 +1,6 @@
 - platform: uptime
   name: Home Assistant Uptime
 
-# - platform: systemmonitor
-#   resources:
-#     - type: disk_use_percent
-#       arg: /home
-#     - type: memory_use_percent
-#     - type: memory_use
-#     - type: swap_use
-#     - type: swap_free
-#     - type: swap_use_percent
-#     - type: load_1m
-#     - type: load_5m
-#     - type: load_15m
-#     - type: memory_free
-#     - type: last_boot
-#     - type: processor_use
-#     - type: network_in
-#       arg: enp1s0
-#     - type: network_out
-#       arg: enp1s0
-#     - type: ipv4_address
-#       arg: enp1s0
-#     - type: throughput_network_in
-#       arg: enp1s0
-#     - type: throughput_network_out
-#       arg: enp1s0
-#     - type: processor_use
 
 # This sensor will display the current version of HA, another simple sensor setup which will create sensor.latest_version.
 - platform: version
@@ -191,33 +165,6 @@
   - "sleep/startTime"
   - "sleep/timeInBed"
 
-# - platform: template
-  # sensors:
-    # test_voltage:
-      # value_template: "{{ state_attr('switch.test', 'voltage') }}"
-      # unit_of_measurement: 'V'
-    # test_current:
-      # value_template: 
-        # "{{ states.switch.test.attributes.current }}"
-      # unit_of_measurement: 'mA'
-    # test_current_consumption:
-      # value_template: 
-        # "{{ states.switch.test.attributes.current_consumption }}"
-      # unit_of_measurement: 'W'
-# 
-# - platform: template
-  # sensors:
-    # washing_machine_voltage:
-      # value_template: "{{ state_attr('switch.bathroom_washing_machine', 'voltage') }}"
-      # unit_of_measurement: 'V'
-    # washing_machine_current:
-      # value_template: 
-        # "{{ states.switch.bathroom_washing_machine.attributes.current }}"
-      # unit_of_measurement: 'mA'
-    # washing_machine_current_consumption:
-      # value_template: 
-        # "{{ states.switch.bathroom_washing_machine.attributes.current_consumption }}"
-      # unit_of_measurement: 'W'
 
 #https://community.home-assistant.io/t/trigger-on-washing-machine-finish/251990/2
 - platform: template
@@ -281,29 +228,6 @@
       friendly_name: Is it a school day?
       value_template: "{{ is_state('calendar.school', 'on') }}"
 
-# - platform: template
-#   sensors:
-#     average_humidity:
-#       unit_of_measurement: "%"
-#       friendly_name: Average Humidity
-#       value_template: >-
-#         {% set bedroom = states('sensor.bathroom_humidity') | float(0) %}
-#         {% set kitchen = states('sensor.living_room_humidity') | float(0) %}
-#         {% set bedroom = states('sensor.bedroom_humidity') | float(0) %}
-#         {% set office = states('sensor.office_humidity') | float(0) %}
-#         {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
-
-# - platform: template
-#   sensors:
-#     average_temperature:
-#       unit_of_measurement: "°C"
-#       friendly_name: Average Temperature
-#       value_template: >-
-#         {% set bedroom = states('sensor.bathroom_temperature') | float(0) %}
-#         {% set kitchen = states('sensor.living_room_temperature') | float(0) %}
-#         {% set bedroom = states('sensor.bedroom_temperature') | float(0) %}
-#         {% set office = states('sensor.office_temperature') | float(0) %}
-#         {{ ((bedroom + kitchen + bedroom + office) / 4) | round(1) }}
 
 # https://github.com/Limych/ha-average 
 - platform: average
@@ -382,6 +306,82 @@
           {{ states|selectattr('state','in',['unavailable','unknown','none'])|rejectattr('domain','eq','group')
               |rejectattr('entity_id','in',state_attr('group.ignored_entities','entity_id'))|map(attribute='entity_id')|list }}
 
+
+- platform: rest
+  name: dashboard_tab8_info
+  json_attributes:
+    - ip4
+    - batteryLevel
+    - isPlugged
+    - plugged
+    - kioskMode
+    - screenBrightness
+    - motionDetectorState
+    - maintenanceMode
+    - mac
+    - startUrl
+    - currentPage
+    - screenOrientation
+    - screenBrightness
+    - screenLocked
+    - screenOn
+    - batteryTemperature
+  resource: !secret tab8_url
+  value_template: "{{ value_json.screenOn }}"
+
+- platform: rest
+  name: dashboard_tab8_settings
+  json_attributes:
+    - timeToScreenOffV2
+    - screenBrightness
+    - microphoneAccess
+    - motionSensitivity
+    - motionDection
+    - motionDetectionAcoustic
+    - motionSensitivityAcoustic
+    - screenOffInDarkness
+    - darknessLevel
+  resource: !secret tab8_settings
+  value_template: "{{ value_json.startURL }}"
+  scan_interval: 30
+
+- platform: rest
+  name: dashboard_fire1_info
+  json_attributes:
+    - ip4
+    - batteryLevel
+    - isPlugged
+    - plugged
+    - kioskMode
+    - screenBrightness
+    - motionDetectorState
+    - maintenanceMode
+    - mac
+    - startUrl
+    - currentPage
+    - screenOrientation
+    - screenBrightness
+    - screenLocked
+    - screenOn
+    - batteryTemperature
+  resource: !secret fire8_1_url
+  value_template: "{{ value_json.screenOn }}"
+
+- platform: rest
+  name: dashboard_fire1_settings
+  json_attributes:
+    - timeToScreenOffV2
+    - screenBrightness
+    - microphoneAccess
+    - motionSensitivity
+    - motionDection
+    - motionDetectionAcoustic
+    - motionSensitivityAcoustic
+    - screenOffInDarkness
+    - darknessLevel
+  resource: !secret fire8_1_settings
+  value_template: "{{ value_json.startURL }}"
+  scan_interval: 30
 
 #######################
 ###   FINANCE       ###
@@ -488,3 +488,5 @@
         {% set current_price = states.sensor.yahoofinance_tsla.attributes["regularMarketPrice"] | float %}
         {% set current = finance_stocks * current_price %}
         {{(current - paid * finance_stocks) | round(2)}}
+
+
