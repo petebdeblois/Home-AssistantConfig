@@ -452,7 +452,8 @@
           kelvin: 2500
         target:
           entity_id:
-          - light.living_room_lamp
+          - light.table_lights
+          - light.living_room_lamp_1
     - conditions:
       - condition: trigger
         id: paused
@@ -463,7 +464,8 @@
           kelvin: 2500
         target:
           entity_id:
-          - light.living_room_lamp
+          - light.living_room_lamp_1
+          - light.kitchen_lights
     default: []
   mode: single
 - id: '1620782893266'
@@ -488,7 +490,18 @@
       - switch.office_screens_work_socket
       - switch.lava_lamp_socket
       - switch.living_room_socket_2
+      - switch.switch_1_socket
     data: {}
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_on
+    data:
+      brightness_pct: 1
+    target:
+      entity_id: light.sink
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on

@@ -16,3 +16,4 @@ entities:
     - switch.office_screens_work_socket
     - switch.pete_phone_charger_socket
     - switch.washing_machine_socket
+    - switch.switch_1_socket

@@ -4,7 +4,6 @@
   entities:
     - light.office_ceiling_1
     - light.office_ceiling_2
-    - light.office_lamp
     - light.office_rgb
 - platform: group
   name: Office Ceiling
@@ -12,16 +11,23 @@
     - light.office_ceiling_1
     - light.office_ceiling_2
 - platform: group
+  name: Kitchen Lights
+  entities:
+    - light.sink
+    - light.table_1
+    - light.table_2
+    - light.table_3
+- platform: group
+  name: Table Lights
+  entities:
+    - light.table_1
+    - light.table_2
+    - light.table_3
+- platform: group
   name: Living Room Lights
   entities:
     - light.living_room_lamp_1
-    - light.living_room_lamp_2
     - light.living_room_rgb
-- platform: group
-  name: Living Room Lamp
-  entities:
-    - light.living_room_lamp_1
-    - light.living_room_lamp_2
 - platform: group
   name: Simulation lights
   entities:
@@ -50,9 +56,11 @@
     - light.office_ceiling_1
     - light.office_ceiling_2
     - light.living_room_lamp_1
-    - light.living_room_lamp_2
     - light.kids_closet
     - light.living_room_rgb
-    - light.office_lamp
     - light.bedroom_rgb
     - light.office_rgb
+    - light.sink
+    - light.table_1
+    - light.table_2
+    - light.table_3
