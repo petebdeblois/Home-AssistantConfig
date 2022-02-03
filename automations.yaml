@@ -387,6 +387,7 @@
       - switch.office_screens_socket
       - switch.office_screens_work_socket
       - switch.living_room_socket_2
+      - switch.switch_1_socket
     data: {}
   mode: single
 - id: '1620513319973'
@@ -492,16 +493,6 @@
       - switch.living_room_socket_2
       - switch.switch_1_socket
     data: {}
-  - delay:
-      hours: 0
-      minutes: 1
-      seconds: 0
-      milliseconds: 0
-  - service: light.turn_on
-    data:
-      brightness_pct: 1
-    target:
-      entity_id: light.sink
   mode: single
 - id: Home_Nearly_Home_Ligths_on
   alias: Lights - Nearly Home -> on
@@ -1822,4 +1813,53 @@
       start_volume: 22
       shuffle: true
       entity_id: media_player.office
+  mode: single
+- id: '1643818870988'
+  alias: Lights - Day
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:30
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 1
+      kelvin: 2200
+    target:
+      entity_id:
+      - light.table_2
+      - light.living_room_lamp_1
+  mode: single
+- id: '1643818956094'
+  alias: Lights - Night
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.bedtime
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      kelvin: 2200
+      brightness_pct: 1
+    target:
+      entity_id: light.sink
+  mode: single
+- id: '1643819599447'
+  alias: Webhooks Test
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: '12345'
+  condition: []
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.officemini
+      message: Webhook Test
   mode: single
