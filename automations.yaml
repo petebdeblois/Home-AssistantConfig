@@ -1810,9 +1810,10 @@
   - service: spotcast.start
     data:
       uri: spotify:playlist:2xKFsatIKDXzsml2IthzMp
-      start_volume: 22
+      start_volume: 50
       shuffle: true
-      entity_id: media_player.office
+      entity_id: media_player.officemini
+      random_song: true
   mode: single
 - id: '1643818870988'
   alias: Lights - Day
