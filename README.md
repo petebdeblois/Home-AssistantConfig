@@ -25,7 +25,7 @@ My personal [Home Assistant Container](https://home-assistant.io) configurations
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| [Globe Electrics A19 LED Light Smart Bulb 10 W RGB](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-paquet-de-2-4201085) | 5 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
+| [Globe Electrics A19 LED Light Smart Bulb 10 W RGB](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-paquet-de-2-4201085) | 7 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
 | [Globe Electrics A19 LED Light Smart Bulb 10 W](https://www.canac.ca/fr/ampoule-intelligente-del-a19-10-w-4141360) | 1 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
 | [Globe Electrics Smart LED Tape Light 6.5 ft.](https://www.canac.ca/fr/ruban-lumineux-intelligent-del-6-5-pi-4201069) | 3 | Wifi | [Tuya](https://www.home-assistant.io/integrations/tuya/) | Color changing smart bulbs|
 
@@ -37,7 +37,7 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| [Globe Electrics Wifi Switch 50329](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 3 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
+| [Globe Electrics Wifi Switch 50329](https://www.canac.ca/fr/prise-intelligente-wifi-4201063) | 11 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
 | [Globe Electrics Wifi Switch 50020](https://www.canac.ca/fr/prise-intelligente-wifi-4201070) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
 | [Merkury Smart Wi-Fi Plug](https://www.walmart.ca/en/ip/merkury-smart-wi-fi-plug-white/6000198280648) | 2 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/)  |  |
 | [Avatar Controls Smart Plug WiFi Outlets Oval Socket Energy Monitoring](https://www.newegg.ca/p/35B-0048-00022?Item=9SIAPAHBGB5816) | 6 | Wi-Fi | [Tuya](https://www.home-assistant.io/integrations/tuya/) /  |To get Consumption, I am using [Tuya v2](https://github.com/tuya/tuya-home-assistantwhich) is still in beta |
@@ -80,5 +80,5 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| [GoogleHome Mini]() | 4 | Wi-Fi | [Home Assistant Cloud](https://www.home-assistant.io/cloud/) | Audio only Voice Assistant |
+| [GoogleHome Mini]() | 5 | Wi-Fi | [Home Assistant Cloud](https://www.home-assistant.io/cloud/) | Audio only Voice Assistant |
 

@@ -1084,12 +1084,13 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.julie_s20_niveau_de_batterie
-    below: '85'
+    below: '90'
   condition: []
   action:
   - service: switch.turn_on
     target:
       entity_id: switch.julie_phone_charger_socket
+    data: {}
   mode: single
 - id: '1631480066778'
   alias: 'People - Julie - Pils '
