@@ -51,7 +51,7 @@ influxdb:
   host: 192.168.2.65
   port: 8089
   token: !secret influxdb_token
-  organization: 7d765f92e4040f78
+  organization: !secret influxdb_org
   bucket: homeassistant
   tags:
     source: HA

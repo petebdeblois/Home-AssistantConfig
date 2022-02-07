@@ -1865,3 +1865,19 @@
       entity_id: media_player.officemini
       message: Webhook Test
   mode: single
+- id: '1644205815385'
+  alias: Coffee
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:59
+  condition:
+  - condition: time
+    weekday:
+    - mon
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.switch_2_socket_1
+  mode: single

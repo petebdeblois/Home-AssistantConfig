@@ -23,7 +23,7 @@ def hydro_open():
         hydro_access_fee + (float(yesterday_total) * price), 2)
 
 
-@time_trigger("once(06:15:00)")
+@time_trigger("once(06:12:00)")
 def hydro_states():
     hydro_open()
     
