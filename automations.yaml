@@ -1041,17 +1041,18 @@
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 10
       kelvin: 2500
+      brightness_pct: 20
     target:
       entity_id:
       - light.living_room_lamp_1
-      - light.living_room_lamp_2
+      - light.table_2
   - service: light.turn_on
     target:
       entity_id:
       - light.living_room_rgb
       - light.bedroom_rgb
+      - light.office_rgb
     data:
       brightness_pct: 100
       color_name: purple
@@ -1875,9 +1876,32 @@
   - condition: time
     weekday:
     - mon
+    - tue
+    - wed
+    - thu
+    - fri
   action:
   - service: switch.turn_on
     data: {}
     target:
       entity_id: switch.switch_2_socket_1
+  mode: single
+- id: '1644282604906'
+  alias: Play F1
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.play_f1
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      color_name: orange
+    target:
+      entity_id: light.living_room_rgb
+  - service: media_player.select_source
+    data:
+      source: F1 TV
+    target:
+      entity_id: media_player.roku_box_1
   mode: single
