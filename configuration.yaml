@@ -28,6 +28,8 @@ rest: !include lib/rest.yaml
 number: !include lib/number.yaml
 switch: !include lib/switch.yaml
 
+template: !include lib/templates.yaml
+
 #device_tracker: !include device_tracker.yaml
 #customize: !include customize.yaml
 frontend:
@@ -224,3 +226,5 @@ prometheus:
 ourgroceries:
   username: !secret email
   password: !secret password
+
+

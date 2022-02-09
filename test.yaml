@@ -10,7 +10,6 @@ sensor:
         friendly_name: "my bus"
         value_template: "{% for attr in states.sensor.bus.state%}{{ attr }}{% endfor %}"
 
-sensor:
   - platform: file
     file_path: /config/python_scripts/pfSense_rules.json
     name: pfSense_rule_office

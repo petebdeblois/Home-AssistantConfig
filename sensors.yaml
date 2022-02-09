@@ -1,10 +1,6 @@
 - platform: uptime
   name: Home Assistant Uptime
 
-
-# This sensor will display the current version of HA, another simple sensor setup which will create sensor.latest_version.
-- platform: version
-
 - platform: authenticated
 
 # This sensor displays any pending updates within Supervisor (add-on store) by using the 'command line' platform.
@@ -20,45 +16,6 @@
 
 - platform: template
   sensors:
-    #----- Count Automations
-    count_automations:
-      value_template: "{{ states.automation | list | length }}"
-    #----- Count Scripts
-    count_scripts:
-      value_template: "{{ states.script| list | length }}"
-    #----- Count Device Trackers
-    count_device_trackers:
-      value_template: "{{ states.device_tracker | list | length }}"
-    #----- Count Binary Sensors
-    count_binary_sensors:
-      value_template: "{{ states.binary_sensor| list | length }}"
-    #----- Count Sensors
-    count_sensors:
-      value_template: "{{ states.sensor | list | length }}"
-    #----- Count Switches
-    count_switches:
-      value_template: "{{ states.switch | list | length }}"
-    #----- Count Zones
-    count_zones:
-      value_template: "{{ states.zone | list | length }}"
-    #----- Input Booleans
-    count_input_booleans:
-      value_template: "{{ states.input_boolean | list | length }}"
-    #----- Input Numbers
-    count_input_numbers:
-      value_template: "{{ states.input_number | list | length }}"
-    #----- Input Texts
-    count_input_texts:
-      value_template: "{{ states.input_text | list | length }}"
-    #----- Input Selects
-    count_input_selects:
-      value_template: "{{ states.input_select | list | length }}"
-    #----- Input Date Times
-    count_input_datetimes:
-      value_template: "{{ states.input_datetime | list | length }}"
-
-- platform: template
-  sensors:
     fuzzy_time:
       value_template: >-
         {% set minute = (now().minute / 5)|round %}
@@ -68,13 +25,6 @@
         {% if minute not in [0, 12] %}{{ fuzzytext[minute] }} {% endif %}{{ hourtext[hour] }}{% if minute in [0, 12] and hour not in [0, 12, 24] %} {{ fuzzytext[minute] }}{% endif %}
       icon_template: "hass:clock"
       friendly_name: "Fuzzy Time"
-
-- platform: template
-  sensors:
-    last_snapshot_backup:
-      friendly_name: "Last Snapshot"
-      value_template: "{{ as_timestamp(state_attr('sensor.snapshot_backup', 'last_snapshot')) | timestamp_custom('%m/%d@%-I%p') }}"
-
 
 - platform: sql
   #db_url: mysql://user:password@localhost/hass
@@ -101,33 +51,6 @@
 #https://www.home-assistant.io/integrations/season/
 - platform: season
 
-- platform: plex_recently_added
-  name: Recently Added Movies # will create sensor.recently_added_movies
-  token: !secret plex_token
-  host: !secret machine_ip
-  port: 32400
-  section_types:
-    - movie
-
-- platform: plex_recently_added
-  name: Recently Added TV  # will create sensor.recently_added_tv
-  token: !secret plex_token
-  host: !secret machine_ip
-  port: 32400
-  section_types:
-    - show
-  exclude_keywords:
-    - kardashian
-
-# https://www.home-assistant.io/integrations/github/
-- platform: github
-  access_token: !secret github_access_token
-  repositories:
-    - path: 'home-assistant/core'
-      name: github.ha_core
-    - path: 'petebdeblois/SQL_inventory_backend'
-      name: github.SQL_backend
-
 - platform: travisci
   api_key: !secret github_access_token
   monitored_conditions:
@@ -136,34 +59,6 @@
   - last_build_finished_at
   - last_build_started_at
   - last_build_duration
-
-- platform: fitbit
-  clock_format: 24H
-  unit_system: en_US
-  monitored_resources:
-  - "activities/tracker/activityCalories"
-  - "activities/tracker/calories"
-  - "activities/tracker/distance"
-  - "activities/tracker/elevation"
-  - "activities/tracker/floors"
-  - "activities/tracker/minutesFairlyActive"
-  - "activities/tracker/minutesLightlyActive"
-  - "activities/tracker/minutesSedentary"
-  - "activities/tracker/minutesVeryActive"
-  - "activities/tracker/steps"
-  - "activities/heart"
-  - "body/bmi"
-  - "body/fat"
-  - "body/weight"
-  - "devices/battery"
-  - "sleep/awakeningsCount"
-  - "sleep/efficiency"
-  - "sleep/minutesAfterWakeup"
-  - "sleep/minutesAsleep"
-  - "sleep/minutesAwake"
-  - "sleep/minutesToFallAsleep"
-  - "sleep/startTime"
-  - "sleep/timeInBed"
 
 
 #https://community.home-assistant.io/t/trigger-on-washing-machine-finish/251990/2
@@ -220,13 +115,6 @@
         {%endfor%}
         {{ ns.res }}
 
-# Is Today a School Day?
-# https://community.home-assistant.io/t/morning-automation-based-on-calendar/334274
-- platform: template
-  sensors:
-    school_day:
-      friendly_name: Is it a school day?
-      value_template: "{{ is_state('calendar.school', 'on') }}"
 
 
 # https://github.com/Limych/ha-average 
@@ -268,8 +156,7 @@
 
 - platform: mqtt
   name: "Civic Torque"
-  state_topic:
-   "devices/civic/torque"
+  state_topic: "devices/civic/torque"
   value_template: "{{ state_attr('sensor.civic_torque', 'GPS Time') }}"
   json_attributes_topic: "devices/civic/torque"
 
@@ -290,22 +177,6 @@
     civic_torque_rpm:
       value_template: '{{ states.sensor.civic_torque.attributes["Engine RPM(rpm)"] | round(2) }}'
       unit_of_measurement : "rpm"
-
-# https://smarthomepursuits.com/display-offline-unavailable-or-missing-sensors-in-home-assistant/
-- platform: template
-  sensors:
-    unavailable_entities:
-      friendly_name: Unavailable Entities
-      unit_of_measurement: entities
-      icon_template: "{{ 'mdi:check-circle' if is_state('sensor.unavailable_entities','0') else 'mdi:alert-circle' }}"
-      value_template: >
-        {{ states|selectattr('state','in',['unavailable','unknown','none'])|rejectattr('domain','eq','group')
-          |rejectattr('entity_id','in',state_attr('group.ignored_entities','entity_id'))|list|count }}
-      attribute_templates:
-        entities: >
-          {{ states|selectattr('state','in',['unavailable','unknown','none'])|rejectattr('domain','eq','group')
-              |rejectattr('entity_id','in',state_attr('group.ignored_entities','entity_id'))|map(attribute='entity_id')|list }}
-
 
 - platform: rest
   name: dashboard_tab8_info
@@ -392,13 +263,7 @@
 
     #### FOOD.TO########
 
-    yahoofinance_rblx_position:
-      unit_of_measurement: "$"
-      friendly_name: rblx Position
-      value_template: >-
-        {% set price_paid = states('sensor.finance_stocks_rblx') | float %}
-        {% set current_price = states.sensor.yahoofinance_rblx.attributes["regularMarketPrice"] | float %}
-        {{price_paid * current_price}}
+
     yahoofinance_rblx_profit:
       unit_of_measurement: "$"
       friendly_name: rblx Profit

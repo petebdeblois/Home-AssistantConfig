@@ -2,11 +2,11 @@
   alias: Home - Not occupied
   trigger:
   - platform: state
-    entity_id: zone.home
-    to: '0'
+    entity_id: binary_sensor.home_occupied
+    to: 'off'
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
   action:
   - service: light.turn_off
@@ -18,9 +18,9 @@
     target:
       entity_id:
       - switch.office_screens_socket
-      - switch.living_room_socket_2
       - switch.office_screens_work_socket
-      - switch.office_fan_socket
+      - switch.living_room_socket_2
+      - switch.living_room_socket_1
     data: {}
   initial_state: true
   mode: single
@@ -1063,13 +1063,14 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.pete_s20_battery_level
-    below: '85'
+    below: '93'
   condition: []
   action:
   - service: switch.turn_on
     target:
       entity_id:
       - switch.pete_phone_charger_socket
+    data: {}
   mode: single
 - id: '1631219776318'
   alias: Turn off charging after device is charged (Julie)
@@ -1085,7 +1086,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.julie_s20_niveau_de_batterie
-    below: '90'
+    below: '95'
   condition: []
   action:
   - service: switch.turn_on
