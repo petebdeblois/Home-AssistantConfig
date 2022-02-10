@@ -79,3 +79,132 @@
   #----- Input Date Times
   - name: Count Input Datetimes
     state: "{{ states.input_datetime | list | length }}"
+
+
+  - name: Fuzzy Time
+    icon: "mdi:clock"
+    state: >-
+        {% set minute = (now().minute / 5)|round %}
+        {% if minute > 6 %} {% set hour = now().hour + 1 %}{% else %}{% set hour = now().hour %}{% endif %}
+        {% set hourtext = [("midnight"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("noon"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("midnight")] %}
+        {% set fuzzytext = [("o'clock"), ("five past"), ("ten past"), ("quarter past"), ("twenty past"), ("twenty five past"), ("half past"), ("twenty five to"), ("twenty to"), ("quarter to"), ("ten to"), ("five to"), ("o'clock")] %}
+        {% if minute not in [0, 12] %}{{ fuzzytext[minute] }} {% endif %}{{ hourtext[hour] }}{% if minute in [0, 12] and hour not in [0, 12, 24] %} {{ fuzzytext[minute] }}{% endif %}
+    
+  - name: Lights Turned On
+    state: >-
+      {% set ns = namespace(res=0) %}
+      {% for light in state_attr('light.all_lights', 'entity_id') if is_state(light, 'on') %}
+        {% set ns.res = ns.res + 1 %}
+      {%endfor%}
+      {{ ns.res }}
+
+
+  - name: Lights Turned Off
+    state: >-
+      {% set ns = namespace(res=0) %}
+      {% for light in state_attr('light.all_lights', 'entity_id') if is_state(light, 'off') %}
+        {% set ns.res = ns.res + 1 %}
+      {%endfor%}
+      {{ ns.res }}
+
+
+
+  - name: Switches Turned On
+    state: >-
+      {% set ns = namespace(res=0) %}
+      {% for switch in state_attr('group.all_switches', 'entity_id') if is_state(switch, 'on') %}
+        {% set ns.res = ns.res + 1 %}
+      {%endfor%}
+      {{ ns.res }}
+
+
+  - name: Switches Turned Off
+    state: >-
+      {% set ns = namespace(res=0) %}
+      {% for switch in state_attr('group.all_switches', 'entity_id') if is_state(switch, 'off') %}
+        {% set ns.res = ns.res + 1 %}
+      {%endfor%}
+      {{ ns.res }}
+
+#######################
+###   FINANCE       ###
+#######################
+
+  - name:  yahoofinance_rblx_profit
+    unit_of_measurement: "$"
+    state: >-
+        {% set finance_stocks = states('sensor.finance_stocks_rblx') | float %}
+        {% set paid = states.sensor.finance_stocks_rblx.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_rblx.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
+  - name:  yahoofinance_cvo_to_position
+    unit_of_measurement: "$"
+    state: >-
+        {% set price_paid = states('sensor.finance_stocks_cvo_to') | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+  - name:  yahoofinance_cvo_to_profit
+    unit_of_measurement: "$"
+    state: >-
+        {% set finance_stocks = states('sensor.finance_stocks_cvo_to') | float %}
+        {% set paid = states.sensor.finance_stocks_cvo_to.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
+  - name:  yahoofinance_cvo_to_vested_position
+    unit_of_measurement: "$"
+    state: >-
+        {% set price_paid = states('sensor.finance_stocks_cvo_to_vested') | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+  - name:  yahoofinance_cvo_to_vested_profit
+    unit_of_measurement: "$"
+    state: >-
+        {% set finance_stocks = states('sensor.finance_stocks_cvo_to_vested') | float %}
+        {% set paid = states.sensor.finance_stocks_cvo_to_vested.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
+  - name:  yahoofinance_cvo_to_nick_position
+    unit_of_measurement: "$"
+    state: >-
+        {% set price_paid = states('sensor.finance_stocks_cvo_to_nick') | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+  - name:  yahoofinance_cvo_to_nick_profit
+    unit_of_measurement: "$"
+    state: >-
+        {% set finance_stocks = states('sensor.finance_stocks_cvo_to_nick') | float %}
+        {% set paid = states.sensor.finance_stocks_cvo_to_nick.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
+  - name:  yahoofinance_voo_position
+    unit_of_measurement: "$"
+    state: >-
+        {% set price_paid = states('sensor.finance_stocks_voo') | float %}
+        {% set current_price = states.sensor.yahoofinance_voo.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+  - name:  yahoofinance_voo_profit
+    unit_of_measurement: "$"
+    state: >-
+        {% set finance_stocks = states('sensor.finance_stocks_voo') | float %}
+        {% set paid = states.sensor.finance_stocks_voo.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_voo.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}
+  - name:  yahoofinance_tsla_position
+    unit_of_measurement: "$"
+    state: >-
+        {% set price_paid = states('sensor.finance_stocks_tsla') | float %}
+        {% set current_price = states.sensor.yahoofinance_tsla.attributes["regularMarketPrice"] | float %}
+        {{price_paid * current_price}}
+  - name:  yahoofinance_tsla_profit
+    unit_of_measurement: "$"
+    state: >-
+        {% set finance_stocks = states('sensor.finance_stocks_tsla') | float %}
+        {% set paid = states.sensor.finance_stocks_tsla.attributes["price_paid"] | float %}
+        {% set current_price = states.sensor.yahoofinance_tsla.attributes["regularMarketPrice"] | float %}
+        {% set current = finance_stocks * current_price %}
+        {{(current - paid * finance_stocks) | round(2)}}

@@ -200,11 +200,6 @@ rest_command:
     url: https://hc-ping.com/2a3de48a-bed5-482d-b337-1f11bf234bff
     method: GET
 
-utility_meter:
-  daily_energy_offpeak:
-    source: sensor.hydroquebec_yesterday_lower_price_consumption
-    name: Yesterday Energy Lower
-    cycle: daily
 
 prometheus:
   namespace: hass

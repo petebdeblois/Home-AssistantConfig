@@ -73,3 +73,83 @@
         - high
         - high_timestamp
 
+- resource: !secret fire8_1_settings
+  scan_interval: 500
+  sensor:
+    - name: dashboard_fire1_settings
+      json_attributes:
+          - timeToScreenOffV2
+          - screenBrightness
+          - microphoneAccess
+          - motionSensitivity
+          - motionDection
+          - motionDetectionAcoustic
+          - motionSensitivityAcoustic
+          - screenOffInDarkness
+          - darknessLevel
+      value_template: "{{ value_json.startURL }}"
+
+
+- resource: !secret fire8_1_url
+  scan_interval: 500
+  sensor:
+    name: dashboard_fire1_info
+    json_attributes:
+        - ip4
+        - batteryLevel
+        - isPlugged
+        - plugged
+        - kioskMode
+        - screenBrightness
+        - motionDetectorState
+        - maintenanceMode
+        - mac
+        - startUrl
+        - currentPage
+        - screenOrientation
+        - screenBrightness
+        - screenLocked
+        - screenOn
+        - batteryTemperature
+    value_template: "{{ value_json.screenOn }}"
+    
+
+- resource: !secret tab8_url
+  scan_interval: 500
+  sensor:
+    name: dashboard_tab8_info
+    json_attributes:
+      - ip4
+      - batteryLevel
+      - isPlugged
+      - plugged
+      - kioskMode
+      - screenBrightness
+      - motionDetectorState
+      - maintenanceMode
+      - mac
+      - startUrl
+      - currentPage
+      - screenOrientation
+      - screenBrightness
+      - screenLocked
+      - screenOn
+      - batteryTemperature
+    value_template: "{{ value_json.screenOn }}"
+  
+
+- resource: !secret tab8_settings
+  scan_interval: 500
+  sensor:
+    name: dashboard_tab8_settings
+    json_attributes:
+      - timeToScreenOffV2
+      - screenBrightness
+      - microphoneAccess
+      - motionSensitivity
+      - motionDection
+      - motionDetectionAcoustic
+      - motionSensitivityAcoustic
+      - screenOffInDarkness
+      - darknessLevel
+    value_template: "{{ value_json.startURL }}"

@@ -14,39 +14,6 @@
     - current_version
     - addons
 
-- platform: template
-  sensors:
-    fuzzy_time:
-      value_template: >-
-        {% set minute = (now().minute / 5)|round %}
-        {% if minute > 6 %} {% set hour = now().hour + 1 %}{% else %}{% set hour = now().hour %}{% endif %}
-        {% set hourtext = [("midnight"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("noon"), ("one"), ("two"), ("three"), ("four"), ("five"), ("six"), ("seven"), ("eight"), ("nine"), ("ten"), ("eleven"), ("midnight")] %}
-        {% set fuzzytext = [("o'clock"), ("five past"), ("ten past"), ("quarter past"), ("twenty past"), ("twenty five past"), ("half past"), ("twenty five to"), ("twenty to"), ("quarter to"), ("ten to"), ("five to"), ("o'clock")] %}
-        {% if minute not in [0, 12] %}{{ fuzzytext[minute] }} {% endif %}{{ hourtext[hour] }}{% if minute in [0, 12] and hour not in [0, 12, 24] %} {{ fuzzytext[minute] }}{% endif %}
-      icon_template: "hass:clock"
-      friendly_name: "Fuzzy Time"
-
-- platform: sql
-  #db_url: mysql://user:password@localhost/hass
-  db_url: !secret mariadb_conn_string
-  queries:
-    - name: mariaDB size
-      query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1024 / 1024, 1) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
-      column: "value"
-      unit_of_measurement: MB
-
-  # Tracking entity to zone friendly name
-# - platform: waze_travel_time
-#   name: Home to Coveo
-#   origin: zone.home
-#   destination: zone.coveo 
-#   region: "US"
-
-# - platform: waze_travel_time
-#   name: Home to Cochon
-#   origin: zone.home
-#   destination: zone.cochon 
-#   region: "US"
 
 #https://www.home-assistant.io/integrations/season/
 - platform: season
@@ -59,63 +26,6 @@
   - last_build_finished_at
   - last_build_started_at
   - last_build_duration
-
-
-#https://community.home-assistant.io/t/trigger-on-washing-machine-finish/251990/2
-- platform: template
-  sensors:
-    washing_maching_is_running:
-      friendly_name: Washing Machine Is Running
-      value_template: >-
-        {% if states('sensor.washing_machine_power')|float > 6 %}
-          True
-        {% else %}
-          False
-        {% endif %} 
-
-- platform: template
-  sensors:
-    lights_turned_on:
-      friendly_name: Numbers of lights turned on
-      value_template: >-
-        {% set ns = namespace(res=0) %}
-        {% for light in state_attr('light.all_lights', 'entity_id') if is_state(light, 'on') %}
-          {% set ns.res = ns.res + 1 %}
-        {%endfor%}
-        {{ ns.res }}
-- platform: template
-  sensors:
-    lights_turned_off:
-      friendly_name: Numbers of lights turned off
-      value_template: >-
-        {% set ns = namespace(res=0) %}
-        {% for light in state_attr('light.all_lights', 'entity_id') if is_state(light, 'off') %}
-          {% set ns.res = ns.res + 1 %}
-        {%endfor%}
-        {{ ns.res }}
-
-- platform: template
-  sensors:
-    switches_turned_on:
-      friendly_name: Numbers of switches turned on
-      value_template: >-
-        {% set ns = namespace(res=0) %}
-        {% for switch in state_attr('group.all_switches', 'entity_id') if is_state(switch, 'on') %}
-          {% set ns.res = ns.res + 1 %}
-        {%endfor%}
-        {{ ns.res }}
-- platform: template
-  sensors:
-    switches_turned_off:
-      friendly_name: Numbers of switches turned off
-      value_template: >-
-        {% set ns = namespace(res=0) %}
-        {% for switch in state_attr('group.all_switches', 'entity_id') if is_state(switch, 'off') %}
-          {% set ns.res = ns.res + 1 %}
-        {%endfor%}
-        {{ ns.res }}
-
-
 
 # https://github.com/Limych/ha-average 
 - platform: average
@@ -154,204 +64,31 @@
 #   duration:
 #     hours: 24
 
-- platform: mqtt
-  name: "Civic Torque"
-  state_topic: "devices/civic/torque"
-  value_template: "{{ state_attr('sensor.civic_torque', 'GPS Time') }}"
-  json_attributes_topic: "devices/civic/torque"
+# - platform: mqtt
+#   name: "Civic Torque"
+#   state_topic: "devices/civic/torque"
+#   value_template: "{{ state_attr('sensor.civic_torque', 'GPS Time') }}"
+#   json_attributes_topic: "devices/civic/torque"
 
-- platform: template
-  sensors:
-    civic_torque_litresper100:
-      value_template: '{{ states.sensor.civic_torque.attributes["Litres Per 100 Kilometer(Long Term Average)(l/100km)"] | round(2) }}'
-      unit_of_measurement : "l/100km"
-    civic_torque_fuelremaining_profile:
-      value_template: '{{ states.sensor.civic_torque.attributes["Fuel Remaining (Calculated from vehicle profile)(%)"] | round(2) }}'
-      unit_of_measurement : "%"
-    civic_torque_fuelremaining_ecu:
-      value_template: '{{ states.sensor.civic_torque.attributes["Fuel Level (From Engine ECU)(%)"] | round(2) }}'
-      unit_of_measurement : "%"
-    civic_torque_distance_empty:
-      value_template: '{{ states.sensor.civic_torque.attributes["Distance to empty (Estimated)(km)"] | round(2) }}'
-      unit_of_measurement : "km"
-    civic_torque_rpm:
-      value_template: '{{ states.sensor.civic_torque.attributes["Engine RPM(rpm)"] | round(2) }}'
-      unit_of_measurement : "rpm"
-
-- platform: rest
-  name: dashboard_tab8_info
-  json_attributes:
-    - ip4
-    - batteryLevel
-    - isPlugged
-    - plugged
-    - kioskMode
-    - screenBrightness
-    - motionDetectorState
-    - maintenanceMode
-    - mac
-    - startUrl
-    - currentPage
-    - screenOrientation
-    - screenBrightness
-    - screenLocked
-    - screenOn
-    - batteryTemperature
-  resource: !secret tab8_url
-  value_template: "{{ value_json.screenOn }}"
-
-- platform: rest
-  name: dashboard_tab8_settings
-  json_attributes:
-    - timeToScreenOffV2
-    - screenBrightness
-    - microphoneAccess
-    - motionSensitivity
-    - motionDection
-    - motionDetectionAcoustic
-    - motionSensitivityAcoustic
-    - screenOffInDarkness
-    - darknessLevel
-  resource: !secret tab8_settings
-  value_template: "{{ value_json.startURL }}"
-  scan_interval: 30
-
-- platform: rest
-  name: dashboard_fire1_info
-  json_attributes:
-    - ip4
-    - batteryLevel
-    - isPlugged
-    - plugged
-    - kioskMode
-    - screenBrightness
-    - motionDetectorState
-    - maintenanceMode
-    - mac
-    - startUrl
-    - currentPage
-    - screenOrientation
-    - screenBrightness
-    - screenLocked
-    - screenOn
-    - batteryTemperature
-  resource: !secret fire8_1_url
-  value_template: "{{ value_json.screenOn }}"
-
-- platform: rest
-  name: dashboard_fire1_settings
-  json_attributes:
-    - timeToScreenOffV2
-    - screenBrightness
-    - microphoneAccess
-    - motionSensitivity
-    - motionDection
-    - motionDetectionAcoustic
-    - motionSensitivityAcoustic
-    - screenOffInDarkness
-    - darknessLevel
-  resource: !secret fire8_1_settings
-  value_template: "{{ value_json.startURL }}"
-  scan_interval: 30
-
-#######################
-###   FINANCE       ###
-#######################
-
-- platform: template
-  sensors:
-
-    #### FOOD.TO########
+# - platform: template
+#   sensors:
+#     civic_torque_litresper100:
+#       value_template: '{{ states.sensor.civic_torque.attributes["Litres Per 100 Kilometer(Long Term Average)(l/100km)"] | round(2) }}'
+#       unit_of_measurement : "l/100km"
+#     civic_torque_fuelremaining_profile:
+#       value_template: '{{ states.sensor.civic_torque.attributes["Fuel Remaining (Calculated from vehicle profile)(%)"] | round(2) }}'
+#       unit_of_measurement : "%"
+#     civic_torque_fuelremaining_ecu:
+#       value_template: '{{ states.sensor.civic_torque.attributes["Fuel Level (From Engine ECU)(%)"] | round(2) }}'
+#       unit_of_measurement : "%"
+#     civic_torque_distance_empty:
+#       value_template: '{{ states.sensor.civic_torque.attributes["Distance to empty (Estimated)(km)"] | round(2) }}'
+#       unit_of_measurement : "km"
+#     civic_torque_rpm:
+#       value_template: '{{ states.sensor.civic_torque.attributes["Engine RPM(rpm)"] | round(2) }}'
+#       unit_of_measurement : "rpm"
 
 
-    yahoofinance_rblx_profit:
-      unit_of_measurement: "$"
-      friendly_name: rblx Profit
-      value_template: >-
-        {% set finance_stocks = states('sensor.finance_stocks_rblx') | float %}
-        {% set paid = states.sensor.finance_stocks_rblx.attributes["price_paid"] | float %}
-        {% set current_price = states.sensor.yahoofinance_rblx.attributes["regularMarketPrice"] | float %}
-        {% set current = finance_stocks * current_price %}
-        {{(current - paid * finance_stocks) | round(2)}}
-    yahoofinance_cvo_to_position:
-      unit_of_measurement: "$"
-      friendly_name: cvo_to Position
-      value_template: >-
-        {% set price_paid = states('sensor.finance_stocks_cvo_to') | float %}
-        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
-        {{price_paid * current_price}}
-    yahoofinance_cvo_to_profit:
-      unit_of_measurement: "$"
-      friendly_name: cvo_to Profit
-      value_template: >-
-        {% set finance_stocks = states('sensor.finance_stocks_cvo_to') | float %}
-        {% set paid = states.sensor.finance_stocks_cvo_to.attributes["price_paid"] | float %}
-        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
-        {% set current = finance_stocks * current_price %}
-        {{(current - paid * finance_stocks) | round(2)}}
-    yahoofinance_cvo_to_vested_position:
-      unit_of_measurement: "$"
-      friendly_name: cvo_to_vested Position
-      value_template: >-
-        {% set price_paid = states('sensor.finance_stocks_cvo_to_vested') | float %}
-        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
-        {{price_paid * current_price}}
-    yahoofinance_cvo_to_vested_profit:
-      unit_of_measurement: "$"
-      friendly_name: cvo_to_vested Profit
-      value_template: >-
-        {% set finance_stocks = states('sensor.finance_stocks_cvo_to_vested') | float %}
-        {% set paid = states.sensor.finance_stocks_cvo_to_vested.attributes["price_paid"] | float %}
-        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
-        {% set current = finance_stocks * current_price %}
-        {{(current - paid * finance_stocks) | round(2)}}
-    yahoofinance_cvo_to_nick_position:
-      unit_of_measurement: "$"
-      friendly_name: cvo_to_nick Position
-      value_template: >-
-        {% set price_paid = states('sensor.finance_stocks_cvo_to_nick') | float %}
-        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
-        {{price_paid * current_price}}
-    yahoofinance_cvo_to_nick_profit:
-      unit_of_measurement: "$"
-      friendly_name: cvo_to_nick Profit
-      value_template: >-
-        {% set finance_stocks = states('sensor.finance_stocks_cvo_to_nick') | float %}
-        {% set paid = states.sensor.finance_stocks_cvo_to_nick.attributes["price_paid"] | float %}
-        {% set current_price = states.sensor.yahoofinance_cvo_to.attributes["regularMarketPrice"] | float %}
-        {% set current = finance_stocks * current_price %}
-        {{(current - paid * finance_stocks) | round(2)}}
-    yahoofinance_voo_position:
-      unit_of_measurement: "$"
-      friendly_name: voo Position
-      value_template: >-
-        {% set price_paid = states('sensor.finance_stocks_voo') | float %}
-        {% set current_price = states.sensor.yahoofinance_voo.attributes["regularMarketPrice"] | float %}
-        {{price_paid * current_price}}
-    yahoofinance_voo_profit:
-      unit_of_measurement: "$"
-      friendly_name: voo Profit
-      value_template: >-
-        {% set finance_stocks = states('sensor.finance_stocks_voo') | float %}
-        {% set paid = states.sensor.finance_stocks_voo.attributes["price_paid"] | float %}
-        {% set current_price = states.sensor.yahoofinance_voo.attributes["regularMarketPrice"] | float %}
-        {% set current = finance_stocks * current_price %}
-        {{(current - paid * finance_stocks) | round(2)}}
-    yahoofinance_tsla_position:
-      unit_of_measurement: "$"
-      friendly_name: tsla Position
-      value_template: >-
-        {% set price_paid = states('sensor.finance_stocks_tsla') | float %}
-        {% set current_price = states.sensor.yahoofinance_tsla.attributes["regularMarketPrice"] | float %}
-        {{price_paid * current_price}}
-    yahoofinance_tsla_profit:
-      unit_of_measurement: "$"
-      friendly_name: tsla Profit
-      value_template: >-
-        {% set finance_stocks = states('sensor.finance_stocks_tsla') | float %}
-        {% set paid = states.sensor.finance_stocks_tsla.attributes["price_paid"] | float %}
-        {% set current_price = states.sensor.yahoofinance_tsla.attributes["regularMarketPrice"] | float %}
-        {% set current = finance_stocks * current_price %}
-        {{(current - paid * finance_stocks) | round(2)}}
+
 
 

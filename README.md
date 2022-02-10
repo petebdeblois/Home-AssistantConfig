@@ -8,7 +8,7 @@
 My personal [Home Assistant Container](https://home-assistant.io) configurations
 
 # <a name="menu">Menu</a>
- | [Hubs](#hubs) | [Lighting](#lighting) | [Climate](#climate)*| [Outlets & Switches](#outlets)|  [Locks](#locks)* | [Security](#security) | [Voice Assistant](#voice)* | [Media](#media) | [Sensors](#sensors) | [Cameras](#cameras)* | [Garage](#garage)* | [Vacuum](#vacuum)* | [Blinds](#blinds)* | [Appliances](#appliances)* | [Network](#network) | [Other Hardware](#other)*| [Software](#software)* | [Retired Devices](#retired)  |
+ | [Hubs](#hubs) | [Lighting](#lighting) | [Climate](#climate)| [Outlets & Switches](#outlets)|  [Locks](#locks) | [Security](#security) | [Voice Assistant](#voice)* | [Media](#media) | [Sensors](#sensors) |[Arduino](#arduino) | [Cameras](#cameras) | [Garage](#garage)* | [Vacuum](#vacuum)* | [Blinds](#blinds)* | [Appliances](#appliances)* | [Network](#network)* | [Other Hardware](#other)| [Software](#software) | [Retired Devices](#retired)  |
  Not everything is implemented yet
 
 ## <a name="hubs">Hubs</a>
@@ -17,7 +17,7 @@ My personal [Home Assistant Container](https://home-assistant.io) configurations
 
 | Device  | Quantity | Connection | Home Assistant | Notes |
 | ------------- | :---: | ------------- | ------------- | ------------- |
-| |  |  |  |  |
+| [Sonoff 3.0 USB Dongle Plus](https://sonoff.tech/product/diy-smart-switch/sonoff-dongle-plus/)| 1 | Zigbee | [ZHA Integration](https://www.home-assistant.io/integrations/zha/)|  |
 
 ## <a name="lighting">Lighting</a>
 
@@ -57,7 +57,7 @@ Lights are grouped via [light.yaml](https://github.com/petebdeblois/Home-Assista
 | ------------- | :---: | ------------- | ------------- | ------------- |
 |  |  |  ||  |  
 
-## <a name="media">Arduino Related</a>
+## <a name="arduino">Arduino Related</a>
 
 | [Go to Menu](#menu) |  
 
